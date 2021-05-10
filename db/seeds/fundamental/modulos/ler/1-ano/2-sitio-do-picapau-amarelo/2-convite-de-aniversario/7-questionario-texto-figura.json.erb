@@ -1,0 +1,74 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('convite-de-aniversario').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-questionario').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-coluna').id %>",
+
+  "order": 7,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Mostra uma figura com um texto e aluno deve informar o que foi lido.",
+
+  "title_attributes": { "text": "Questionário" },
+  "description_text":  "QUAL O LOCAL DO ANIVERSÁRIO?" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "big",
+      "custom": "game-checkmark",
+      "tags": null,
+      "total_per_line": 2,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'SÍTIO').id %>,
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/convite-de-aniversario/7.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'ESCOLA').id %>
+    },
+    {
+      "type": "value",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'PRAÇA').id %>
+    },
+    {
+      "type": "value",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'FAZENDA').id %>
+    }
+  ]
+}

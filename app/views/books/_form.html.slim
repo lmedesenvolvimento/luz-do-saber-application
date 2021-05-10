@@ -1,0 +1,49 @@
+= simple_form_for @book do |f|
+  .row
+    .col-lg-2
+      = f.input :order
+    .col-lg-10
+      = f.input :title, placeholder: 'Título do livro completo'
+  .row
+    .col-lg-12
+      = f.input :subtitle, placeholder: 'Subtítulo do livro se tiver'
+  .row
+    .col-lg-12
+      = f.input :authors, placeholder: 'Nome completo dos autores'
+    .col-lg-2
+      = f.input :total_pages, include_blank: false
+
+    .col-lg-2
+      = f.input :status, include_blank: false
+  h3 Livro - CAPA e PDF
+  br
+
+  .row
+    .col-lg-3
+      = f.input :cover
+
+    .col-lg-3
+      = f.input :pdf
+
+    .col-lg-3
+      = f.input :zip_pages
+
+  .row
+    .col-lg-12
+      = f.input :remote_pdf_url, placeholder: 'PDF do livro com link remoto.'
+
+    .col-lg-12
+      = f.input :remote_cover_url, placeholder: 'Capa com link remoto.'
+
+  .row
+
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), books_path, :class => 'btn btn-default'
+
+br

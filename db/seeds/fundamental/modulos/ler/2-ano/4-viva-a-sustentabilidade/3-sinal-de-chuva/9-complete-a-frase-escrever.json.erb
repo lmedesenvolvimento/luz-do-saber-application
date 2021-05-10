@@ -1,0 +1,27 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-frase-escrever').id %>",
+
+  "order": 9,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A fazenda fica animada é alegria sem igual",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/sinal-de-chuva/a-fazenda-fica-animada-e-alegria-sem-igual.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "FAZENDA"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ALEGRIA"
+        }
+      ]
+    }
+  ]
+}

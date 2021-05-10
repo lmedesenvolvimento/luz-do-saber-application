@@ -1,0 +1,28 @@
+- url = @questions_item.persisted? ? question_question_item_path(@question, @questions_item) : question_question_items_path(@question)
+
+= simple_form_for @questions_item, url: url do |f|
+  .row
+    .col-lg-2
+      = f.input :type, include_blank: false
+
+    .col-lg-6
+      = f.association :key, collection: @question.items.key, label_method: -> (k) { [k.id, k.word_type, k.word_source_type, k.word.try(:text)].join(' - ') }, hint: 'Itens do tipo VALUE podem ter um KEY relacionado.'
+
+  .row
+    .col-lg-4
+      = f.input :word_type, include_blank: false, hint: 'Informa o tipo da palavra que este item espera.'
+
+    .col-lg-4
+      = f.input :word_source_type, include_blank: false, hint: 'Informa como a PALAVRA deste item deve ser criada.'
+
+  .row
+    .col-lg-8
+      = f.association :word, label_method: :full_text, hint: 'Para itens do tipo externo esse campo não deve ser preenchido.'
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_question_items_path(@question), :class => 'btn btn-default'

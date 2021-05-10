@@ -1,0 +1,6 @@
+- if flash.any?
+  - user_facing_flashes.each do |key, value|
+    .row
+      .col-lg-12
+        .alert [class="alert-#{key == 'alert' ? 'danger' : 'success'}" role="alert"]
+            = value

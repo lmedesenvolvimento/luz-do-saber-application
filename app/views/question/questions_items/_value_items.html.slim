@@ -1,0 +1,37 @@
+- model_class = Question::QuestionsItem
+
+.panel.panel-default
+  .panel-heading
+    ' Itens VALUE / Itens que são exibidos ao aluno
+    = "(#{question_value_items.length} itens)"
+  .panel-body
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:id)
+          th= model_class.human_attribute_name(:key_id)
+          th= model_class.human_attribute_name(:type)
+          th= model_class.human_attribute_name(:word_type)
+          th= model_class.human_attribute_name(:word_source_type)
+          th= model_class.human_attribute_name(:word)
+          th=t '.actions', :default => t("helpers.actions")
+      tbody
+        - question_value_items.each do |questions_item|
+          tr
+            td= link_to questions_item.id, question_question_item_path(@question, questions_item)
+            td= questions_item.key_id
+            td= questions_item.type
+            td= questions_item.word_type
+            td= questions_item.word_source_type
+            td
+              - if questions_item.word
+                = link_to questions_item.word.text, word_url(questions_item.word)
+            td
+              = link_to t('.show', :default => t("helpers.links.show")), question_question_item_path(@question, questions_item), :class => 'btn btn-default btn-xs'
+              '
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_question_question_item_path(@question, questions_item), :class => 'btn btn-default btn-xs'
+  .panel-footer
+    small
+      ' <b>VALUE</b>: Esse tipo indica que o item é uma palavra fixa.
+      br
+      ' <b>EXTERNAL_VALUE</b>: Esse tipo indica que o item será criado a partir de um parâmetro externo.

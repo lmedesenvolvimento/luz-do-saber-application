@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('agua-e-vida').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 10,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "É PRECISO ECONOMIZAR ÁGUA",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/agua-e-vida/e-preciso-economizar-agua.mp3' %>"
+    }
+  ]
+}

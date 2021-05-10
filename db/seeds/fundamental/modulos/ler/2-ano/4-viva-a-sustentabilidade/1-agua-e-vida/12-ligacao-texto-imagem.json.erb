@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('agua-e-vida').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ligacao-texto-imagem').id %>",
+
+  "order": 12,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Utilize balde",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/agua-e-vida/12-balde.png' %>"
+    },
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Feche o chuveiro",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/agua-e-vida/12-chuveiro.png' %>"
+    },
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Feche a torneira",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/agua-e-vida/12-torneira.png' %>"
+    },
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Reutilize água",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/agua-e-vida/12-agua.png' %>"
+    }
+  ]
+}

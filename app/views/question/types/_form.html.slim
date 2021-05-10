@@ -1,0 +1,18 @@
+= simple_form_for @type do |f|
+  .row
+    .col-lg-4
+      = f.input :title, autofocus: true, placeholder: 'Ex.: Atividade - Imagem', hint: 'Identifica o tipo de questão no cadastro.'
+
+  .row
+    .col-lg-6
+      = f.input :description, as: :text
+
+  br
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_types_path, :class => 'btn btn-default'
+
+br

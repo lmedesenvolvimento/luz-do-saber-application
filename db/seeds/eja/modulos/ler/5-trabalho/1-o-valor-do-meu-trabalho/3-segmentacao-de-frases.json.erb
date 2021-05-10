@@ -1,0 +1,39 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-valor-do-meu-trabalho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 3,
+
+  "description_text":  "Para Cortella, o que é mais degradante em um trabalho?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Uma existência vazia, automática e robótica",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Um trabalho que paga pouco"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Um trabalho distante"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Pouco tempo para o almoço"
+    }
+  ]
+}

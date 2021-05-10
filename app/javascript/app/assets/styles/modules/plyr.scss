@@ -1,0 +1,18 @@
+.panel {
+  &--player{
+    height: 34px;
+    margin-bottom: 0px;
+    border-radius: 3px !important
+  }
+  .plyr {
+    margin: 0px;
+    > .plyr__controls{
+      height: 32px;
+      padding: 0px $gap;
+      border-radius: 3px !important;
+      .plyr__control{
+        padding: 2px;
+      }
+    }
+  }
+}

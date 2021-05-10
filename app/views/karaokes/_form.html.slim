@@ -1,0 +1,33 @@
+= simple_form_for @karaoke do |f|
+
+  .row
+    .col-lg-2
+      = f.input :status, include_blank: false
+
+  .row
+    .col-lg-6
+      = f.input :title
+
+  .row
+    .col-lg-6
+      = f.input :lyrics
+  .row
+    .col-lg-6
+      = f.input :audio
+
+  .row
+    .col-lg-12
+      h3 Imagens
+
+      #images
+        .row
+          = f.simple_fields_for :images do |e|
+            = render 'image_fields', f: e
+
+        .row
+          .col-lg-12
+            .links= link_to_add_association '[adicionar]', f, :images
+
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), karaokes_path, :class => 'btn btn-default'

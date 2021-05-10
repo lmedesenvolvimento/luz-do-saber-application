@@ -1,0 +1,41 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= %{A FÁBRICA DE BRINQUEDOS \\n \
+\\n \
+ERA UMA VEZ UM GAROTINHO QUE ADORAVA BRINCAR E USAR A IMAGINAÇÃO. \\n \
+TODOS OS DIAS, ENQUANTO SUA MÃE PREPARAVA O ALMOÇO, \\n \
+ELE PEGAVA A TAMPA DE UMA PANELA E SAÍA A DIRIGIR PELA CASA TODA. \\n \
+\\n \
+UM DIA, SUA MÃE RESOLVEU FAZER UMA FAXINA NA CASA. \\n \
+AO TERMINAR, ELA COLOCOU NUMA CAIXA TUDO QUE NÃO QUERIA MAIS. \\n \
+\\n \
+QUANDO ELE ABRIU A CAIXA, FICOU TÃO FELIZ COM O QUE VIU QUE \\n \
+PULAVA FEITO UM SAPO. \\n \
+\\n \
+LÁ DENTRO TINHA CAIXINHAS E EMBALAGENS VAZIAS DE VÁRIOS TAMANHOS. \\n \
+E ELE SAIU PELA RUA CONVIDANDO A TURMINHA PARA IR ATÉ A SUA CASA. \\n \
+CHEGANDO LÁ, ELE MOSTROU O QUE HAVIA NA CAIXA E SUGERIU QUE \\n \
+CONSTRUÍSSEM SEUS PRÓPRIOS BRINQUEDOS UTILIZANDO COLA, \\n \
+FITA ADESIVA, CANETINHAS COLORIDAS... \\n \
+\\n \
+A SALA DE SUA CASA FICOU PARECENDO UMA 'FÁBRICA DE BRINQUEDOS'. \\n \
+\\n \
+UM DOS AMIGOS TEVE UMA ÓTIMA IDEIA. DISTRIBUIR PARTE DOS BRINQUEDOS \\n \
+PARA AS CRIANÇAS DA VIZINHANÇA. ENTÃO SAÍRAM PELA RUA DISTRIBUINDO \\n \
+TUDO, DEIXANDO TODOS FELIZES. \\n \
+\\n \
+FRAGMENTO DE TEXTO BASEADO NO LIVRO 'A FÁBRICA DE BRINQUEDOS' \\n \
+DA COLEÇÃO PAIC PROSA E POESIA.} %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/fabrica-de-brinquedos/a-fabrica-de-brinquedos-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/fabrica-de-brinquedos/1.png' %>"
+    }
+  ]
+}

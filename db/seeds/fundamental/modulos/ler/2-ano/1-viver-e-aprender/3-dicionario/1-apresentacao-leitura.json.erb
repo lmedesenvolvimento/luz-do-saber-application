@@ -1,0 +1,75 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= "CANÇÃO DO DICIONÁRIO \\n \
+            COCORICÓ \\n \
+ \\n \
+OOI! \\n \
+UAU! CACO, OLHA O QUE EU GANHEI!  \\n \
+O QUE?  \\n \
+UM DICIONÁRIO! OI!  \\n \
+E FALA!  \\n \
+  \\n \
+PA-PA-PAPAGAIO, GAA-LINHA  \\n \
+QUE PALAVRA QUEREM SABER?  \\n \
+UMA PALAVRA... PAPAGAIO!  \\n \
+  \\n \
+PAPAGAIO É UMA PALAVRA INVENTADA POR DOIS POVOS  \\n \
+OS ÁRABES QUANDO VIAM UM PAPAGAIO DIZIAM PÁ PÁ PÁ PÁ PÁ!  \\n \
+PÁ PÁ PÁ PÁ PÁ!  \\n \
+QUANDO OS ÁRABES FORAM PRA FRANÇA  \\n \
+OS FRANCESES JUNTARAM GAIO NO FINAL  \\n \
+GAIO PRA ELES É ALEGRIA  \\n \
+PAPAGAIO O PÁ PÁ PÁ ALEGRE!  \\n \
+PAPAGAIO O PÁ PÁ PÁ ALEGRE!  \\n \
+  \\n \
+AH! COCORICÓ!  \\n \
+COCORICÓ É UMA PALAVRA QUE IMITA O CANTO DO GALO  \\n \
+TAMBÉM PODE SER COCORICÔ, COCOROCÔ, COCOROCÓ  \\n \
+UM COCORICÔ! UM COCOROCÔ! UM COCOROCÓ!  \\n \
+  \\n \
+E QUEM INVENTOU A NOSSA LÍNGUA, HEIN?  \\n \
+  \\n \
+QUANDO CABRAL CHEGOU DE PORTUGAL  \\n \
+DESCARREGOU NO BRASIL UM MONTE DE PALAVRAS PORTUGUESAS:  \\n \
+MILHO, TRIGO, PÃO, FACÃO, COMPANHEIRO, PANELA  \\n \
+  \\n \
+E AS PALAVRAS PORTUGUESAS SE EMBOLARAM COM  \\n \
+AS PALAVRAS DOS ÍNDIOS QUE VIVIAM POR AQUI:  \\n \
+MINGAU, JABUTICABA, ABACAXI, JACARÉ, JEQUITIBÁ, PIAUÍ, IGARAPÉ  \\n \
+  \\n \
+E FORAM CHEGANDO OS NAVIOS COM AS PALAVRAS AFRICANAS  \\n \
+SAMBA, BATUQUE, BIZUNGA, MOLEQUE, CAÇULA, CAFUNÉ  \\n \
+  \\n \
+E TAMBÉM AS PALAVRAS ÁRABES  \\n \
+ALFACE, ALMOFADA, XAROPE, ALGODÃO  \\n \
+  \\n \
+E AS PALAVRAS FRANCESAS  \\n \
+BONÉ, ABAJUR, CHOVER, ETIQUETA, CAMINHÃO  \\n \
+  \\n \
+E AS PALAVRAS INGLESAS  \\n \
+FUTEBOL, SANDUÍCHE, GOL!  \\n \
+LANCHE, BIFE, SHAMPOO  \\n \
+  \\n \
+E AS PALAVRAS JAPONESAS  \\n \
+JUDÔ, KIMONO, KARATÊ, KARAOKÊ  \\n \
+E ATÉ PALAVRAS CHINESAS  \\n \
+CHÁ, QUER CHÁ? CHÁ, CHÁ CHÁ!  \\n \
+  \\n \
+E DESSA MISTURA DE VOZES NASCEU A LÍNGUA QUE NÓS FALAMOS  \\n \
+NÃO SEJA IGNORANTE, NÃO SEJA PREGUIÇOSO  \\n \
+OLHAR NO DICIONÁRIO É BEM GOSTOSO!  \\n \
+NÃO SEJA IGNORANTE, NÃO SEJA PREGUIÇOSO  \\n \
+OLHAR NO DICIONÁRIO É BEM GOSTOSO!" %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/dicionario-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/dicionario/1.png' %>"
+    }
+  ]
+}

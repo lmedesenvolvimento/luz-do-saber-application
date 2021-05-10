@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brinquedos-e-brincadeiras').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "QUAL É O ASSUNTO DO TEXTO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "BRINCADEIRAS POPULARES",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brinquedos-e-brincadeiras/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "BRINCADEIRAS INFANTIS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "JOGOS TECNOLÓGICOS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "BRINCADEIRAS TRADICIONAIS"
+    }
+  ]
+}

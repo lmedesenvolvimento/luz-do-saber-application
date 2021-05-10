@@ -1,0 +1,27 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-frase-escrever').id %>",
+
+  "order": 9,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "O SEGREDO DE JOÃOZINHO",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/o-segredo-de-joaozinho/o-segredo-de-joaozinho.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "SEGREDO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "JOÃOZINHO"
+        }
+      ]
+    }
+  ]
+}

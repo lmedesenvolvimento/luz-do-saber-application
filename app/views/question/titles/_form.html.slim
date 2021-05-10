@@ -1,0 +1,11 @@
+= simple_form_for @title do |f|
+  = f.association :question, include_blank: false, label_method: :id
+
+  = f.input :type
+  = f.input :text
+  = f.input :image
+  = f.input :audio
+
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), question_titles_path, :class => 'btn btn-default'

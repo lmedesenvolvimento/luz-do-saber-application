@@ -1,0 +1,9 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  .row
+    .col-lg-4
+      = f.input :text_cont, label: 'Enunciado', required: false, wrapper: :horizontal_form
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

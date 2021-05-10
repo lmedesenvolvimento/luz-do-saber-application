@@ -1,0 +1,23 @@
+- units = @user_game.game['units']
+
+
+.page-header
+  h3
+    'Unidades
+
+- if units.try(:any?)
+  'Quantidade de unidades percorridas:
+  = units.count
+  table.table.table-striped
+    thead
+      th Nome
+      th Concluída
+      th
+    tbody
+      - units.each do |u|
+        tr
+          td= u[1]['title']
+          td= u[1]['completed'].to_s == 'false' ? 'Não' : 'Sim'
+          td
+
+hr

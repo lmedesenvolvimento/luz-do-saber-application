@@ -1,0 +1,144 @@
+= simple_form_for @question do |f|
+  .row
+    .col-lg-4
+      = f.association :unit, include_blank: false, label_method: -> (u) { [u.theme.title, u.title].join(' - ') }
+
+    .col-lg-2
+      = f.input :order
+
+  .row
+    .col-lg-3
+      = f.association :type, include_blank: false
+
+    .col-lg-3
+      = f.association :subtype, include_blank: false
+
+    .col-lg-3
+      = f.input :total_correct_items, hint: 'Total de itens corretos desta atividade.'
+
+    .col-lg-3
+      = f.input :external_param_type, include_blank: false, hint: 'Que tipo de parametro externo esta atividade espera.'
+
+  .row
+    .col-lg-9
+      = f.input :general_info, as: :text, placeholder: 'Informações sobre esta atividade.'
+
+  .row
+    .col-lg-5
+      .panel.panel-primary
+        = f.simple_fields_for :title do |t|
+          .panel-heading Título
+          .panel-body
+            .row
+              .col-lg-5
+                = t.input :type, include_blank: false
+
+              .col-lg-12
+                = t.input :text
+
+          .panel-footer
+            .row
+              .col-lg-6
+                = t.input :image, as: :file
+
+              .col-lg-6
+                = t.input :audio, as: :file
+
+    .col-lg-7
+      .panel.panel-primary
+        = f.simple_fields_for :description do |t|
+          .panel-heading Enunciado
+          .panel-body
+            .row
+              .col-lg-2
+                = t.input :type, include_blank: false
+
+              .col-lg-10
+                = t.input :text
+
+          .panel-footer
+            .row
+              .col-lg-6
+                = t.input :image, as: :file
+
+              .col-lg-6
+                = t.input :audio, as: :file
+
+            .row
+              .col-lg-6
+                = t.input :remote_image_url
+
+              .col-lg-6
+                = t.input :remote_audio_url
+
+  hr
+
+  .panel.panel-default
+    .panel-heading Template de item
+    .panel-body
+      = f.simple_fields_for :questions_item_templates do |qit|
+        .row
+          .col-lg-2
+            = qit.input :type, include_blank: false, hint: 'Esse template é para os itens do tipo: key ou value.'
+
+          .col-lg-3
+            = qit.input :total_per_line, hint: 'Quantos itens por linha devem ser exibidos. 0 (zero) indica que o item não deve ser exibido.'
+
+          .col-lg-3
+            = qit.input :font_size, hint: 'Tamanho da fonte dos itens.', include_blank: true
+
+        .row
+          .col-lg-3
+            = qit.association :item_template, hint: 'Este template define um componente para o item.'
+
+          .col-lg-4
+            = qit.input :custom, as: :string, placeholder: 'Ex.: game-cracha-box', hint: 'O item deve ser customizado.'
+
+          .col-lg-4
+            = qit.input :tags, as: :string, placeholder: 'Ex.: classe-efeito-erro, classe-correto-lateral'
+
+        .row
+          .col-lg-6
+            = qit.input :custom_image_url, hint: 'Link completo para uma imagem (PNG)'
+
+          .col-lg-6
+            = qit.input :custom_image
+
+            - if qit.object.custom_image.present?
+              span= link_to '[img]', qit.object.custom_image.url, target: '_blank'
+              span= qit.input :delete_custom_image, as: :boolean
+
+        hr
+
+    .panel-footer
+      small
+        ' KEY: Referência/Item de controle (normalmente do lado esquerdo)
+      br
+      small
+        ' VALUE: Item que o usuário/aluno vai interagir (normalmente do lado direito)
+
+  hr
+
+  .panel.panel-default
+    .panel-heading Pontuação
+    .panel-body
+      = f.simple_fields_for :pointings do |qi|
+        .row
+          .col-lg-4
+            = qi.input :type
+  
+          .col-lg-2
+            = qi.input :quantity
+  
+          .col-lg-6
+            = qi.input :description
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_questions_path, :class => 'btn btn-default'
+
+br

@@ -1,0 +1,39 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 7,
+
+  "description_text":  "MARQUE OS MATERIAIS UTILIZADOS NA FÁBRICA DE BRINQUEDOS.",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "COLA E FITA ADESIVA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "COLA E FITA ADESIVA"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "CANETINHAS"
+        },
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "PALITOS E CAIXAS"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "PAPELÃO"
+    }
+  ]
+}

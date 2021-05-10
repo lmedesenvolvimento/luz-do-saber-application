@@ -1,0 +1,38 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('marque-as-palavras').id %>",
+
+  "order": 20,
+
+  "description_text":  "MARQUE AS PALAVRAS QUE POSSUEM \"QUE\":",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "silaba",
+      "word_text": "QUE",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "BRINQUEDOS"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "DAQUELE"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "MALUQUICE"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "AMIGOS"
+    }
+  ]
+}

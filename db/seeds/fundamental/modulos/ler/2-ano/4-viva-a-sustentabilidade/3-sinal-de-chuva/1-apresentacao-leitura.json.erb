@@ -1,0 +1,29 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= %{SINAL DE CHUVA \\n \
+ \\n \
+- VOVÔ, O JORNAL JÁ COMEÇOU? PERGUNTOU DANIEL MUITO ANIMADO. \\n \
+- AINDA NÃO, MENINO. POR QUE ESTÁS TÃO INSISTENTE? \\n \
+- EU QUERO VER A PREVISÃO DO TEMPO PARA SABER QUANDO VAI CHOVER. SE O INVERNO FOR BOM MEUS PRIMOS VÊM DA CAPITAL. \\n \
+DANIEL QUERIA OUVIR NOTÍCIA DE CHUVA, NO JORNAL, MAS SEU AVÔ TINHA OUTROS PLANOS E FALOU COM TOM FORMAL: \\n \
+- VAI DORMIR, QUE AMANHÃ, BEM CEDO, VAMOS A UMA CAMINHADA E VEREMOS O QUE A NATUREZA NOS DIZ SOBRE ESSA INVERNADA. \\n \
+DE MANHÃ, BEM CEDO, SAÍRAM OS DOIS PELO CAMINHO. \\n \
+DANIEL ESCUTAVA, ATENTO, SEU MANUEL FALANDO COM CARINHO: \\n \
+- SEU BISAVÔ ME ENSINOU AS COISAS QUE CONHECIA SOBRE OS SINAIS DA NATUREZA PARA A CHUVA QUE SE ANUNCIA. SE O INVERNO IA SER BOM, E A CHUVA IA  \\n \ABUNDAR, NO CANTO DA RÃ, ELE ESCUTAVA O CÉU A TROVEJAR. VIA O NINHO DOS PÁSSAROS ALTO, LONGE DO CHÃO, PARA SE LIVRAR DA CHEIA COM A SUBIDA DO RIBEIRÃO. \\n \
+É ASSIM QUE ACONTECE COM AS PROFECIAS DE BOM INVERNO, QUE PODEMOS PERCEBER, SEJA NOS BICHOS, NA TERRA OU NA PLANTA A FLORESCER. \\n \
+DANIEL AO FINAL DO PASSEIO, ERA SÓ ANIMAÇÃO, POIS SEU MANUEL VIA SINAL DE CHUVA NOS QUATRO CANTOS DO SERTÃO. \\n \
+ \\n \
+FRAGMENTO DE TEXTO BASEADO NO LIVRO 'SINAL DE CHUVA' DA COLEÇAO PAIC PROSA E POESIA.} %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/sinal-de-chuva/sinal-de-chuva-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/sinal-de-chuva/1_apresentação_leitura.png' %>"
+    }
+  ]
+}

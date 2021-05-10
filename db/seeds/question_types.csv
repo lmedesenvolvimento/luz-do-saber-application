@@ -1,0 +1,16 @@
+type
+Atividade - Texto
+Atividade - Imagem
+Atividade - Áudio
+Atividade - Texto - Texto
+Atividade - Texto - Imagem
+Atividade - Texto - Áudio
+Atividade - Imagem - Texto
+Atividade - Imagem - Imagem
+Atividade - Imagem - Áudio
+Atividade - Áudio - Texto
+Atividade - Áudio - Imagem
+Atividade - Áudio - Áudio
+Atividade - Vídeo
+Atividade - Questionário
+Jogo

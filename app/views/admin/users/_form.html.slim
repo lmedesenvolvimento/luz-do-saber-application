@@ -1,0 +1,47 @@
+= simple_form_for [:admin, @user] do |f|
+
+  .row
+    .col-lg-2
+      = f.input :role, include_blank: false
+
+    .col-lg-2
+      = f.input :status, include_blank: false
+
+    .col-lg-2
+      = f.input :group_code, include_blank: false, placeholder: 'Ex.: ABC1'
+
+  hr
+
+  .row
+    .col-lg-3
+      = f.input :first_name
+
+    .col-lg-4
+      = f.input :last_name
+
+  .row
+    .col-lg-3
+      = f.input :birthdate, html5: true, required: true
+
+    .col-lg-4
+      = f.input :mother, required: true
+
+  hr
+
+  .row
+    .col-lg-5
+      = f.input :email
+
+    - if @user.new_record?
+      .col-lg-2
+        = f.input :password
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), admin_users_path, :class => 'btn btn-default'
+
+br

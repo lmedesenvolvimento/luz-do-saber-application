@@ -1,0 +1,38 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('marque-as-palavras').id %>",
+
+  "order": 16,
+
+  "description_text":  "MARQUE AS PALAVRAS QUE INICIAM COM A SÍLABA EM DESTAQUE.",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "silaba",
+      "word_text": "SE",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "SEGREDO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "SEMENTE"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "SERESTA"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "SABIÁ"
+    }
+  ]
+}

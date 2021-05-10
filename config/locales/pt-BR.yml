@@ -1,0 +1,198 @@
+pt-BR:
+  titles:
+    application: Luz do Saber
+
+  # pt-BR.activerecord.errors.models.theme.attributes.base.restrict_dependent_destroy.has_many
+
+  activerecord:
+    errors:
+      messages:
+        blank: obrigatório
+        invalid: inválido
+        cant_use: não pode ser utilizado
+        spoofed_media_type: tipo não suportado
+        attachments_missing: Pelo menos um anexo é necessário.
+        restrict_dependent_destroy:
+          has_many: 'Registro com dependências.'
+      models:
+        user:
+          attributes:
+            username:
+              invalid: inválido (aceita apenas letras e números)
+        theme:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                has_many: 'Este tema possui unidades e não pode ser removido.'
+    models:
+      user: Usuário
+      theme: Tema
+      theme_audience: "Público alvo"
+      unit: Unidade
+      group: Turma
+      groups_participant: Participante
+      word: Elemento
+      user_game: Jogo
+      question/question: Atividade
+      question/description: Enunciado
+      question/questions_item: Item
+      question/question_template: Template de Atividade
+    attributes:
+      user:
+        name: Nome
+        first_name: Nome
+        last_name: Sobrenome
+        rg: RG
+        cpf: CPF
+        gender: Gênero
+        email: Email
+        password: Senha
+        password_confirmation: Confirmação
+        current_password: Senha atual
+        last_sign_in_at: Ultimo Login
+        status: Status
+        role: Perfil
+        group_code: Código de Turma
+        birthdate: Nascimento
+        mother: Nome da Mãe
+        state: Estado
+        city: Cidade
+        school_degree_level: Escolaridade
+        school_name: Escola
+        school_group_code: Turma (código)
+        school_year: Ano
+        school_period: Turno
+        school_student_code: Aluno (código)
+      user_game:
+        name: Nome
+        game: Jogo
+        unique_session_id: Sessão
+        created_at: Criação
+      theme_audience:
+        title: Título
+        description: Descrição
+        cover: Capa
+        status: status
+      theme:
+        order: Ordem
+        title: Título
+        description: "Descrição"
+        modulo: "Módulo"
+        target_audience: "Público"
+        theme_audience: "Público"
+        cover: Capa
+        units: Unidades
+      unit:
+        order: Ordem
+        theme: Tema
+        title: Título
+        description: "Descrição"
+        cover: Capa
+        questions: Atividades
+      book:
+        order: Ordem
+        title: Título
+        subtitle: Subtítulo
+        authors: Autores
+        total_pages: Total de páginas
+        status: Estado
+        remote_pdf_url: Endereço do pdf
+        remote_cover_url: Endereço da capa
+      group:
+        user: Criação
+        code: Código
+        name: Nome
+        description: Descrição
+        participants: Participantes
+        mother: Nome da mâe
+        birthdate: Nascimento
+      karaoke:
+        title: Título
+        audio: Música
+        lyrics: Legenda
+      groups_participant:
+        type: Tipo
+        status: status
+        user: Usuário
+        user_email: Email
+        group: Turma
+      word:
+        user: Usuário
+        type: Tipo
+        text: Texto
+        image: Imagem
+        audio: Áudio
+        images: Imagens
+        audios: Áudios
+      word_element:
+        word: Palavra
+        element: Componente
+
+      question/question_template:
+        name: Nome
+        question_type: Tipo
+        question_subtype: Subtipo
+        question_total_correct_items: Itens corretos
+        question_shuffle_keys: Embaralhar itens chave
+        question_shuffle_values: Embaralhar itens valor
+        points_lost_a_star_by_attempt: Perder uma estrela por tentativa
+        points_lost_a_star_by_time: Perder uma estrela por tempo
+
+        item_template_key_font_size: "[key] Fonte"
+        item_template_key_custom: "[key] Customização"
+        item_template_key_tags: "[key] Tags"
+        item_template_key_total_per_line: "[key] Total por Linha"
+        item_template_key_template_slug: "[key] Template slug"
+
+        item_template_value_font_size: "[value] Fonte"
+        item_template_value_custom: "[value] Customização"
+        item_template_value_tags: "[value] Tags"
+        item_template_value_total_per_line: "[value] Total por Linha"
+        item_template_value_template_slug: "[value] Template slug"
+      question/question:
+        order: Ordem
+        unit: Unidade
+        type: Tipo
+        subtype: Subtipo
+        question_type: Tipo
+        question_subtype: Subtipo
+        title: Título
+        description: Descrição
+        total_correct_items: Itens corretos
+        external_param_type: Tipo do parâmetro externo
+        general_info: Outras informações
+      question/title:
+        type: Tipo
+        text: Texto
+        image: Imagem
+        audio: Áudio
+      question/description:
+        type: Tipo
+        text: Texto
+        image: Imagem
+        audio: Áudio
+        remote_image_url: Imagem (URL)
+        remote_audio_url: Áudio (URL)
+      question/item_template:
+        type: Template/Tipo do item
+        name: Nome
+      question/questions_item_template:
+        type: Template/Tipo do item
+        item_template: Template/Componente
+        name: Template/Nome
+        total_per_line: Template/Itens por linha
+        font_size: Template/Tamanho de fonte
+        custom: Template/Customização
+        tags: Template/Tags
+        custom_image: Imagem
+        custom_image_url: Imagem (URL)
+      question/questions_item:
+        type: Item/Tipo do item
+        key: Item do tipo KEY
+        word_type: Item/Tipo da palavra
+        word_source_type: Item/Fonte da palavra
+        word: Item/Palavra
+      question/pointing:
+        type: Tipo
+        quantity: Quantidade
+        description: Descrição

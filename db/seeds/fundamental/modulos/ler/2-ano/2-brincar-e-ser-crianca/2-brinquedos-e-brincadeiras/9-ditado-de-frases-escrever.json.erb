@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brinquedos-e-brincadeiras').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 9,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "BRINQUEDOS E BRINCADEIRAS POPULARES",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/brinquedos-e-brincadeiras/brinquedos-e-brincadeiras-populares.mp3' %>"
+    }
+  ]
+}

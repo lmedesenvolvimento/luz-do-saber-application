@@ -1,0 +1,67 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('viver-cheio-de-alegria').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('completa-frase').id %>",
+
+  "order": 10,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Apresenta uma frase com lacunas para o usuário preencher.",
+
+  "title_attributes": { "text": "COMPLETE A FRASE" },
+  "description_text":  "COMPLETE A FRASE DE ACORDO COM O QUE VOCÊ OUVIR." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 2
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 0
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "input",
+      "total_per_line": 2,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'TER SAÚDE, TER AMIGOS, TER TRABALHO, TER PRAZER. ').id %>,
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/viver-cheio-de-alegria/ter-saúde.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'SAÚDE').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'TRABALHO').id %>
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('monte-a-palavra-com-silabas').id %>",
+
+  "order": 20,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "DANIEL",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/sinal-de-chuva/daniel.png' %>"
+    }
+  ]
+}

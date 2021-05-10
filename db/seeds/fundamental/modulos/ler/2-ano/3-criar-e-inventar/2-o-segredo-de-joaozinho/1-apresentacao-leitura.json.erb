@@ -1,0 +1,37 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= %{O SEGREDO DE JOÃOZINHO \\n \
+ \\n \
+O SEGREDO QUANDO É GRANDE NÃO SE PODE REVELAR. \\n \
+NA ESCOLA DE JOÃOZINHO TODO MUNDO FOFOCAVA. \\n \
+MAS, AO CONTRÁRIO DOS AMIGOS, JOÃOZINHO ERA DISCRETO. \\n \
+JUSTAMENTE POR TER MEDO QUE SOUBESSEM SEU SEGREDO. \\n \
+ \\n \
+PARA SE COMUNICAR ELE INVENTOU UM ALFABETO \\n \
+EM QUE AS LETRAS SÃO TROCADAS. \\n \
+AS PALAVRAS VIRAM CÓDIGOS SÓ POR NÚMEROS FORMADAS. \\n \
+LETRA 'A' SE TORNA UM, LETRA 'U' É VINTE E UM. \\n \
+ \\n \
+TODA A TURMA DA ESCOLA PÔS-SE ENTÃO A ESTUDAR. \\n \
+O QUE ERA QUE OS NÚMEROS OCULTAVAM. JOÃOZINHO NÃO DIZIA. \\n \
+O TEMPO FOI PASSANDO E O SEGREDO FOI FICANDO ESQUECIDO. \\n \
+MUITA GENTE TENTOU, PORÉM NINGUÉM DECIFROU. \\n \
+ \\n \
+NA PRIMEIRA LINHA VEM 5, 21, EM SEGUIDA, 1, 13, 15, 1, \\n \
+E TERMINA ESSE MISTÉRIO PONDO 12, 9 E 1. \\n \
+SE VOCÊ JÁ DESCOBRIU, NÃO ESPALHE, POR FAVOR. \\n \
+ \\n \
+FRAGMENTO DE TEXTO BASEADO NO LIVRO 'O SEGREDO DE JOÃOZINHO' DA COLEÇÃO PAIC PROSA E POESIA.} %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/o-segredo-de-joaozinho/o-segredo-de-joaozinho-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/o-segredo-de-joaozinho/1.png' %>"
+    }
+  ]
+}

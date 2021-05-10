@@ -1,0 +1,97 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('livro-de-receitas-da-tia-nastacia').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('completa-frase').id %>",
+
+  "order": 9,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "O aluno deve escolher corretamente as letras do seu nome dentro de um conjunto de opções.",
+
+  "title_attributes": { "text": "MONTE A FRASE" },
+  "description_text":  "COM AS PALAVRAS FORME A FRASE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 2
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "small",
+      "custom": null,
+      "tags": "encaixar",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "small",
+      "custom": "app-item-texto-para-item-palavra",
+      "tags": "arrastar",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'RECEITA DO BOLINHO DE CHUVA DA TIA NASTÁCIA').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_source_type": "key_same"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        }
+      ]
+    }
+  ]
+}

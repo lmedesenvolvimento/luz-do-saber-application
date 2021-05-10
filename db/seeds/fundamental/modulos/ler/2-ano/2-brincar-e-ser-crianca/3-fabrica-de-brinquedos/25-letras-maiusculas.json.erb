@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('letras-maiusculas').id %>",
+
+  "order": 25,
+
+  "items_attributes": [
+
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A DEFINIR",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/fabrica-de-brinquedos/25.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "A"
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "B"
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "F"
+        }
+      ]
+    }
+  ]
+}

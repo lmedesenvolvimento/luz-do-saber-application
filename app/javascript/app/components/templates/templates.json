@@ -1,0 +1,142 @@
+[   
+    {
+        "templateName": "acentuacao",
+        "maxItems": 3
+    },
+    {
+        "templateName": "agrupamento-de-imagem",
+        "maxItems": 4
+    },
+    {
+        "templateName": "alternativa",
+        "maxItems": 3
+    },
+    {
+        "templateName": "alternativa-imagem-x",
+        "maxItems": 3
+    },
+    {
+        "templateName": "alternativa-audio-x",
+        "maxItems": 3
+    },
+    {
+        "templateName": "apresentacao-video",
+        "maxItems": 1
+    },
+    {
+        "templateName": "alternativa-imagem-selecao",
+        "maxItems": 3
+    },
+    {
+        "templateName": "bingo-de-palavras",
+        "maxItems": 12
+    },
+    {
+        "templateName": "caca-palavras",
+        "maxItems": 11
+    },
+    {
+        "templateName": "caixa-de-palavras",
+        "maxItems": 3
+    },
+    {
+        "templateName": "decomposicao-da-palavra-geradora",
+        "maxItems": 1
+    },
+    {
+        "templateName": "complete-a-frase-escrever",
+        "maxItems": 2
+    },
+    {
+        "templateName": "descubra-a-palavra",
+        "maxItems": 2
+    },
+    {
+        "templateName": "ditado-de-palavras",
+        "maxItems": 3
+    },
+    {
+        "templateName": "domino-de-nomes",
+        "maxItems": 6
+    },
+    {
+        "templateName": "encaixe-de-letra",
+        "maxItems": 4
+    },
+    {
+        "templateName": "formacao-de-palavras",
+        "maxItems": 3
+    },
+    {
+        "templateName": "ligacao-texto-imagem",
+        "maxItems": 5
+    },
+    {
+        "templateName": "ligacao-letra-inicial",
+        "maxItems": 5
+    },
+    {
+        "templateName": "ligacao-texto-texto",
+        "maxItems": 5
+    },
+    {
+        "templateName": "marque-as-palavras",
+        "maxItems": 4
+    },
+    {
+        "templateName": "meu-cracha",
+        "maxItems": 1
+    },
+    {
+        "templateName": "ortografia",
+        "maxItems": 3
+    },
+    {
+        "templateName": "jogo-da-memoria-palavra-imagem",
+        "maxItems": 4
+    },
+    {
+        "templateName": "jogo-da-memoria-imagem-imagem",
+        "maxItems": 4
+    },
+    {
+        "templateName": "qual-a-silaba",
+        "maxItems": 10
+    },
+    {
+        "templateName": "quantidade-de-letras",
+        "maxItems": 1
+    },
+    {
+        "templateName": "quantidade-de-silabas",
+        "maxItems": 1
+    },
+    {
+        "templateName": "qual-a-silaba",
+        "maxItems": 10
+    },
+    {
+        "templateName": "rimas",
+        "maxItems": 3
+    },
+    {
+        "templateName": "segmentacao-de-frases",
+        "maxItems": 5
+    },
+    {
+        "templateName": "segredo-das-palavras",
+        "maxItems": 4
+    },
+    {
+        "templateName": "som-das-palavras",
+        "maxItems": 3
+    },
+    {
+        "templateName": "tipos-de-letras-conjuntos",
+        "maxItems": 1
+    },
+    {
+        "templateName": "texto-alternativa",
+        "maxItems": 3
+    }
+]

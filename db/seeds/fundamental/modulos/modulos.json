@@ -1,0 +1,233 @@
+[
+  {
+    "name": "Começar",
+    "order": 1,
+    "themes": [
+      {
+        "name": "MEU NOME",
+        "image": "/images/modulos/comecar/meu-nome.png",
+        "units": [
+          {
+            "order": 1,
+            "name": "MEU PRIMEIRO NOME",
+            "image": "/images/modulos/comecar/units/meu-primeiro-nome.png"
+          },
+          {
+            "order": 2,
+            "name": "LETRAS DO MEU NOME",
+            "image": "/images/modulos/comecar/units/letras-do-meu-nome.png"
+          },
+          {
+            "order": 3,
+            "name": "O ALFABETO",
+            "image": "/images/modulos/comecar/units/o-alfabeto.png"
+          },
+          {
+            "order": 4,
+            "name": "MEUS AMIGOS",
+            "image": "/images/modulos/comecar/units/meus-amigos.png"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ler",
+    "order": 2,
+    "themes": [
+      {
+        "name": "MEU NOME, MINHA HISTÓRIA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "QUEM COMEU PÃO NA CASA DO JOÃO"
+          },
+          {
+            "order": 2,
+            "name": "QUAL É O SEU NOME?"
+          },
+          {
+            "order": 3,
+            "name": "HISTÓRIA DE VAQUEIRO"
+          }
+        ]
+      },
+      {
+        "name": "SÍTIO DO PICAPAU AMARELO",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "SÍTIO DO PICAPAU AMARELO"
+          },
+          {
+            "order": 2,
+            "name": "CONVITE DE ANIVERSÁRIO"
+          },
+          {
+            "order": 3,
+            "name": "LIVRO DE RECEITAS DA TIA NASTÁCIA"
+          }
+        ]
+      },
+      {
+        "name": "BRINQUEDOS E BRINCADEIRAS",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "PEGA-VARETAS"
+          },
+          {
+            "order": 2,
+            "name": "UM, DOIS, FEIJÃO COM ARROZ"
+          },
+          {
+            "order": 3,
+            "name": "BRINCAR DE QUÊ?"
+          }
+        ]
+      },
+      {
+        "name": "CUIDAR DO COLETIVO",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "RECICLAR E REUTILIZAR"
+          },
+          {
+            "order": 2,
+            "name": "TODOS CONTRA A DENGUE"
+          },
+          {
+            "order": 3,
+            "name": "SAPO ZÉ E A LAGARTA KAKÁ"
+          }
+        ]
+      },
+
+
+      {
+        "name": "TEMA EXTRA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "UNIDADE EXTRA"
+          }
+        ]
+      },
+
+
+      {
+        "name": "VIVER E APRENDER",
+        "target_audience": "second_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "VIVER CHEIO DE ALEGRIA"
+          },
+          {
+            "order": 2,
+            "name": "TEMPO DE NINO"
+          },
+          {
+            "order": 3,
+            "name": "DICIONÁRIO"
+          }
+        ]
+      },
+      {
+        "name": "BRINCAR E SER CRIANÇA",
+        "target_audience": "second_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "CRIATIVIDADE E DIVERSÃO"
+          },
+          {
+            "order": 2,
+            "name": "BRINQUEDOS E BRINCADEIRAS"
+          },
+          {
+            "order": 3,
+            "name": "FÁBRICA DE BRINQUEDOS"
+          }
+        ]
+      },
+      {
+        "name": "CRIAR E INVENTAR",
+        "target_audience": "second_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "A MÁQUINA DE PORORÓ"
+          },
+          {
+            "order": 2,
+            "name": "O SEGREDO DE JOÃOZINHO"
+          },
+          {
+            "order": 3,
+            "name": "BRINCADEIRAS INVENTADAS"
+          }
+        ]
+      },
+      {
+        "name": "VIVA A SUSTENTABILIDADE",
+        "target_audience": "second_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "ÁGUA É VIDA"
+          },
+          {
+            "order": 2,
+            "name": "COLETA SELETIVA"
+          },
+          {
+            "order": 3,
+            "name": "SINAL DE CHUVA"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Escrever",
+    "order": 3,
+    "themes": [
+      {
+        "name": "Escrever",
+        "units": [
+          {
+            "order": 1,
+            "name": "Escrever"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Biblioteca",
+    "type": "library",
+    "order": 3,
+    "themes": [
+      {
+        "name": "Livros"
+      }
+    ]
+  },
+  {
+    "name": "Karaokê",
+    "type": "karaoke",
+    "order": 5,
+    "themes": [
+      {
+        "name": "Karaokê"
+      }
+    ]
+  }
+]

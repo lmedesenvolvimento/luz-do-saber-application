@@ -1,0 +1,87 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('historia-de-vaqueiro').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 2,
+  "total_correct_items": 99,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "HISTÓRIA DE VAQUEIRO
+
+ISAÍAS ERA UM MENINO QUE MORAVA NA FAZENDA
+CHEIA DE BICHOS E ÁRVORES. (...)
+
+E O MENINO VIVIA COM SUA FAMÍLIA NUMA CASINHA
+SIMPLES E CHEIA DE GENTE.
+
+A CASA DE JURANDIR, (...) ERA MUITO DIFERENTE.
+ELE MORAVA EM UM QUARTO EMPANTURRADO DE BRINQUEDOS SÓ PRA SI.
+
+ZÉ DO GADO, O PAI DE ISAÍAS, RECLAMAVA COM A MÃE
+DO MENINO POR NÃO MAIS ENCONTRAR O SEU FILHO.
+ELE PREFERIA SEMPRE A CASA GRANDE.
+
+(...) UM DIA, UM TOURO BRABO, FURACÃO, DERRUBOU A CERCA
+E FOI ATÉ A CASA GRANDE, ONDE BRINCAVAM JURANDIR E ISAÍAS.
+
+(...) ATÉ QUE ZÉ DO GADO ROMPEU O TERREIRO COM A SUA
+ROUPA DE COURO E ESPANTOU FURACÃO DE PERTO DAS CRIANÇAS.
+
+ISAÍAS ESTUDOU (...) E TORNOU-SE UM MÉDICO COMPETENTE.
+ATÉ COMPROU UMA CASA GRANDE.
+
+FRAGMENTO DE TEXTO BASEADO NO
+LIVRO \"HISTÓRIA DE VAQUEIRO\"
+DA COLEÇÃO PAIC PROSA E POESIA. ").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/historia-de-vaqueiro/historia-de-vaqueiro-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/texto.png' %>"
+    }
+  ]
+}

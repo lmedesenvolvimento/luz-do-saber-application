@@ -1,0 +1,217 @@
+# encoding: UTF-8
+pt-BR:
+  helpers:
+    male: Masculino
+    female: Feminino
+    sign_up: Criar conta
+    actions: Ações
+    select:
+      prompt: Por favor selecione
+    submit:
+      create: Criar %{model}
+      submit: Salvar %{model}
+      update: Atualizar %{model}
+      saved: Salvo com sucesso
+      activate: Ativar conta
+      destroyed: Removido com sucesso
+    links:
+      confirm: Você tem certeza?
+      new: Novo
+      back: Voltar
+      show: Exibir
+      edit: Editar
+      destroy: Remover
+      cancel: Cancelar
+    titles:
+      new: "Criar %{model}"
+      edit: "Editar %{model}"
+    menu:
+      logout: Sair
+      login: Login
+      edit_account: Editar conta
+      disciplines: Disciplinas
+      contests: Concursos
+      modules: Módulos
+      posts: Posts
+      questionnaires: Simulados
+      questions: Atividades
+    page:
+      unauthorized: Não autorizado
+      not_found: O recurso não existe ou foi removido
+      timeout: Tempo limite de requisição atingido
+
+  date:
+    formats:
+      filter_month: ! '%Y-%m'
+      month: ! '%B'
+      csv: ! '%d-%m-%Y'
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y'
+      short: ! '%d de %B'
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda
+    - Terça
+    - Quarta
+    - Quinta
+    - Sexta
+    - Sábado
+    month_names:
+    -
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 1 h
+        other: ! '%{count} hrs'
+      about_x_months:
+        one: 1 mês
+        other: ! '%{count} meses'
+      about_x_years:
+        one: 1 a
+        other: ! '%{count} a'
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: agora
+        other: ! '%{count} mins'
+      less_than_x_seconds:
+        one: agora
+        other: ! '%{count} segundos'
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: ! '%{count} dias'
+      x_minutes:
+        one: 1 min
+        other: ! '%{count} mins'
+      x_months:
+        one: '1 mês'
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 s
+        other: ! '%{count} s'
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+
+  time:
+    am: ''
+    pm: ''
+    formats:
+      csv: ! '%d-%m-%Y'
+      day_month: ! '%d/%m'
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y, %H:%M'
+      short: ! '%d/%m %H:%M'
+      info: ! '%d/%m/%Y %H:%M'
+      hour: ! '%H:%M'
+
+  support:
+    array:
+      last_word_connector: ! ' e '
+      two_words_connector: ! ' e '
+      words_connector: ! ', '
+
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%u %n'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: R$
+    format:
+      delimiter: .
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion:
+            one: bilhão
+            other: bilhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: quatrilhão
+            other: quatrilhões
+          thousand: mil
+          trillion:
+            one: trilhão
+            other: trilhões
+          unit: ''
+      format:
+        delimiter: .
+        precision: 2
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: .
+        format: "%n%"
+    precision:
+      format:
+        delimiter: .

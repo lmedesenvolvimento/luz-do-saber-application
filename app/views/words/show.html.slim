@@ -1,0 +1,77 @@
+- model_class = Word
+
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+.row
+  .col-lg-12
+    p
+      strong= model_class.human_attribute_name(:user) + ':'
+      br
+      = @word.user.name
+    p
+      strong= model_class.human_attribute_name(:type) + ':'
+      br
+      = @word.type_i18n
+    p
+      strong= model_class.human_attribute_name(:text) + ':'
+      br
+      = @word.text
+
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading Elementos
+      .panel-body
+        p
+          ' Total de letras:
+          b= @word.total_letters
+
+        p
+          ' Gênero:
+          b= @word.gender
+
+        - unless @word.letra?
+          p
+            ' Primeira Letra:
+            b= @word.first_letter
+          p
+            ' Última Letra:
+            b= @word.last_letter
+
+        - if @word.letra?
+          p
+            ' É vogal:
+            b= @word.is_vowel
+          p
+            ' É consoante:
+            b= @word.is_consonant
+
+        table.table.table-striped
+          tbody
+            - @word.elements.each do |e|
+              tr
+                td = e.type_i18n
+                td = e.text
+
+    .panel.panel-default
+      .panel-heading Anexos
+      .panel-body
+        - @word.images.each do |i|
+          = image_tag i.full_url
+
+      .panel-footer
+        - @word.audios.each do |a|
+          = audio_tag a.full_url, controls: true
+
+hr
+
+.row
+  .col-lg-12
+    = link_to t('.back', :default => t("helpers.links.back")), words_path, :class => 'btn btn-default'
+    '
+    = link_to t('.edit', :default => t("helpers.links.edit")), edit_word_path(@word), :class => 'btn btn-default'
+    '
+    = link_to t('.destroy', :default => t("helpers.links.destroy")), word_path(@word), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+
+br

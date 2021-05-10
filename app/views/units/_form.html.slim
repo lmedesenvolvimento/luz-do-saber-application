@@ -1,0 +1,30 @@
+- url = @unit.persisted? ? theme_unit_path(@theme, @unit) : theme_units_path(@theme)
+
+= simple_form_for @unit, url: url do |f|
+
+  .row
+    .col-lg-6
+      = f.association :theme, include_blank: false
+
+  .row
+    .col-lg-2
+      = f.input :order
+
+    .col-lg-4
+      = f.input :title
+
+  .row
+    .col-lg-6
+      = f.input :description
+
+  .row
+    .col-lg-6
+      = f.input :cover, as: :file
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), theme_units_path(@theme), :class => 'btn btn-default'

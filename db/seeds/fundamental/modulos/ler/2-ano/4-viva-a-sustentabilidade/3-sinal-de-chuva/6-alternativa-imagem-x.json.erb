@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 6,
+
+  "description_text":  "O QUE SEU MANUEL ENSINOU AO DANIEL?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "O QUE CONHECIA SOBRE OS SINAIS DE CHUVA",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/sinal-de-chuva/6_questionario.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "A ASSISTIR A PREVISÃO DO TEMPO NO JORNAL"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "BRINCAR COM OS PRIMOS NAS FÉRIAS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "CAMINHAR PELA NATUREZA"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('sitio-do-picapau-amarelo').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 2,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "SÍTIO DO PICAPAU AMARELO
+      GILBERTO GIL
+
+MARMELADA DE BANANA
+BANANADA DE GOIABA
+GOIABADA DE MARMELO
+SÍTIO DO PICAPAU AMARELO
+
+BONECA DE PANO É GENTE
+SABUGO DE MILHO É GENTE
+O SOL NASCENTE É TÃO BELO
+SÍTIO DO PICAPAU AMARELO
+
+RIOS DE PRATA, PIRATA
+VÔO SIDERAL NA MATA, UNIVERSO PARALELO
+SÍTIO DO PICAPAU AMARELO
+SÍTIO DO PICAPAU AMARELO
+
+NO PAÍS DA FANTASIA
+NUM ESTADO DE EUFORIA
+CIDADE POLICHINELO
+SÍTIO DO PICAPAU AMARELO.").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/sitio-do-picapau-amarelo/sitio-do-picapau-amarelo-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/sitio-do-picapau-amarelo/2.png' %>"
+    }
+  ]
+}

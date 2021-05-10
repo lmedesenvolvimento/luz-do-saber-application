@@ -1,0 +1,41 @@
+.header-bar{
+  @extend .container-fluid;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  min-height: 30vh;
+  background-color: $brand-primary;
+  margin-bottom: 8vh;  
+  &::after{
+    position: absolute;
+    content: ' ';
+    width: 100%;
+    height: 30vh;
+    background-image: image-url('header-bar-texture.svg');
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-position-y: -100px;
+    overflow: hidden;
+  }
+  .picture{
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0px auto -2.5vh;
+    z-index: 2;    
+  }
+}
+
+@media (max-width: $screen-sm){
+ .header-bar{
+   min-height: 20vh;
+   .picture{
+     max-width: 180px;
+   }
+ } 
+}

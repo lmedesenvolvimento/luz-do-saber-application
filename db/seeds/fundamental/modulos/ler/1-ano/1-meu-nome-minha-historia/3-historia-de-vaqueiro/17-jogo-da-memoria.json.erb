@@ -1,0 +1,101 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('historia-de-vaqueiro').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('jogo-da-memoria').id %>",
+
+  "order": 17,
+  "total_correct_items": 99,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": true,
+
+  "general_info": "Quebra-cabeça",
+
+  "title_attributes": { "text": "JOGO DA MEMÓRIA" },
+  "description_text":  "OBSERVE AS CARTAS E ENCONTRE OS PARES." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 11
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 0
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'ISAÍAS').id %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-isaias.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-isaias.png' %>",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'JURANDIR').id %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-jurandir.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-jurandir.png' %>",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'FAZENDA').id %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-fazenda.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-fazenda.png' %>",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'TOURO').id %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-touro.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/historia-de-vaqueiro/17-touro.png' %>",
+          "word_source_type": "key_same"
+        }
+      ]
+    }
+  ]
+}

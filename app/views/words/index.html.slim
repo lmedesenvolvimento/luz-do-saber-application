@@ -1,0 +1,46 @@
+- model_class = Word
+
+.page-header
+  h1
+    'Elementos (Letras, Sílabas, Palavras ...)
+
+= render partial: 'filter'
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-lg-6
+        ' Total:
+        = @words.count
+      .col-lg-6.text-right
+          = link_to t('.new', :default => t("helpers.links.new")), new_word_path, :class => 'btn btn-primary'
+
+  .panel-body
+    = will_paginate @words
+
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:type)
+          th= sort_link @q, :text
+          th= model_class.human_attribute_name(:images)
+          th= model_class.human_attribute_name(:audios)
+          th=t '.actions', :default => t("helpers.actions")
+      tbody
+        - @words.each do |word|
+          tr
+            td= word.type_i18n
+            td= link_to word.text, word_path(word)
+            td
+              - if word.images.any?
+                = image_tag word.images.first.full_url, width: 60
+            td
+              - if word.audios.any?
+                = audio_tag word.audios.last.full_url, controls: true
+            td
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_word_path(word), :class => 'btn btn-default btn-xs'
+              '
+              = link_to t('.destroy', :default => t("helpers.links.destroy")), word_path(word), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs'
+
+  .panel-footer.text-center
+    = will_paginate @words

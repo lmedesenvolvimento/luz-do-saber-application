@@ -1,0 +1,43 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('caixa-de-palavras').id %>",
+
+  "order": 20,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "PORTUGUESA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "TRIGO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "MILHO"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "INDÍGENA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ABACAXI"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "JACARÉ"
+        }
+      ]
+    }
+  ]
+}

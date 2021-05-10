@@ -1,0 +1,12 @@
+= simple_form_for @user_game do |f|
+  .row
+    .col-lg-4
+      = f.input :unique_session_id
+    .col-lg-4
+      = f.input :name
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), user_games_path, :class => 'btn btn-default'

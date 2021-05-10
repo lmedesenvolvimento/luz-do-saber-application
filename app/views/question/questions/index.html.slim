@@ -1,0 +1,61 @@
+- model_class = Question::Question
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= render partial: 'filter'
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-lg-6
+        .text-left
+          = link_to t('.new', :default => t("helpers.links.new")), question_templates_url, :class => 'btn btn-primary btn-lg'
+      .col-lg-6
+        .text-right
+          ' Registros:
+          b= @questions.count
+
+  .panel-body
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:order)
+          th= model_class.human_attribute_name(:unit)
+          th= model_class.human_attribute_name(:question_type)
+          th= model_class.human_attribute_name(:question_subtype)
+          th= model_class.human_attribute_name(:title)
+          th= model_class.human_attribute_name(:status)
+          th=t '.actions', :default => t("helpers.actions")
+      tbody
+        - @questions.each do |question|
+          tr
+            td= question.order
+            td= question.unit.title.truncate(15)
+            td= question.type.title
+            td= question.subtype.title
+            td= question.title.try(:text).truncate(30)
+            td
+              - case question.status
+              - when 'draft'
+                .label.label-warning= question.status_i18n
+              - when 'published'
+                .label.label-success= question.status_i18n
+              - when 'archived'
+                .label.label-danger= question.status_i18n
+            td
+              / - json_url = game_question_url(question.modulo, question.theme, question.unit, question.order) + '?external_params[0][name]=wed'
+              / = link_to '[json]', json_url, target: '_blank', class: 'btn btn-default btn-xs'
+              / '
+              = link_to t('.show', :default => t("helpers.links.show")), question_question_path(question), :class => 'btn btn-default btn-xs'
+              '
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_question_question_path(question), :class => 'btn btn-primary btn-xs'
+              '
+              - unless question.archived?
+                = link_to 'Arquivar', archive_question_question_path(question), :method => "put", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Tem certeza que deseja arquivar?')) }, :class => 'btn btn-warning btn-xs'
+
+              - unless question.published?
+                = link_to 'Publicar', publish_question_question_path(question), :method => "put", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Tem certeza que deseja publicar?')) }, :class => 'btn btn-warning btn-xs'
+              '
+              = link_to 'Deletar', question_question_path(question), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Tem certeza que deseja deletar?')) }, :class => 'btn btn-danger btn-xs'
+  .panel-footer
+    = will_paginate @questions

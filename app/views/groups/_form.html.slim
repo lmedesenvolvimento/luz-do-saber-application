@@ -1,0 +1,21 @@
+= simple_form_for @group do |f|
+  .row
+    .col-lg-4
+      = f.input :name, autofocus: true
+
+    / .col-lg-3
+    /   = f.input :code
+
+  .row
+    .col-lg-7
+      = f.input :description, as: :text
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), groups_path, :class => 'btn btn-default'
+
+br

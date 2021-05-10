@@ -1,0 +1,13 @@
+- model_class = Question::QuestionsItem
+.page-header
+  h1=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize
+  h3
+    = @question.title.try :text
+    '  /
+    = @question.descriptions.pluck(:text).join
+  h4
+    small
+      ' Unidade:
+      = @question.unit.try :title
+
+= render :partial => "form"

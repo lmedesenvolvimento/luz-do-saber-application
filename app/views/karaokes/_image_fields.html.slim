@@ -1,0 +1,9 @@
+.nested-fields
+  = f.input :order
+
+  - if f.object.persisted?
+    = image_tag f.object.image.url(:thumb)
+
+  - else
+    = f.input :image, label: false, as: :file
+    = link_to_remove_association "[remover]", f

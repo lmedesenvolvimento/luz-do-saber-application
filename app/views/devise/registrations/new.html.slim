@@ -1,0 +1,7 @@
+- case resource.role
+- when 'student'
+  = render 'devise/registrations/student'
+- else
+  = render 'devise/registrations/professor'
+
+= render "devise/shared/links"

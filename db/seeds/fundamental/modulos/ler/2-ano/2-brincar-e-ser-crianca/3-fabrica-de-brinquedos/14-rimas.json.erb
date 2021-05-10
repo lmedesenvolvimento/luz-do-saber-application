@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('rimas').id %>",
+
+  "order": 14,
+
+  "description_text":  "MARQUE AS PALAVRAS QUE RIMAM COM VOLANTE.",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "VOLANTE",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "BARBANTE"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ESTANTE"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "CANETA"
+    }
+  ]
+}

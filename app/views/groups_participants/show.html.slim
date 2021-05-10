@@ -1,0 +1,34 @@
+- model_class = GroupsParticipant
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+.row
+  .col-lg-12
+    p
+      string= Student.human_attribute_name(:school_student_code)
+      br
+      = @groups_participant.user.school_student_code
+    p
+      strong= model_class.human_attribute_name(:type) + ':'
+      br
+      = @groups_participant.type_i18n
+    p
+      strong= model_class.human_attribute_name(:user) + ':'
+      br
+      = @groups_participant.user.name
+    p
+      strong= model_class.human_attribute_name(:group) + ':'
+      br
+      = @groups_participant.group.name
+    p
+      strong= model_class.human_attribute_name(:status) + ':'
+      br
+      = @groups_participant.status_i18n
+
+.row
+  .col-lg-12
+    = link_to t('.back', :default => t("helpers.links.back")), group_participants_path(@group), :class => 'btn btn-default'
+    '
+    = link_to t('.edit', :default => t("helpers.links.edit")), edit_group_participant_path(@group, @groups_participant), :class => 'btn btn-default'
+    '
+    = link_to t('.destroy', :default => t("helpers.links.destroy")), group_participant_path(@group, @groups_participant), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

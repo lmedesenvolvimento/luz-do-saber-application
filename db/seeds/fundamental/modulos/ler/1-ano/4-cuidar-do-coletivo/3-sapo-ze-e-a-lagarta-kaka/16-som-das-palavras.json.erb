@@ -1,0 +1,74 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('sapo-ze-e-a-lagarta-kaka').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-questionario').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-coluna').id %>",
+
+  "order": 16,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Áudio para o usuário descobrir a palavra dita.",
+
+  "title_attributes": { "text": "SOM DAS PALAVRAS" },
+  "description_text":  "ESCUTE E MARQUE A PALAVRA." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 6
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 0
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "big",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "big",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 2,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'CARACOL').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'SAPO').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'LAGARTA').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'PATO').id %>"
+    }
+  ]
+}

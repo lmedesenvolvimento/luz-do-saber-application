@@ -1,0 +1,13 @@
+.col-lg-2
+  .nested-fields
+    - if f.object.persisted?
+      - if f.object.attachment.present?
+        = image_tag f.object.attachment.url(:thumb)
+      - else
+        = image_tag f.object.remote_url
+
+      = link_to_remove_association "[remover]", f
+
+    - else
+      = f.input :attachment, label: false, as: :file
+      = f.input :remote_url

@@ -1,0 +1,44 @@
+{
+  "unit_id": "<%= Unit.friendly.find('criatividade-e-diversao').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('descubra-a-palavra').id %>",
+
+  "order": 15,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "BANANEIRA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "BANANA"
+        },
+
+        {
+          "type": "value",
+          "word_type": "caractere_especial",
+          "word_text": "-"
+        },
+
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "A"
+        },
+        {
+          "type": "value",
+          "word_type": "caractere_especial",
+          "word_text": "+"
+        },
+
+        {
+          "type": "value",
+          "word_type": "input_custom",
+          "word_text": "EIRA"
+        }
+      ]
+    }
+  ]
+}

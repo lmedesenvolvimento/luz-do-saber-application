@@ -1,0 +1,70 @@
+= simple_form_for @word do |f|
+  .row
+    .col-lg-3
+      = f.input :type, include_blank: false
+
+    .col-lg-2
+      = f.input :gender, collection: ['f', 'm'], label: 'Gênero'
+
+  .substantivo
+    .row
+      .col-lg-12
+        h3 Sílabas
+        p
+          ' Escreva a palavra já separada por sílabas
+          = link_to 'https://www.silabas.net', target: '_blank' do
+            i.fa.fa-external-link
+
+        #elements
+          .row
+            .col-lg-12
+              = f.simple_fields_for :elements do |e|
+                = render 'element_fields', f: e
+
+              .links= link_to_add_association '[adicionar]', f, :elements
+
+
+        .has-error= f.error :text
+  .letra
+    .row
+      .col-lg-5
+        = f.input :text
+
+
+  hr
+
+  .row
+    .col-lg-12
+      h3 Imagens
+
+      #images
+        .row
+          = f.simple_fields_for :images do |e|
+            = render 'image_fields', f: e
+
+        .row
+          .col-lg-12
+            .links= link_to_add_association '[adicionar]', f, :images
+
+  hr
+
+  .row
+    .col-lg-12
+      h3 Áudios
+
+      #images
+        .row
+          = f.simple_fields_for :audios do |e|
+            = render 'audio_fields', f: e
+
+        .row
+          .col-lg-12
+            .links= link_to_add_association '[adicionar]', f, :audios
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), words_path, :class => 'btn btn-default'

@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('criatividade-e-diversao').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "QUANTOS MODELOS DE PETECA ENSINAM NO VÍDEO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "TRÊS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/criatividade-e-diversao/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "CINCO"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "DOIS"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "UM"
+    }
+  ]
+}

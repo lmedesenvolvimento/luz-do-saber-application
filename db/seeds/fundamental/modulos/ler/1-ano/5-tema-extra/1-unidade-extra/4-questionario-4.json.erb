@@ -1,0 +1,92 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('unidade-extra').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-texto').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-coluna').id %>",
+
+  "order": 4,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Texto com áudio para o usuário indicar a personagem da história.",
+
+  "title_attributes": { "text": "Questionário" },
+  "description_text":  "OUÇA O TEXTO QUE EU VOU LER. QUAL O PERSONAGEM DA HISTÓRIA?" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "ERA UMA PEQUENA SEMENTINHA QUE FOI LANÇADA À TERRA.
+      QUE ESTRANHO LUGAR AQUELE! ERA FRIO, ESCURO, NÃO SE VIA NADA NEM MENTE COMEÇOU A SENTIR QUE A TERRA AQUECIA.
+      O SOL, SEU AMIGO, POUSAVA SOBRE ELA SEUS RAIOS. ERA BOM SENTIR O CALOR!
+      OUTRAS VEZES, O SOL DAVA LUGAR À NUVEM QUE, AO PASSAR, DEIXAVA CAIR GOTAS DE ÁGUA PARA REFRESCAR.
+      A SEMENTE ACHAVA QUE IA FICAR DIFERENTE. COMEÇOU A ESPREITAR E, LENTAMENTE, FOI SAINDO DA TERRA.[...]
+      O CÉU ERA MUITO AZUL E O PÁSSAROS VOAVAM LIVREMENTE.[...]
+      A TRANSFORMAÇÃO DA SEMENTINHA IA SENDO CADA VEZ MAIOR. FOI CRESCENDO, CRESCENDO, ATÉ QUE UM DIA SE TORNOU UMA GRANDE ÁRVORE.[...]").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/lightsaber.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "texto",
+          "word_source_type": "input_custom",
+          "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "A SEMENTE").id %>"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "A NUVEM").id %>"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "O CÉU").id %>"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "O SOL").id %>"
+    }
+  ]
+}

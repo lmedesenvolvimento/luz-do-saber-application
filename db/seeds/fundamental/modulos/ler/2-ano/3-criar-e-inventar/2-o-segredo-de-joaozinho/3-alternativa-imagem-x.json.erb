@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 3,
+
+  "description_text":  "O QUE ENCONTRAMOS NO LIVRO \"O SEGREDO DE JOÃOZINHO\"?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "UM SEGREDO",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/o-segredo-de-joaozinho/segredo.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UMA FESTA"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UM BRINQUEDO"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UMA SURPRESA"
+    }
+  ]
+}

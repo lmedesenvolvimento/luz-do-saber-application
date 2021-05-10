@@ -1,0 +1,24 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  / .row
+  /   .col-lg-4
+  /     = f.input :target_audience_eq, collection: Theme.target_audiences, include_blank: 'Todos', label: 'Público', label_method: -> (v) { t(v.first, scope: 'enums.theme.target_audience') }, required: false, wrapper: :horizontal_form
+  /
+  /   .col-lg-4
+  /     = f.input :modulo_id_eq, collection: Modulo.order(:title), include_blank: 'Todos', label: 'Módulo', required: false, wrapper: :horizontal_form
+  /
+  /   .col-lg-4
+  /     = f.input :status_eq, collection: Theme.statuses, include_blank: 'Qualquer status', label: 'Status', label_method: -> (v) { t(v.first, scope: 'enums.theme.status') }, required: false, wrapper: :horizontal_form
+  /
+  / br
+
+  .row
+    .col-lg-4
+      = f.input :title_cont, label: 'Título', required: false, wrapper: :horizontal_form
+    .col-lg-4
+      = f.input :status_eq, collection: Book.statuses, include_blank: 'Todos', label: 'Status', label_method: -> (v) { t(v.first, scope: 'enums.book.status') }, required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

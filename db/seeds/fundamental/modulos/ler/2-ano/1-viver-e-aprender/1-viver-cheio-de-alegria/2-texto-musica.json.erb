@@ -1,0 +1,90 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('viver-cheio-de-alegria').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 2,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "VIVER CHEIO DE ALEGRIA
+Ricardo Azevedo – Gustavo Finkler
+
+VIVER CHEIO DE ALEGRIA
+SER AMADO, SER QUERIDO
+TER SAÚDE, TER AMIGOS
+SER TRANQUILO E DIVERTIDO.
+
+SER FORTE, SER CARINHOSO
+SER SÁBIO E AGRADECIDO
+SER DOCE, SER VERDADEIRO
+SER FIRME, SER DECIDIDO.
+
+SER LIVRE PARA PARTIR
+SER LIVRE PARA FICAR
+SER LIVRE PARA SENTIR
+FALAR, PENSAR E SONHAR.
+
+SER GENTIL E PACIENTE
+CORDIAL E CORAJOSO
+AMOROSO, COMPREENSIVO
+EXIGENTE, GENEROSO.
+
+TER TRABALHO, TER PRAZER
+CONSTRUIR A VIDA EM PAZ
+SE FOR PRECISO, SER SÉRIO
+MAS NÃO SER SÉRIO DEMAIS.
+
+AMAR A VIDA E O MUNDO
+GOSTAR DE FAZER O BEM
+JAMAIS PERDER A CONFIANÇA
+(NEM A ESPERANÇA TAMBÉM).").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/viver-cheio-de-alegria/viver-cheio-de-alegria-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/viver-cheio-de-alegria/texto.png' %>"
+    }
+  ]
+}

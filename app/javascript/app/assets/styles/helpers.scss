@@ -1,0 +1,10 @@
+$directions: ('top', 'bottom', 'left', 'right');
+
+@each $dir in $directions {
+  .margin-#{$dir} {
+    margin-#{$dir}: $gap;
+  }
+  .margin-lg-#{$dir} {
+    margin-#{$dir}: $gap * 3;
+  }
+}

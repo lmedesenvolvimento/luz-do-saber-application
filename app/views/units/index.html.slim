@@ -1,0 +1,41 @@
+- model_class = Unit
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= render partial: 'filter'
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-lg-6
+        ' Registros:
+        b= @units.count
+
+      .col-lg-6
+        .text-right
+          = link_to t('.new', :default => t("helpers.links.new")), new_theme_unit_path(@theme), :class => 'btn btn-primary btn-xs'
+
+  .panel-body
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:order)
+          th= model_class.human_attribute_name(:title)
+          th= model_class.human_attribute_name(:theme)
+          th= model_class.human_attribute_name(:questions)
+          th=t '.actions', :default => t("helpers.actions")
+      tbody
+        - @units.each do |unit|
+          tr
+            td= unit.order
+            td= link_to unit.title, theme_unit_path(@theme, unit)
+            td= unit.theme.title
+            td= link_to unit.questions.count, question_questions_url(q: { modulo_id_eq: @theme.modulo.id, theme_id_eq: @theme.id, unit_id_eq: unit.id })
+            td
+              = link_to t('.show', :default => t("helpers.links.show")), theme_unit_path(@theme, unit), :class => 'btn btn-default btn-xs'
+              '
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_theme_unit_path(@theme, unit), :class => 'btn btn-default btn-xs'
+              '
+              = link_to "Nova atividade", question_templates_path(:unit_id => unit.id), :class => 'btn btn-primary btn-xs'
+
+= link_to t('.back', :default => t("helpers.links.back")), themes_path, :class => 'btn btn-default'

@@ -1,0 +1,88 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('meu-primeiro-nome').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-texto').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-linha').id %>",
+
+  "order": 1,
+  "total_correct_items": 1,
+
+  "external_param_type": "substantivo_proprio",
+  "external_param_total": 1,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "title_attributes": { "text": "CRACHÁ" },
+  "description_text":  "ENCONTRE O CRACHÁ QUE TEM O SEU NOME.",
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 2
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": null,
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    },
+    {
+      "type": "value",
+      "font_size": "small",
+      "custom": "game-cracha-box",
+      "tags": "selecao",
+      "total_per_line": 3,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>",
+      "custom_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/custom/cracha.png' %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param",
+      "value_items_attributes": [{
+        "type": "value",
+        "word_type": "substantivo_proprio",
+        "word_source_type": "key_same"
+      }]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param_similar_male"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param_similar_female"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param_different"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param_different"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_proprio",
+      "word_source_type": "external_param_different"
+    }
+  ]
+}

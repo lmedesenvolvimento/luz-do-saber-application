@@ -1,0 +1,119 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('quem-comeu-pao-na-casa-do-joao').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('agrupamento').id %>",
+
+  "order": 26,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": true,
+
+  "general_info": "Painel em cima com as imagens dos objetos e 3 painéis embaixo dividivos por sílaba para arrastar as imagens.",
+
+  "title_attributes": { "text": "Agrupamento" },
+  "description_text":  "AGRUPE AS IMAGENS DE ACORDO COM A LETRA EM DESTAQUE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 12
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": "game-grupo-de-palavras",
+      "tags": "encaixar",
+      "total_per_line": 3,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "arrastar",
+      "total_per_line": 6,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": <%= Word.letra.find_by(text: 'N').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'NARIZ').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'NAVIO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'NUVEM').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'NOVELO').id %>
+        }
+      ]
+    },
+
+    {
+      "type": "key",
+      "word_id": <%= Word.letra.find_by(text: 'J').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'JOÃO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'JANELA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'JUJUBA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'JARRO').id %>
+        }
+      ]
+    },
+
+    {
+      "type": "key",
+      "word_id": <%= Word.letra.find_by(text: 'M').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'MEL').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'MESA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'MÃO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'MENINO').id %>
+        }
+      ]
+    }
+  ]
+}

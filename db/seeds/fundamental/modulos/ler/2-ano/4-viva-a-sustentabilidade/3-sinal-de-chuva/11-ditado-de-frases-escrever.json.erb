@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 11,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "SINAL DE CHUVA",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/sinal-de-chuva/sinal-de-chuva.mp3' %>"
+    }
+  ]
+}

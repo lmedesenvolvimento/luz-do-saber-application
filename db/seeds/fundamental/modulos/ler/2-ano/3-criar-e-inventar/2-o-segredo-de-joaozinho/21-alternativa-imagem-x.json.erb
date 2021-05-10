@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 21,
+
+  "description_text":  "QUANTAS SÍLABAS E LETRAS TEM O NOME REPRESENTADO PELA IMAGEM?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "2 SÍLABAS E 5 LETRAS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/o-segredo-de-joaozinho/21.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "4 SÍLABAS E 6 LETRAS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "3 SÍLABAS E 4 LETRAS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "5 SÍLABAS E 3 LETRAS"
+    }
+  ]
+}

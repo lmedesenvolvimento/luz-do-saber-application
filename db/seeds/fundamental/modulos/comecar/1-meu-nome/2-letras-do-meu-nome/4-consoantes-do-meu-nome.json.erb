@@ -1,0 +1,196 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('letras-do-meu-nome').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-texto').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-linha').id %>",
+
+  "order": 4,
+  "total_correct_items": 99,
+
+  "external_param_type": "substantivo_proprio",
+  "external_param_total": 1,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "title_attributes": { "text": "Consoantes do meu nome" },
+  "description_text":  "MARQUE A(S) CONSOANTE(S) DO SEU NOME.",
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 2
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": "app-helper-item-substantivo-consoantes",
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "selecao",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "letra",
+      "word_source_type": "external_param",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_source_type": "key_same"
+        }
+      ]
+    }
+  ]
+}

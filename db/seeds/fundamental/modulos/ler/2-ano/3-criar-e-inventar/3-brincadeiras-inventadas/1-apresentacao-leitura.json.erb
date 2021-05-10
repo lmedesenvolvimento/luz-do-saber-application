@@ -1,0 +1,37 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= %{Adoleta \\n \
+ Domínio Público \\n \
+Para brincar de adoleta, é preciso formar um grande círculo. \\n \
+Juntam-se as mãos e vão batendo na mão de cada membro conforme vai passando a música. \\n \
+Bate na mão de sílaba em sílaba, fala uma sílaba e bate na mão do companheiro do lado, \\n \
+fala outra sílaba e o companheiro bate na mão da outra pessoa. Assim por diante. \\n \
+ \\n \
+A música vai terminar no 'eu'. Quando terminar, a pessoa que receber o tapa na mão por \\n \
+último terá que pisar no pé de alguém (cada pessoa do jogo só poderá dar um passo na hora \\n \
+que terminar a música). Se ela conseguir, a pessoa em quem ela pisou é eliminada. \\n \
+Se não conseguir, sai. A música é assim: \\n \
+ \\n \
+Adoleta \\n \
+le peti petecolá, \\n \
+les café com chocolá. \\n \
+Adoleta \\n \
+Puxa o rabo do tatu, \\n \
+quem saiu foi tu, \\n \
+puxa o rabo da panela, \\n \
+quem saiu foi ela, \\n \
+puxa o rabo do pneu, \\n \
+quem saiu fui eu.} %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/brincadeiras-inventadas/adoleta-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brincadeiras-inventadas/1.png' %>"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+/ - model_class = Question::Question
+/ .page-header
+/   h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+/ = render :partial => "form"
+
+#app_vue
+
+== javascript_pack_tag 'application'

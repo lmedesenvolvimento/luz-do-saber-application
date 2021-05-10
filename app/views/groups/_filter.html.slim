@@ -1,0 +1,10 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  .row
+    .col-lg-4
+      = f.input :name_cont, label: 'Nome', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

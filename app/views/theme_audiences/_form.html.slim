@@ -1,0 +1,20 @@
+= simple_form_for @theme_audience do |f|
+  .row
+    .col-lg-2
+      = f.input :status, include_blank: false
+
+  .row
+    .col-lg-6
+      = f.input :title
+
+  .row
+    .col-lg-6
+      = f.input :description, as: :text
+
+  = f.input :cover
+
+  hr
+
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), theme_audiences_path, :class => 'btn btn-default'

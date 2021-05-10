@@ -1,0 +1,28 @@
+- if devise_mapping.registerable? && controller_name != 'registrations'
+  .panel.panel-default.panel.shared-links
+    .panel-body
+      .text-center
+        h5 Realizar cadastro como:
+
+        ul.list-inline
+          /   li
+          /     / = link_to "Cadastrar como Aluno", new_registration_path(resource_name)
+          /     = link_to "Aluno", new_student_path
+          / li.divider
+          /   '|
+          li
+            = link_to "Professor", new_professor_path
+
+
+ul.list-inline.text-center
+  - if controller_name != 'sessions'
+    li
+      = link_to "Entrar", new_session_path(resource_name)
+
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    li
+      = link_to "Não recebeu instruções de confirmação?", new_confirmation_path(resource_name)
+  - if devise_mapping.omniauthable?
+    li
+      - resource_class.omniauth_providers.each do |provider|
+          = link_to "Entrar com #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider)

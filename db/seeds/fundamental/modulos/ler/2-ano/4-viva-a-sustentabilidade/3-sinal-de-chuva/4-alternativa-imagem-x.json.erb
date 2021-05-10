@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "O QUE TORNAVAM  AS FÉRIAS DE JANEIRO DIVERTIDAS?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A CHUVA E OS PRIMOS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/sinal-de-chuva/4_questionario.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "JORNAL E TELEVISÃO"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "SOL E CHUVA"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "JOÃO DE BARRO E RÃ"
+    }
+  ]
+}

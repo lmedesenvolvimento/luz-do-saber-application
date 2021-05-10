@@ -1,0 +1,86 @@
+.list-group
+  - if current_user.admin?
+    = link_to admin_users_path, class: 'list-group-item' do
+      i.icon.icon-user-solid.fa-lg
+      |  Usuários
+
+  - if current_user.admin?
+    = link_to themes_path, class: 'list-group-item' do
+      i.icon.icon-pen-solid.fa-lg
+      ' Temas
+
+  / li
+  /   = link_to units_path do
+  /     i.fa.fa-bookmark.fa-fw
+  /     ' Unidades
+
+  - if current_user.admin? || current_user.professor?
+    = link_to groups_path, class: 'list-group-item' do
+      i.icon.icon-users-solid.fa-lg
+      ' Turmas
+
+  - if current_user.admin? || current_user.professor?
+    = link_to question_questions_url, class: 'list-group-item' do
+      i.icon.icon-clipboard-list-solid.fa-lg
+      |  Atividades
+
+    / a[class="list-group-item" role="button" data-toggle="collapse" href="#subMenuAtividades" aria-expanded="false" aria-controls="subMenuAtividades"]
+    /   i.icon.icon-clipboard-list-solid.fa-lg
+    /   |  Atividades
+    /   span.fa.arrow
+    / .collapse#subMenuAtividades
+    /   = link_to question_templates_url, class: 'list-group-item' do
+    /     / i.fa.fa-edit.fa-fw
+    /     ' Cadastrar
+    /
+    /   = link_to question_questions_url, class: 'list-group-item' do
+    /     / i.fa.fa-book.fa-fw
+    /     ' Lista
+
+  - if current_user.admin?
+    a[class="list-group-item" role="button" data-toggle="collapse" href="#subMenuBasicos" aria-expanded="false" aria-controls="subMenuBasicos"]
+      i.icon.icon-plus-solid.fa-lg
+      |  Cadastros Básicos
+      span.fa.arrow
+    .collapse#subMenuBasicos
+      = link_to words_url, class: 'list-group-item' do
+        / i.fa.fa-pencil.fa-fw
+        ' Elementos(Letras, Sílabas, Palavras..)
+      = link_to question_descriptions_url, class: 'list-group-item' do
+        / i.fa.fa-pencil.fa-fw
+        ' Enunciados
+      = link_to list_question_templates_url, class: 'list-group-item' do
+        / i.fa.fa-pencil.fa-fw
+        ' Templates
+      = link_to karaokes_url, class: 'list-group-item' do
+        / i.fa.fa-pencil.fa-fw
+        ' Karaokê
+
+      / = link_to question_item_templates_url, class: 'list-group-item' do
+      /   / i.fa.fa-edit.fa-fw
+      /   ' Template de Item
+
+
+    a[class="list-group-item" role="button" data-toggle="collapse" href="#subGames" aria-expanded="false" aria-controls="subGames"]
+      i.icon.icon-gamepad-solid.fa-lg
+      |  Games
+      span.fa.arrow
+
+    .collapse#subGames
+      = link_to 'http://luz-do-saber-portal-staging.herokuapp.com', class: 'list-group-item', target: '_blank' do
+        ' Home Page
+
+      = link_to 'Jogos', user_games_url, class: 'list-group-item'
+
+  - if current_user.professor?
+    = link_to professor_students_path, class: 'list-group-item' do
+      i.icon.icon-user-solid.fa-lg
+      |  Alunos
+  - if current_user.admin?
+    = link_to books_path, class: 'list-group-item'
+      i.icon.icon-book-solid.fa-lg
+      |  Livros
+  - if current_user.admin?
+    = link_to user_games_url, class: 'list-group-item'
+      i.icon.icon-users-solid.fa-lg
+      |  Histórico

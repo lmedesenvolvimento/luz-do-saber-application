@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('rimas').id %>",
+
+  "order": 18,
+
+  "description_text":  "LIGUE AS PALAVRAS QUE RIMAM COM: PAPAGAIO",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "PAPAGAIO",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ENSAIO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "MAIO"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "COCORICÓ"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('a-maquina-de-pororo').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 6,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A MÁQUINA DE PORORÓ",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/a-maquina-de-pororo/a-maquina-de-pororo.mp3' %>"
+    }
+  ]
+}

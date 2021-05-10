@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 3,
+
+  "description_text":  "QUAL É O ASSUNTO DO TEXTO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "ENSINAR UMA BRINCADEIRA.",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brincadeiras-inventadas/3.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "RECITAR UM POEMA."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ENSINAR UMA RECEITA."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ESCREVER UMA HISTÓRIA."
+    }
+  ]
+}

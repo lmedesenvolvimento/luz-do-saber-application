@@ -1,0 +1,23 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('letras-maiusculas').id %>",
+
+  "order": 20,
+
+  "items_attributes": [
+
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "MÁQUINA",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brincadeiras-inventadas/20.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "I"
+        }
+      ]
+    }
+  ]
+}

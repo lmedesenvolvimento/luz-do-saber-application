@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('a-maquina-de-pororo').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('letras-maiusculas').id %>",
+
+  "order": 21,
+
+  "items_attributes": [
+
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "MÁQUINA",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/a-maquina-de-pororo/21.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "M"
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "A"
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": "P"
+        }
+      ]
+    }
+  ]
+}

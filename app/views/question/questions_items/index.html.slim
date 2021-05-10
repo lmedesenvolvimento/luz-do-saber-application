@@ -1,0 +1,23 @@
+.page-header
+  / h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+  h1 Itens da Atividade
+  h3
+    = @question.title.try :text
+    '  /
+    = @question.descriptions.pluck(:text).join
+  h4
+    small
+      ' Unidade:
+      = @question.unit.try :title
+
+= link_to t('.new', :default => t("helpers.links.new")), new_question_question_item_path(@question), :class => 'btn btn-primary'
+'
+= link_to t('.back', :default => t("helpers.links.back")), question_question_path(@question), :class => 'btn btn-default'
+
+hr
+
+p Os itens das atividades são criados no formato CHAVE:VALOR (KEY:VALUE).
+p A chave (KEY) é uma referência para os itens corretos. Cada item correto recebe uma correspondência KEY:VALUE.
+
+= render partial: 'question/questions_items/key_items', locals: { question_key_items: @questions_items.key }
+= render partial: 'question/questions_items/value_items', locals: { question_value_items: @questions_items.value }

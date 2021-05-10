@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brinquedos-e-brincadeiras').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 2,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= "LISTA DE BRINQUEDOS E BRINCADEIRAS POPULARES \\n \
+     ELIZIANA MACHADO \\n \
+\\n \
+1.CABO DE GUERRA \\n \
+2.PATA DE CAVALO \\n \
+3.VAI-VEM \\n \
+4.ELÁSTICO \\n \
+5.PASSA ANEL \\n \
+6.CARRINHO DE ROLEMÃ \\n \
+7.PETECA \\n \
+8.MANA MULA \\n \
+9.POLÍCIA E LADRÃO \\n \
+10.BAMBOLÊ \\n \
+11.QUEIMADA \\n \
+12.TELEFONE DE BARBANTE \\n \
+13.PERNA DE PAU \\n \
+14.PEGA-PEGA \\n \
+15.ESCONDE-ESCONDE \\n \
+16.CORRIDA DE SACO \\n \
+17.AMARELINHA \\n \
+18.CIRANDA \\n \
+19.FUBECA OU BOLA DE GUDE \\n \
+20.PIÃO \\n \
+21.PULA CORDA \\n \
+22. CABRA-CEGA" %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/brinquedos-e-brincadeiras/lista-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brinquedos-e-brincadeiras/2.png' %>"
+    }
+  ]
+}

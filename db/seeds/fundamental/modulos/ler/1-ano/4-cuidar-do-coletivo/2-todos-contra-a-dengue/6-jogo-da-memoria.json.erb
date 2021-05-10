@@ -1,0 +1,93 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('todos-contra-a-dengue').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('jogo-da-memoria').id %>",
+
+  "order": 6,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": true,
+
+  "title_attributes": { "text": "JOGO DA MEMÓRIA" },
+  "description_text":  "OBSERVE AS CARTAS E ENCONTRE OS PARES." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'VIRAR PNEU').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_source_type": "key_same",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/todos-contra-a-dengue/virar-pneu.png' %>"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'TAMPAR O BALDE').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_source_type": "key_same",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/todos-contra-a-dengue/tampar-o-balde.png' %>"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'AREIA NO VASO').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_source_type": "key_same",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/todos-contra-a-dengue/areia-no-vaso.png' %>"
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'TAMPAR A CAIXA').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_source_type": "key_same",
+          "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/todos-contra-a-dengue/tampar-a-caixa.png' %>"
+        }
+      ]
+    }
+  ]
+}

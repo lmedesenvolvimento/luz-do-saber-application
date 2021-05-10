@@ -1,0 +1,22 @@
+- themes = @user_game.game['themes']
+
+.page-header
+  h3
+    'Temas
+
+- if themes.try(:any?)
+  'Quantidade de temas percorridos:
+  = themes.count
+  table.table.table-striped
+    thead
+      th Nome
+      th Concluída
+      th
+    tbody
+      - themes.each do |t|
+        tr
+          td= t[1]['title']
+          td= t[1]['completed'].to_s == 'false' ? 'Não' : 'Sim'
+          td
+
+hr

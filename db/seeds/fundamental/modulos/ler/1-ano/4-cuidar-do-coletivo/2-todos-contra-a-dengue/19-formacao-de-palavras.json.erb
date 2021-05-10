@@ -1,0 +1,99 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('todos-contra-a-dengue').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('formacao-de-palavras').id %>",
+
+  "order": 19,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": false,
+
+  "title_attributes": { "text": "Formação de palavras" },
+  "description_text":  "Usando as sílabas, escreva os nomes das imagens:" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 16
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 0
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "medium",
+      "custom": null,
+      "tags": "encaixar",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "medium",
+      "custom": null,
+      "tags": "arrastar",
+      "total_per_line": 3,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'LARVA').id %>,
+      "word_type": "substantivo_comum",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'LAR').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'VA').id %>
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'MOSQUITO').id %>,
+      "word_type": "substantivo_comum",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'MOS').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'QUI').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'TO').id %>
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_id": <%= Word.substantivo_comum.find_by(text: 'OVO').id %>,
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/words/substantivo_comum/fundamental/dengue-ovo.png' %>",
+      "word_type": "substantivo_comum",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'O').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.silaba.find_by(text: 'VO').id %>
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+- model_class = User
+
+= render "flashes"
+
+.panel.panel-primary.panel--box-shadow
+  .panel-heading
+    | Acesso
+  .panel-body
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-group
+        .input-group
+          span.input-group-addon
+            .icon.icon-user-solid
+          = f.input_field :email, \
+            required: false, \
+            autocomplete: "email", \
+            :class => 'form-control', \
+            :placeholder => model_class.human_attribute_name('email')
+
+
+      .form-group
+        .input-group
+            span.input-group-addon
+              .icon.icon-lock-solid
+            = f.input_field :password, \
+              required: false, \
+              autocomplete: "current-password", \
+              :class => 'form-control', \
+              :placeholder => model_class.human_attribute_name('password')
+      
+      .clearfix
+        - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+          = link_to "Esqueceu a senha?", new_password_path(resource_name), class: 'pull-right'
+
+      .clearfix
+          = f.button :submit, "Entrar", class: 'btn btn-primary'
+
+.container--xs
+  .row
+    .col-lg-12
+      = render "devise/shared/links"

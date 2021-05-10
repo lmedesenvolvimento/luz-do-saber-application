@@ -1,0 +1,32 @@
+// ICONS
+$fa-font-path: 'font-awesome/fonts';
+
+// LAYOUT
+$gap: 8px;
+$padding-base-horizontal: 24px;
+$navbar-height: 56px;
+$aside-width: 250px;
+
+// THEME
+$body-bg: #eee;
+$brand-primary: #11A7A2;
+$brand-danger: #d9534f;
+$border-color: #ddd;
+
+$link-color: $brand-primary;
+
+$aside-color: #F8F9FA;
+$aside-border-color: #E9E9E9;
+
+$text-color: #222;
+
+// INPUTS
+$input-group-addon-bg: $brand-primary;
+$input-group-addon-border-color: $input-group-addon-bg;
+$input-border-focus: $brand-primary;
+$input-form-control-height: 34px;
+
+// BUTTONS
+$btn-default-color:              $brand-primary;
+$btn-default-bg:                 #fff;
+$btn-default-border:             $brand-primary;

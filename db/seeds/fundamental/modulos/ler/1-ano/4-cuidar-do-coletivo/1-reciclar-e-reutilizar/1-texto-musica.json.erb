@@ -1,0 +1,89 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('reciclar-e-reutilizar').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "É PRECISO RECICLAR
+TURMA DA MÔNICA
+
+RECICLAR O LIXO É A SOLUÇÃO
+PRA ACABAR DE VEZ COM A POLUIÇÃO
+O QUE É RECICLADO LOGO SE TRANSFORMA
+E A GENTE REUTILIZA, MAS DE OUTRA FORMA
+PLÁSTICO VIRA BOLA, PAPEL VIRA SACOLA
+É SÓ TER CONSCIÊNCIA DO QUE SE JOGA FORA
+NA HORA DE JOGAR,
+SEPARE O LIXO DIREITINHO
+ASSIM VOCÊ TERÁ
+UM MUNDO MUITO MAIS LIMPINHO
+
+RECICLAR, RECICLAR...
+É PRECISO RECICLAR!
+RECICLAR, RECICLAR...
+A GENTE TEM QUE RECICLAR!
+
+E O LIXO TRANSFORMADO
+NÃO SERÁ MAIS DESPEJADO
+NOS CAMPOS, NOS RIOS,
+NAS RUAS E CIDADES.
+PRA NOSSA FELICIDADE!
+
+RECICLAR, RECICLAR...
+É PRECISO RECICLAR!
+RECICLAR, RECICLAR...
+A GENTE TEM QUE RECICLAR!").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/reciclar-e-reutilizar/e-preciso-recilcar-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/reciclar-e-reutilizar/1.png' %>"
+    }
+  ]
+}

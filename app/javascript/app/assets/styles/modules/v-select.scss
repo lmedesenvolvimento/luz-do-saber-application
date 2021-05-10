@@ -1,0 +1,15 @@
+.v-select {
+  .vs__dropdown-toggle {
+    min-height: $input-form-control-height;
+  }
+  .vs__dropdown-menu .vs__no-options {
+    padding: 0px $gap;
+    text-align: left;
+    &-title {
+      font-size: 11px;
+    }
+    &-action-button {
+      float: right;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('quem-comeu-pao-na-casa-do-joao').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-questionario').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-coluna').id %>",
+
+  "order": 4,
+  "total_correct_items": 99,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Mostra uma figura com um titulo e aluno deve informar o titulo.",
+
+  "title_attributes": { "text": "Questionário" },
+  "description_text":  "QUAL É O ASSUNTO DA CANÇÃO?" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": "game-checkmark",
+      "tags": null,
+      "total_per_line": 2,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'QUEM COMEU O PÃO').id %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/quem-comeu-pao-na-casa-do-joao/texto.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'BIA COMEU PÃO').id %>
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'MARIA COMEU PÃO').id %>
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'ANDRÉ COMEU PÃO').id %>
+    }
+  ]
+}

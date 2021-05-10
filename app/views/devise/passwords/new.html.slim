@@ -1,0 +1,21 @@
+- model_class = User
+
+.panel.panel-primary.panel--box-shadow
+  .panel-heading
+    | Esqueceu sua senha?
+  .panel-body
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+
+      .form-inputs
+        = f.input :email, \
+          required: true, \
+          autofocus: true, \
+          input_html: { autocomplete: "email" }, \
+          label: false, \
+          placeholder: model_class.human_attribute_name('email')
+
+      .clear-fix
+        = f.button :submit, "Enviar instruções", class: 'btn btn-primary'
+
+= render "devise/shared/links"

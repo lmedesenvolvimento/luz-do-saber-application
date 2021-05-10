@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 3,
+
+  "description_text":  "QUAL O TÍTULO DO CONTO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A FÁBRICA DE BRINQUEDOS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/fabrica-de-brinquedos/3.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "A FÁBRICA DE CHOCOLATE"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "A FÁBRICA DE SONHOS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "CAIXINHA DE MÚSICA"
+    }
+  ]
+}

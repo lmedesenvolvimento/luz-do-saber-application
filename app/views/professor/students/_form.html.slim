@@ -1,0 +1,54 @@
+- url = @student.persisted? ? professor_student_path(@student) : professor_students_path
+
+= simple_form_for @student, url: url do |f|
+  .row
+    .col-lg-2
+      = f.input :status
+
+  .row
+    .col-lg-3
+      = f.input :first_name
+
+    .col-lg-3
+      = f.input :last_name
+
+  .row
+    .col-lg-3
+      = f.input :birthdate, html5: true
+
+    .col-lg-3
+      = f.input :mother
+
+  / = f.input :role
+
+  / .row
+  /   .col-lg-3
+  /     = f.input :email
+
+  .row
+    .col-lg-3
+      = f.input :state, collection: %w(\  AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO), include_blank: false
+
+    .col-lg-3
+      = f.input :city
+
+  .row
+    .col-lg-3
+      = f.input :school_name
+
+    .col-lg-3
+      = f.input :school_group_code, collection: @groups, label_method: :label, value_method: :code
+
+  .row
+    .col-lg-3
+      = f.input :school_year, collection: 1..9, include_blank: false
+
+    .col-lg-3
+      = f.input :school_period, include_blank: false
+
+
+  hr
+
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), professor_students_path, :class => 'btn btn-default'

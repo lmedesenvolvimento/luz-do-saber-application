@@ -1,0 +1,16 @@
+{
+  "unit_id": "<%= Unit.friendly.find('criatividade-e-diversao').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "A PETECA NA FLORESTA AMAZÔNICA É FEITA COM PALHA DE MILHO",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/criatividade-e-diversao/a-peteca-na-floresta.mp3' %>"
+
+    }
+  ]
+}

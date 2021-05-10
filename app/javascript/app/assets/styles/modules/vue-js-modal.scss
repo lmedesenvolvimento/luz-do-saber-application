@@ -1,0 +1,6 @@
+#modals-container {
+  .v--modal-overlay {
+    background-color: transparentize($color: #000, $amount: 0.5);
+    z-index: 1001;
+  }
+}

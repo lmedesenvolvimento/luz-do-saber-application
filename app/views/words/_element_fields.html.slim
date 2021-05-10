@@ -1,0 +1,4 @@
+.nested-fields
+  = f.input :type, input_html: { value: Word.types.keys[1] }, as: :hidden
+  = f.input :text, label: false, autofocus: true
+  = link_to_remove_association "[remover]", f

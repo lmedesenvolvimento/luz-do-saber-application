@@ -1,0 +1,93 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('tempo-de-nino').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('descubra-a-palavra').id %>",
+
+  "order": 17,
+  "total_correct_items": 2,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Exibe uma palavra e adiciona ou retira uma sílaba.",
+
+  "title_attributes": { "text": "DESCUBRA A PALAVRA" },
+  "description_text":  "ENCONTRE OS APELIDOS DENTRO DOS NOMES." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "input",
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'NINO').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'MENINO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.caractere_especial.find_by(text: '-').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'ME').id %>
+        }
+      ]
+    },
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'COLA').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'ESCOLA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.caractere_especial.find_by(text: '-').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "silaba",
+          "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'ES').id %>
+        }
+      ]
+    }
+  ]
+}

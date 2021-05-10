@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Set up Rails app. Run this script immediately after cloning the codebase.
+# https://github.com/thoughtbot/guides/tree/master/protocol
+
+# Exit if any subcommand fails
+set -e
+
+# Set up Ruby dependencies via Bundler
+gem install bundler --conservative
+bundle check || bundle install
+
+echo "\n== Copying sample files ==\n"
+
+CURRENT_DIR=$(dirname $0)
+
+if [ ! -f $CURRENT_DIR/../config/database.yml ]; then
+  cp $CURRENT_DIR/../config/database.yml.sample $CURRENT_DIR/../config/database.yml
+fi
+
+if [ ! -f $CURRENT_DIR/../.env ]; then
+  cp $CURRENT_DIR/../.env.sample $CURRENT_DIR/../.env
+fi
+
+# Install JavaScript dependencies
+bin/yarn
+
+# Set up database and add any development seed data
+bin/rails dev:prime
+
+if [ ! -d .git/safe ] && echo $PATH | grep .git/safe > /dev/null; then
+  echo "-----------------------------------------------------------------------"
+  echo
+  echo "-> When you trust this repo, remember to run: mkdir -p .git/safe"
+  echo
+fi
+
+# Only if this isn't CI
+# if [ -z "$CI" ]; then
+# fi

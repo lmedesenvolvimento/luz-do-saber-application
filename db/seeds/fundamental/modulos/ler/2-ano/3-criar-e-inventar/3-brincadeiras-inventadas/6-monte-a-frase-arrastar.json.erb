@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('monte-a-frase-arrastar').id %>",
+
+  "order": 6,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Puxa o rabo do tatu quem saiu foi tu",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/brincadeiras-inventadas/puxa-o-rabo-do-tatu-quem-saiu-foi-tu.mp3' %>"
+    }
+  ]
+}

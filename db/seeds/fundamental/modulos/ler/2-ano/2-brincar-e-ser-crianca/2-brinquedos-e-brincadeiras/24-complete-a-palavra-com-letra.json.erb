@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brinquedos-e-brincadeiras').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-palavra-com-letra').id %>",
+
+  "order": 24,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "BRINCADEIRAS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brinquedos-e-brincadeiras/brincadeiras.png' %>"
+    }
+  ]
+}

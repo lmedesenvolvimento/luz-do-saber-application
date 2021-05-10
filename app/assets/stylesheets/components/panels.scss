@@ -1,0 +1,27 @@
+.panel {
+  border-radius: 5px 5px 0px 0px;
+  &--box-shadow {
+    border: none !important;
+    box-shadow: 0px 3px 6px #00000029;
+  }
+  &-heading {
+    @include nunito_bold;
+    @extend .text-center;
+    font-size: $font-size-large;
+  }
+  &-body {
+    > form {
+      padding-top: ($panel-body-padding * 2);
+      padding-left: $panel-body-padding;
+      padding-right: $panel-body-padding;
+    }
+  }
+  &.shared-links {
+    .list-inline {
+      margin-bottom: 0px;
+    }
+  }
+  .table {
+    margin-top: 3rem;
+  }
+}

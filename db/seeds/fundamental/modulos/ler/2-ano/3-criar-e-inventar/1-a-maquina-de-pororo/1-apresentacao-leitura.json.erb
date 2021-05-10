@@ -1,0 +1,38 @@
+{
+  "unit_id": "<%= Unit.friendly.find('a-maquina-de-pororo').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= %{A MÁQUINA DE PORORÓ \\n \
+Lunardo Martins \\n \
+ \\n \
+Gente, vocês já sabem da novidade? Do estouro? Pororó construiu uma “Máquina”. \\n \
+Pois é...agora ele tá mais empolgado ainda por causa da nova invenção. \\n \
+ \\n \
+Pororó é muito divertido e engraçado e mesmo dormindo tarde, ele acorda cedinho, \\n \
+cuida da casa, do corpo e segue para o trabalho no seu carro colorido. \\n \
+Suas cores preferidas são laranja, azul e amarelo. \\n \
+ \\n \
+Ele é um palhaço inventor e adora construir coisas com o auxílio de seus ajudantes. \\n \
+Pororó pegou um carrinho, canos, tecido e até um ventilador antigo. \\n \
+Ele construiu uma Máquina muito interessante que faz a comida que ele mais gosta. \\n \
+ \\n \
+Eita, que bateu uma curiosidade!? O que será que essa Máquina faz? \\n \
+Meus amigos, a Máquina de Pororó serve pra fazer a comida preferida dele e \\n \
+de muita gente: Pipoca! E ela só funciona com muita alegria e amizade. \\n \
+Ah, eu só digo uma coisa, conhecendo o Pororó como eu conheço, cheio de \\n \
+criatividade e palhaçadas, imagino que essa máquina deve ser muito é legal. \\n \
+Agora, pra saber mesmo, mesmo, mesmo...só indo ver esse teatro. Não \\n \
+esqueça que o ingresso é um sorriso e a vontade participar. \\n \
+Sabe por quê? Porque o Pororó está sempre precisando de ajudantes. \\n \
+Então, espero que todos gostem e tenham um bom espetáculo!} %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/a-maquina-de-pororo/a-maquina-de-pororo-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/a-maquina-de-pororo/1.png' %>"
+    }
+  ]
+}

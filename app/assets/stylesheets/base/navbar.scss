@@ -1,0 +1,94 @@
+.ld-navbar{
+  background-color: $brand-primary;
+  background-image: image-url('header-bar-texture.svg');
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position-y: -100px;
+  border-bottom: none;
+  z-index: 100;
+  .navbar-header{
+    display: flex;
+    align-items: center;
+    margin: 0px;
+  }
+  .navbar-brand{
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    margin-left: 0px !important;
+    margin-right: 2rem;
+    float: none;
+    color: #fff;
+    img {
+      display: inline-block;
+      width: 160px;
+    }
+    .icon{
+      font-size: 1.75em;
+    }
+  }
+  &-profile{
+    display: flex;
+    align-items: center;
+    height: $navbar-height;
+    margin-right: 0px;
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $border-radius-large;
+      border: 1px #fff solid;
+      height: ($navbar-height * 0.70);
+      padding: 0px 15px;
+      margin: auto;
+      outline: none;
+      .fa, .icon{
+        color: #fff;
+        &.icon-user-circle-solid{
+          margin-right: 12px;
+        }
+      }      
+    }
+    .dropdown.open a.dropdown-toggle {
+      border: 1px #fff solid !important;
+      background-color: transparent !important;
+      &:hover, &:active, &:focus, &:visited {        
+        border: 1px #fff solid !important;
+        background-color: transparent !important;
+      }
+    }
+    .dropdown-menu {
+      border-radius: 0px;
+      margin-top: 8px !important;
+      margin-right: 0px !important;
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+ .ld-navbar{ 
+   &-profile{
+     float: right;
+     margin: 0px;
+     .dropdown.open{
+       position: static;
+      .dropdown-menu{
+         position: absolute;
+         top: $navbar-height;
+         background-color: white;
+         box-shadow: 0px 9px 9px transparentize($text-color, 0.75);
+         border-bottom: 1px $border-color solid;
+         width: 100%;
+         margin-top: 0px !important;
+       }
+     }
+   }
+   .navbar-header{
+     float: left;
+     .navbar-brand:last-child{
+       margin-right: 0px;
+     }
+   }
+ } 
+}

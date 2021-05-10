@@ -1,0 +1,46 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  .row
+    .col-lg-4
+      = f.input :type_eq, collection: Word.types, include_blank: 'Todos', label: 'Tipo', label_method: -> (v) { t(v.first, scope: 'enums.word.type') }, required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :text_cont, label: 'Palavra', placeholder: 'Ex.: CASA, BI, A', required: false, wrapper: :horizontal_form
+
+  br
+
+  .row
+    .col-lg-4
+      = f.input :image_exists_true, collection: [['Qualquer', 2], ['Com', 1], ['Sem', 0]], include_blank: false, label: 'Imagem', required: false, wrapper: :horizontal_form, checked: 'Com'
+
+      .row
+        .col-lg-3
+        .col-lg-6 style="margin-left: 12px;"
+          ' Filtro:
+          - case f.object.image_exists_true
+          - when true
+            b Com imagem
+          - when false
+            b Sem imagem
+          - else
+            b Qualquer
+
+    .col-lg-4
+      = f.input :audio_exists_true, collection: [['Qualquer', 2], ['Com', 1], ['Sem', 0]], include_blank: false, label: 'Áudio', required: false, wrapper: :horizontal_form
+
+      .row
+        .col-lg-3
+        .col-lg-6 style="margin-left: 12px;"
+          ' Filtro:
+          - case f.object.audio_exists_true
+          - when true
+            b Com áudio
+          - when false
+            b Sem áudio
+          - else
+            b Qualquer
+
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

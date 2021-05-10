@@ -1,0 +1,48 @@
+- model_class = Theme
+
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= render partial: 'filter'
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-lg-6
+        ' Registros:
+        b= @themes.count
+      .col-lg-6
+        .text-right
+          = link_to 'Novo público alvo', theme_audiences_path, :class => 'btn btn-primary btn-xs'
+          '
+          = link_to t('.new', :default => t("helpers.links.new")), new_theme_path, :class => 'btn btn-primary btn-xs'
+  .panel-body
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:order)
+          th= model_class.human_attribute_name(:modulo)
+          th= model_class.human_attribute_name(:target_audience)
+          th= model_class.human_attribute_name(:title)
+          th= model_class.human_attribute_name(:units)
+          th= model_class.human_attribute_name(:status)
+          th=t '.actions', :default => t("helpers.actions")
+      tbody
+        - @themes.each do |theme|
+          tr
+            td= theme.order
+            td= theme.modulo.title
+            td
+              - if theme.theme_audience
+                = link_to theme.theme_audience.title, theme_audience_path(theme.theme_audience)
+                '  |
+              = theme.target_audience_i18n
+            td= link_to theme.title, theme_units_path(theme)
+            td= link_to theme.units.count, theme_units_path(theme)
+            td= theme.status_i18n
+            td
+              = link_to t('.show', :default => t("helpers.links.show")), theme_path(theme), :class => 'btn btn-default btn-xs'
+              '
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_theme_path(theme), :class => 'btn btn-default btn-xs'
+              / '
+              / = link_to t('.destroy', :default => t("helpers.links.destroy")), theme_path(theme), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'

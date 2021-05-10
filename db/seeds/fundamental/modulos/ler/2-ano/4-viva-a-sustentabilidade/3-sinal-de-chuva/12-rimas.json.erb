@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('rimas').id %>",
+
+  "order": 12,
+
+  "description_text":  "LIGUE AS PALAVRAS QUE RIMAM COM CHUVA",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "CHUVA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "LUVA"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "UVA"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "ASA"
+    }
+  ]
+}

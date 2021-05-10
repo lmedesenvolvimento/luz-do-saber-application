@@ -1,0 +1,13 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  .row
+    .col-lg-4
+      = f.input :title_cont, label: 'Título', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :order_eq, label: 'Ordem', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

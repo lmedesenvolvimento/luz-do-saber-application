@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "DE ACORDO COM A IMAGEM O QUE JOÃOZINHO ESTÁ FAZENDO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "UM CÓDIGO PARA ESCONDER SEU SEGREDO.",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/o-segredo-de-joaozinho/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ESTUDANDO PARA A PROVA."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ESCREVENDO AS LETRAS E OS NÚMEROS."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "DESENHANDO E PINTANDO."
+    }
+  ]
+}

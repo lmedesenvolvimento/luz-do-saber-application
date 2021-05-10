@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('coleta-seletiva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "SEPARE O LIXO E DEIXE A CIDADE MAIS BONITA",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/coleta-seletiva/separe-o-lixo-e-deixe-a-cidade-mais-bonita.mp3' %>"
+    }
+  ]
+}

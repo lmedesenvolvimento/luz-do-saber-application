@@ -1,0 +1,48 @@
+= simple_form_for @question do |f|
+  .row
+    .col-lg-6
+      = f.association :template, include_blank: false
+
+  .row
+    .col-lg-6
+      = f.association :unit, include_blank: false, label_method: -> (u) { [u.theme.title, u.title].join(' - ') }
+
+    .col-lg-2
+      = f.input :order
+
+  .row
+    .col-lg-8
+      - if f.object.persisted?
+        = f.association :descriptions, label_method: :text
+      - else
+        = f.input :description_text
+
+  .panel.panel-default
+    .panel-heading Itens
+    .panel-body
+      = f.simple_fields_for :items do |i|
+        .row
+          .col-lg-4
+            = i.input :type, include_blank: false
+
+          .col-lg-4
+            = i.input :word_type, include_blank: false
+
+        .row
+          .col-lg-4
+            = i.input :word_text
+
+          .col-lg-4
+            = i.input :remote_image_url
+
+        hr
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_questions_path, :class => 'btn btn-default'
+
+br

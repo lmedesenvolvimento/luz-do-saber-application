@@ -1,0 +1,9 @@
+= simple_form_for @description do |f|
+  = f.input :type
+  = f.input :text
+  = f.input :image
+  = f.input :audio
+
+  = f.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), question_descriptions_path, :class => 'btn btn-default'

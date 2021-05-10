@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "NINGUÉM DECIFROU O CONTEÚDO ESCONDIDO",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/o-segredo-de-joaozinho/niguem-decifrou-o-conteudo-escondido.mp3' %>"
+    }
+  ]
+}

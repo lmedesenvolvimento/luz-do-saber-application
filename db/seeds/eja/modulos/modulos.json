@@ -1,0 +1,219 @@
+[
+  {
+    "name": "Começar",
+    "order": 1,
+    "themes": [
+      {
+        "name": "MEU NOME",
+        "image": "/images/modulos/comecar/meu-nome.png",
+        "units": [
+          {
+            "order": 1,
+            "name": "MEU PRIMEIRO NOME",
+            "image": "/images/modulos/comecar/units/meu-primeiro-nome.png"
+          },
+          {
+            "order": 2,
+            "name": "LETRAS DO MEU NOME",
+            "image": "/images/modulos/comecar/units/letras-do-meu-nome.png"
+          },
+          {
+            "order": 3,
+            "name": "O ALFABETO",
+            "image": "/images/modulos/comecar/units/o-alfabeto.png"
+          },
+          {
+            "order": 4,
+            "name": "MEUS AMIGOS",
+            "image": "/images/modulos/comecar/units/meus-amigos.png"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ler",
+    "order": 2,
+    "themes": [
+      {
+        "name": "PROJETO DE VIDA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "IDENTIDADE"
+          },
+          {
+            "order": 2,
+            "name": "LUGARES DA MINHA HISTÓRIA"
+          },
+          {
+            "order": 3,
+            "name": "MEU FUTURO"
+          }
+        ]
+      },
+      {
+        "name": "FAMÍLIA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "QUEM SOMOS?"
+          },
+          {
+            "order": 2,
+            "name": "EU E MINHA HISTÓRIA"
+          },
+          {
+            "order": 3,
+            "name": "MEMÓRIAS DE FAMÍLIA"
+          }
+        ]
+      },
+      {
+        "name": "ALIMENTAÇÃO E SAÚDE",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "QUALIDADE DE VIDA"
+          },
+          {
+            "order": 2,
+            "name": "HÁBITOS ALIMENTARES"
+          },
+          {
+            "order": 3,
+            "name": "SAÚDE E DOENÇA"
+          }
+        ]
+      },
+      {
+        "name": "CIDADANIA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "SOU CIDADÃO?"
+          },
+          {
+            "order": 2,
+            "name": "VALORES E CIDADANIA"
+          },
+          {
+            "order": 3,
+            "name": "CIDADANIA E DEMOCRACIA"
+          }
+        ]
+      },
+      {
+        "name": "TRABALHO",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "O VALOR DO MEU TRABALHO"
+          },
+          {
+            "order": 2,
+            "name": "EMPREENDEDORISMO"
+          },
+          {
+            "order": 3,
+            "name": "TRABALHO VOLUNTÁRIO"
+          }
+        ]
+      },
+      {
+        "name": "CULTURA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "O QUE RECEBEMOS DE HERANÇA DE CULTURA"
+          },
+          {
+            "order": 2,
+            "name": "FESTAS POPULARES"
+          },
+          {
+            "order": 3,
+            "name": "CULINÁRIA E ARTESANATO"
+          }
+        ]
+      },
+      {
+        "name": "NATUREZA E SUSTENTABILIDADE",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "CONSUMO RESPONSÁVEL"
+          },
+          {
+            "order": 2,
+            "name": "COLETA SELETIVA"
+          },
+          {
+            "order": 3,
+            "name": "ENERGIA LIMPA"
+          }
+        ]
+      },
+      {
+        "name": "DIÁLOGO, COMUNICAÇÃO E TECNOLOGIA",
+        "target_audience": "first_year",
+        "units": [
+          {
+            "order": 1,
+            "name": "DIFERENTES FORMAS DE SE COMUNICAR"
+          },
+          {
+            "order": 2,
+            "name": "A TECNOLOGIA NO COTIDIANO"
+          },
+          {
+            "order": 3,
+            "name": "SABERES COMPARTILHADOS"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Escrever",
+    "order": 3,
+    "themes": [
+      {
+        "name": "Escrever",
+        "units": [
+          {
+            "order": 1,
+            "name": "Escrever"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Biblioteca",
+    "type": "library",
+    "order": 4,
+    "themes": [
+      {
+        "name": "Livros"
+      }
+    ]
+  },
+  {
+    "name": "Karaokê",
+    "type": "karaoke",
+    "order": 5,
+    "themes": [
+      {
+        "name": "Karaokê"
+      }
+    ]
+  }
+]

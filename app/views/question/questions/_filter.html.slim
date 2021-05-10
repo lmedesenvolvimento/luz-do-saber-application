@@ -1,0 +1,28 @@
+= search_form_for @q, builder: SimpleForm::FormBuilder do |f|
+
+  .row
+    .col-lg-4
+      = f.input :modulo_id_eq, collection: Modulo.order(:order), include_blank: 'Todos', label: 'Módulo', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :theme_id_eq, collection: Theme.joins(:modulo).order('modulos.order, themes.order'), include_blank: 'Todos', label: 'Tema', label_method: -> (t) { [t.modulo.title, t.title].join(' - ') }, required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :unit_id_eq, collection: Unit.joins(theme: :modulo).order('modulos.order, themes.order, units.order'), include_blank: 'Todos', label: 'Unidade', label_method: -> (u) { [u.modulo.title, u.theme.title, u.title].join(' - ') }, required: false, wrapper: :horizontal_form
+
+  br
+
+  .row
+    .col-lg-4
+      = f.input :type_id_eq, collection: Question::Type.order(:title), include_blank: 'Todos', label: 'Tipo', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :status_eq, collection: Question::Question.statuses, include_blank: 'Qualquer um', label: 'Status', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.input :title_text_cont, label: 'Título', required: false, wrapper: :horizontal_form
+
+    .col-lg-4
+      = f.submit 'Filtrar', class: 'btn btn-primary'
+
+hr

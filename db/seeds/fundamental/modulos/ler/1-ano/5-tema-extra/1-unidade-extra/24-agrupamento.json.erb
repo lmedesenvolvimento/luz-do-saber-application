@@ -1,0 +1,113 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('unidade-extra').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('agrupamento').id %>",
+
+  "order": 24,
+  "total_correct_items": 9,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": true,
+
+  "general_info": "Painel em cima com as imagens dos objetos e 3 painéis embaixo dividivos por sílaba para arrastar as imagens.",
+
+  "title_attributes": { "text": "Agrupamento" },
+  "description_text":  "Arraste cada imagem para o conjunto correspondente à sua sílaba inicial:" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 10
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": "game-grupo-de-palavras",
+      "tags": "encaixar",
+      "total_per_line": 3,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "arrastar",
+      "total_per_line": 6,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": <%= Word.silaba.find_by(text: 'BI').id %>,
+      "word_type": "silaba",
+      "word_source_type": "admin",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BILA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BICO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BICHO').id %>
+        }
+      ]
+    },
+
+    {
+      "type": "key",
+      "word_id": <%= Word.silaba.find_by(text: 'LA').id %>,
+      "word_type": "silaba",
+      "word_source_type": "admin",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'LATA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'LAÇO').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'LAGARTA').id %>
+        }
+      ]
+    },
+
+    {
+      "type": "key",
+      "word_id": <%= Word.silaba.find_by(text: 'BO').id %>,
+      "word_type": "silaba",
+      "word_source_type": "admin",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BOLA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BOTA').id %>
+        },
+        {
+          "type": "value",
+          "word_id": <%= Word.substantivo_comum.find_by(text: 'BOI').id %>
+        }
+      ]
+    }
+  ]
+}

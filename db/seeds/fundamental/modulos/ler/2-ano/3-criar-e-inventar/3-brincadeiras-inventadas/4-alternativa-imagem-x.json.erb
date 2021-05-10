@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "MARQUE A ESCRITA CORRETA DO TÍTULO DO TEXTO:",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "ADOLETA - adoleta",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/brincadeiras-inventadas/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ADOTELA - adotela"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ATOLETA - atoleta"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "ALODETA - alodeta"
+    }
+  ]
+}

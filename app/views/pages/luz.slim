@@ -1,0 +1,31 @@
+b-container
+    b-row align-v="center" align-h="center"
+        b-col cols="10" sm="6" md="6" lg="3" 
+            chart-progress { 
+                label="Começar"
+                color="#ec2727" 
+                image="#{image_url('student/btn-start.png')}" 
+                :total-completed="30"
+            }
+        b-col cols="10" sm="6" md="6" lg="3"
+            chart-progress {
+                label="Ler" 
+                color="#00963F"
+                image="#{image_url('student/btn-read.png')}"
+                :total-completed="65"
+            }               
+
+        b-col cols="10" sm="6" md="6" lg="3"
+            chart-progress { 
+                label="Escrever"
+                color="#007CB2"
+                image="#{image_url('student/btn-write.png')}" 
+                :total-completed="40"
+            }
+        b-col cols="10" sm="6" md="6" lg="3"
+            chart-progress {
+                label="Livros"
+                color="#F39E00"
+                image="#{image_url('student/btn-books.png')}" 
+                :total-completed="35"
+            }

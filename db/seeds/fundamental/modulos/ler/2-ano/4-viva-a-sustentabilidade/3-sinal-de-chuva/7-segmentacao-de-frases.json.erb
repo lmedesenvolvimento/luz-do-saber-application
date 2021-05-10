@@ -1,0 +1,39 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 7,
+
+  "description_text":  "QUAIS DESSES SINAIS DE CHUVA NÃO APARECEM NO LIVRO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "SOFÁ E CORTINA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "FORMIGA COM ASAS"
+        },
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "ARANHA A SE ACHEGAR"
+        },
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "BELEZA DA CAATINGA"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "PASSARINHOS VOANDO BAIXO"
+    }
+  ]
+}

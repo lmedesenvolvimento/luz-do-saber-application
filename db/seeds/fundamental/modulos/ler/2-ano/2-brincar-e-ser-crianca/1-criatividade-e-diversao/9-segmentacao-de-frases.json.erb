@@ -1,0 +1,39 @@
+{
+  "unit_id": "<%= Unit.friendly.find('criatividade-e-diversao').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 9,
+
+  "description_text":  "A PETECA EM MINAS GERAIS É FEITA COM:",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "CASCA DE BANANEIRA",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "CASCA DE BANANA"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "SOLA DE CHINELO"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "PALHA DE MILHO"
+    }
+  ]
+}

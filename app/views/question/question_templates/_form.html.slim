@@ -1,0 +1,30 @@
+- url = @question_template.new_record? ? question_templates_path : question_template_path(@question_template)
+
+= simple_form_for @question_template, url: url do |f|
+  = f.input :name
+  = f.input :image
+  = f.input :question_type
+  = f.input :question_subtype
+  = f.input :question_total_correct_items
+  = f.input :question_shuffle_keys
+  = f.input :question_shuffle_values
+  = f.input :points_lost_a_star_by_attempt
+  = f.input :points_lost_a_star_by_time
+  = f.input :item_template_key_font_size
+  = f.input :item_template_key_custom
+  = f.input :item_template_key_tags
+  = f.input :item_template_key_total_per_line
+  = f.input :item_template_key_template_slug
+  = f.input :item_template_value_font_size
+  = f.input :item_template_value_custom
+  = f.input :item_template_value_tags
+  = f.input :item_template_value_total_per_line
+  = f.input :item_template_value_template_slug
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_templates_path, :class => 'btn btn-default'
+
+br

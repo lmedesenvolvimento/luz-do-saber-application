@@ -1,0 +1,30 @@
+doctype html
+html[lang="en"]
+  head
+    meta[charset="utf-8"]
+    meta[name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"]
+    meta[name='user-role' content="#{current_user.role}"]
+    meta[name='context' content="#{ENV['LUZ_DO_SABER_AMBIENTE']}"]
+    title
+      = title
+
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+
+  body
+    #wrapper
+      = render "layouts/sb-admin-2/navbar"
+
+      #page-wrapper
+        .container
+          = render "flashes"
+
+          = yield
+
+    = javascript_include_tag 'application'
+    = render "css_overrides"
+
+  javascript:
+    $(document).ready(function() {
+      $('.form-control.select').select2();
+    });

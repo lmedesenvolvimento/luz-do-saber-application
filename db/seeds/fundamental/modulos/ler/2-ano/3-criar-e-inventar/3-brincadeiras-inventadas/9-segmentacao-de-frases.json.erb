@@ -1,0 +1,37 @@
+{
+  "unit_id": "<%= Unit.friendly.find('brincadeiras-inventadas').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 9,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Puxa o rabo do tatu.",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Puxa orabo do tatu."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Puxa o rabodo tatu."
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "Puxao rabo do tatu."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+aside {
+  position: fixed;
+  width: 100%;
+  max-width: $aside-width;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin-top: $navbar-height;
+  background-color: $aside-color;
+  border-right: 1px $border-color solid;
+  box-shadow: 0px 3px 10px #00000066;
+  transition: transform 0.2s ease-out;
+  transform: translateX(-100%);
+  z-index: 90;
+  .sidebar{
+    border: none;
+    border-radius: 0px;
+  }
+  &[aria-expanded="true"]{
+    transform: translateX(0);
+  }
+  .list-group{    
+    margin-top: 0px;
+    .list-group-item{
+      @include nunito_bold;
+      font-size: 14px;
+      padding: 15px;
+      border-left: none;
+      border-right: none;
+      border-top-color: $aside-border-color;
+      border-radius: 0px;
+      text-transform: uppercase;
+      &[role="button"]{
+        &[aria-expanded="true"]{
+          .arrow{
+            transform: rotate(90deg);
+          }
+        }
+        &[aria-expanded="false"]{
+          .arrow{
+            transform: rotate(-90deg);
+          }
+        }
+      }
+      &:not(.active){
+        background-color: $aside-color;
+        &:hover, &:active, &:focus{
+          background-color: darken($aside-color, 5);
+        }
+      }
+      &:first-child {
+        border-top: none;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+      .icon{
+        padding-right: 15px;
+      }
+    }
+  }
+}
+
+#page-wrapper{
+  @extend .container-fluid;
+  border: none;
+}
+
+@media (max-width: $screen-sm){
+ #page-wrapper{
+   margin-left: 0px;
+ } 
+}

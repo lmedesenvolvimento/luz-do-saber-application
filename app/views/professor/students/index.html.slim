@@ -1,0 +1,36 @@
+- model_class = Student
+.page-header
+  / h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+  h1 Alunos
+
+table.table.table-striped
+  thead
+    tr
+      th= model_class.human_attribute_name(:id)
+      th= model_class.human_attribute_name(:school_group_code)
+      th= model_class.human_attribute_name(:name)
+      th= model_class.human_attribute_name(:status)
+      th= model_class.human_attribute_name(:email)
+      th= model_class.human_attribute_name(:state)
+      th= model_class.human_attribute_name(:city)
+      th= model_class.human_attribute_name(:school_name)
+      th=t '.actions', :default => t("helpers.actions")
+  tbody
+    - @students.each do |student|
+      tr
+        td= link_to student.id, professor_student_path(student)
+        td= student.school_group_code
+        td= student.name
+        td= student.status
+        td= student.email
+        td= student.state
+        td= student.city
+        td= student.school_name
+        td
+          = link_to t('.show', :default => t("helpers.links.show")), professor_student_path(student), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_professor_student_path(student), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), professor_student_path(student), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_professor_student_path, :class => 'btn btn-primary'

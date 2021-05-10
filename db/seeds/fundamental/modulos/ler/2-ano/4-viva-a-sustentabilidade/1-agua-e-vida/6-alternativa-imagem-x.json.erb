@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('agua-e-vida').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 6,
+
+  "description_text":  "DE ACORDO COM A IMAGEM DEVEMOS ECONOMIZAR?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "ÁGUA",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/agua-e-vida/6.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "DINHEIRO"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "LUZ"
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "COMIDA"
+    }
+  ]
+}

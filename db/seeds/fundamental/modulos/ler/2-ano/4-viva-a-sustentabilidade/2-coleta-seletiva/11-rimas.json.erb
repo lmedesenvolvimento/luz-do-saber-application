@@ -1,0 +1,33 @@
+{
+  "unit_id": "<%= Unit.friendly.find('coleta-seletiva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('rimas').id %>",
+
+  "order": 11,
+
+  "description_text":  "MARQUE AS PALAVRAS QUE RIMAM COM LIXO.",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "LIXO",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "BICHO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "FIXO"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "COLETA"
+    }
+  ]
+}

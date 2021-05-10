@@ -1,0 +1,27 @@
+{
+  "unit_id": "<%= Unit.friendly.find('a-maquina-de-pororo').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-frase-escrever').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "Pororó é muito divertido e engraçado",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/a-maquina-de-pororo/pororo-e-muito-divertido-e-engraçado.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "DIVERTIDO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ENGRAÇADO"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+= simple_form_for @theme do |f|
+  .row
+    .col-lg-2
+      = f.input :status, include_blank: false
+
+    .col-lg-2
+      = f.input :order
+
+  .row
+    .col-lg-2
+      = f.association :theme_audience
+
+  .row
+    .col-lg-6
+      = f.input :title
+
+  .row
+    .col-lg-6
+      = f.input :description, as: :text
+
+  .row
+    .col-lg-3
+      = f.association :modulo, include_blank: false
+
+    .col-lg-3
+      = f.input :target_audience, include_blank: false
+
+  .row
+    .col-lg-6
+      = f.input :cover, as: :file
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), themes_path, :class => 'btn btn-default'

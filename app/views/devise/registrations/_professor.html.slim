@@ -1,0 +1,58 @@
+- model_class = User
+
+.panel.panel-primary.panel--box-shadow
+  .panel-heading
+    | Cadastro de Professor
+  .panel-body
+    = simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f|
+      = f.error_notification
+
+      .form-inputs
+
+        = f.input :role, value: :professor, as: :hidden
+
+        .row
+          .col-lg-6
+            = f.input :first_name, required: true, autofocus: true, label: false, placeholder: model_class.human_attribute_name('first_name')
+
+          .col-lg-6
+            = f.input :last_name, required: true, label: false, placeholder: model_class.human_attribute_name('last_name')
+        .row
+          .col-lg-6
+            = f.input :cpf, required: true, label: false, placeholder: model_class.human_attribute_name('cpf')
+
+          .col-lg-6
+            = f.input :rg, required: true, label: false, placeholder: model_class.human_attribute_name('rg')
+        .row
+          .col-lg-6
+            = f.input :gender, required: true, autofocus: true, label: false, placeholder: model_class.human_attribute_name('cpf'), include_blank: 'Genêro'
+
+          .col-lg-6
+            = f.input :school_degree_level, collection: ['Graduação', 'Especialização', 'Mestrado', 'Doutorado', 'Outros' ], required: true, label: false, placeholder: model_class.human_attribute_name('school_degree_level'), include_blank: 'Escolaridade'
+
+        .row
+          .col-lg-12
+            = f.input :email, \
+              required: true, \
+              autofocus: true, \
+              input_html: { autocomplete: "email" }, \
+              label: false, placeholder: model_class.human_attribute_name('email')
+
+        .row
+          .col-lg-6
+            = f.input :password, \
+              required: true, \
+              hint: ("pelo menos #{@minimum_password_length} caracteres" if @minimum_password_length), \
+              input_html: { autocomplete: "new-password" }, \
+              label: false, \
+              placeholder: model_class.human_attribute_name('password')
+
+          .col-lg-6
+            = f.input :password_confirmation, \
+              required: true, \
+              input_html: { autocomplete: "new-password" }, \
+              label: false, \
+              placeholder: model_class.human_attribute_name('password_confirmation')
+
+      .clear-fix
+        = f.button :submit, "Cadastrar", class: 'btn btn-primary'

@@ -1,0 +1,34 @@
+= simple_form_for @item_template do |f|
+
+  .row
+    .col-lg-4
+      = f.input :type, include_blank: false
+
+  .row
+    .col-lg-7
+      = f.input :name, autofocus: true, placeholder: 'Ex.: Caixa padrão',  hint: 'Para identificar o template ao criar uma questão.'
+
+  .row
+    .col-lg-7
+      = f.input :description, as: :text
+
+  .row
+    .col-lg-3
+      = f.input :image, as: :file, hint: 'Este template tem uma imagem de background?'
+
+      - if @item_template.image.present?
+        .row
+          .col-lg-12
+            = image_tag @item_template.image.url
+          .col-lg-12
+            = f.input :delete_image, as: :boolean
+
+  hr
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), question_item_templates_path, :class => 'btn btn-default'
+
+br

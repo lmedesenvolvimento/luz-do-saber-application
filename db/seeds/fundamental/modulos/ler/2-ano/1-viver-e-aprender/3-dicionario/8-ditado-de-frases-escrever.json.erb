@@ -1,0 +1,15 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('ditado-de-frases-escrever').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "PAPAGAIO É PÁ PÁ PÁ ALEGRE",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/dicionario/papagaio-e-pa-pa-pa-alegre.mp3' %>"
+    }
+  ]
+}

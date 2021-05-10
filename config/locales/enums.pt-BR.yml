@@ -1,0 +1,83 @@
+# encoding: UTF-8
+pt-BR:
+
+  enums:
+    user:
+      role:
+        admin: Admin
+        professor: Professor
+        student: Aluno
+      gender:
+        female: Feminino
+        male: Masculino
+      status:
+        active: Ativo
+        inactive: Inativo
+      school_period:
+        morning: Manhã
+        afternoon: Tarde
+        night: Noite
+    student:
+      school_period:
+        morning: Manhã
+        afternoon: Tarde
+        night: Noite
+    theme_audience:
+      status:
+        active: Ativo
+        inactive: Inativo
+    theme:
+      target_audience:
+        general: geral
+        first_year: primeiro-ano
+        second_year: segundo-ano
+        third_year: terceiro-ano
+        fourth_year: quarto-ano
+        fifth_year: quinto-ano
+        sixth_year: sexto-ano
+        seventh_year: setimo-ano
+        eighth_year: oitavo-ano
+        ninth_year: nono-ano
+        first_year_complementary: primeiro-ano-complementar
+        second_year_complementary: segundo-ano-complementar
+        third_year_complementary: terceiro-ano-complementar
+      status:
+        active: Ativo
+        inactive: Inativo
+    book:
+      status:
+        active: Ativo
+        inactive: Inativo
+    karaoke:
+      status:
+        active: Ativo
+        inactive: Inativo
+    groups_participant:
+      type:
+        student: Aluno
+        professor: Professor
+      status:
+        active: Ativo
+        inactive: Inativo
+    word:
+      type:
+        letra: Letra
+        silaba: Sílaba
+        substantivo_proprio: "Substantivo Próprio"
+        substantivo_comum: "Substantivo Comum"
+        caractere_especial: "Caractere Especial"
+        numero: Número
+        frase: Frase
+        texto: Texto
+        input_custom: Outro
+        youtube: YouTube
+    question:
+      question:
+        status:
+          draft: Rascunho
+          published: Publicado
+          archived: Arquivado
+      pointing:
+        type:
+          lost_a_star_by_attempt: Tentativa
+          lost_a_star_by_time: Tempo

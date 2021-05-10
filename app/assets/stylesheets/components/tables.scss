@@ -1,0 +1,13 @@
+.table {
+  &--primary {
+    thead {
+      background-color: $brand-primary;
+      color: #fff;
+    }
+  }
+  td, th{
+    &.numeric{
+      text-align: right;
+    }
+  }
+}

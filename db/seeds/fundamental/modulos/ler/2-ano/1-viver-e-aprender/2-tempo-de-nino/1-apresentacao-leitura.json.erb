@@ -1,0 +1,87 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('tempo-de-nino').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "O TEMPO DE NINO
+
+NINO É UM MENINO QUE TEM UM GRANDE PROBLEMA COM O TEMPO.
+POR ISSO, NO DIA DO SEU ANIVERSÁRIO,GANHOU UM RELÓGIO DE PRESENTE DO PAI.
+
+NINO FICOU MARAVILHADO. ELE VIU O PAI MOVER OS PONTEIROS, PUXANDO E GIRANDO O PINO DO RELÓGIO.
+AGORA ELE SABIA TAMBÉM COMO DOMINAR O TEMPO.
+
+NUNCA ERA O TEMPO QUE ELE QUERIA.
+QUANDO QUERIA BRINCAR, A MÃE DIZIA: \"NINO, É HORA DE COMER\". QUANDO QUERIA COMER, A MÃE DIZIA: \"MENINO, NÃO É HORA DE COMER, VÁ BRINCAR\".
+
+NA ESCOLA, QUANDO QUERIA CONTINUAR DESENHANDO, A PROFESSORA DIZIA: \"ACABOU O TEMPO DE DESENHAR, É HORA DE JUNTAR OS LÁPIS\".
+NO RECREIO, A PROFESSORA SEMPRE FALAVA: \"VAMOS VOLTAR PARA A SALA\".
+
+CONTUDO, AGORA TUDO SERIA DIFERENTE!
+NINO PODERIA CONTROLAR O RELÓGIO. ELE SABIA ARRASTAR OS PONTEIROS PARA FRENTE E PARA TRÁS.
+
+NA ESCOLA, ELE OUVIU A PROFESSORA FALAR PARA OS SEUS PAIS:
+- SEU FILHO ESTÁ ATRASADO. ESTAMOS QUASE TERMINANDO O ANO LETIVO E ELE AINDA NÃO APRENDEU A ORDEM DOS NÚMEROS.
+
+QUANDO OS PAIS RETORNARAM DA ESCOLA, FALARAM PARA ELE:
+- FILHO, CONVERSAMOS COM A SUA PROFESSORA. VOCÊ TERÁ MAIS TEMPO PARA APRENDER A ORDEM DOS NÚMEROS.
+
+UMA SEMANA APÓS ELE FAZER AS PROVAS DOS NÚMEROS, OS PAIS FORAM CONVERSAR COM O DIRETOR.
+GRANDE FOI A SURPRESA AO OUVIREM QUE O ALUNO ACERTARÁ TODAS AS QUESTÕES.
+
+ELE APRENDEU, COM A AJUDA DO RELÓGIO, A ORDEM DOS NÚMEROS DE 1 A 12 E AGORA SABIA QUE NÚMERO VINHA ANTES E DEPOIS DE CADA UM.
+
+FRAGMENTO DE TEXTO BASEADO NO LIVRO \"O TEMPO DE NINO\" DA COLEÇÃO PAIC PROSA E POESIA.").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/tempo-de-nino/o-tempo-de-nino-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/tempo-de-nino/1.png' %>"
+    }
+  ]
+}

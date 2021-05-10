@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('fabrica-de-brinquedos').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "QUAL É O ASSUNTO DO CONTO?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "CONSTRUÇÃO DE BRINQUEDOS",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/fabrica-de-brinquedos/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "VALOR DA AMIZADE"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "COZINHAR ALIMENTOS"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "BONS VIZINHOS"
+    }
+  ]
+}

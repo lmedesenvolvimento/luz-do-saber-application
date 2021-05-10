@@ -1,0 +1,66 @@
+- model_class = Book
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+.row
+  .col-lg-12
+    = image_tag @book.cover_full_url, width: 200
+
+br
+
+.row
+  - if @book.pdf_full_url.present?
+    .col-lg-1
+      = link_to '[PDF]', @book.pdf_full_url, target: '_blank'
+
+  - if @book.zip_pages.present?
+    .col-lg-1
+      = link_to '[ZIP]', @book.zip_pages.url, target: '_blank'
+
+.row
+  .col-lg-12
+    - @book.pages.each_with_index do |page, idx|
+      - unless idx.zero?
+        '  |
+      = link_to "Página #{idx + 1}", page['url'], target: '_blank'
+
+br
+
+.row
+  .col-lg-12
+    p
+      strong= model_class.human_attribute_name(:title) + ':'
+      br
+      = @book.title
+
+    p
+      strong= model_class.human_attribute_name(:subtitle) + ':'
+      br
+      = @book.subtitle
+
+    p
+      strong= model_class.human_attribute_name(:total_pages) + ':'
+      br
+      = @book.total_pages
+
+    p
+      strong= model_class.human_attribute_name(:authors) + ':'
+      br
+      = @book.authors
+
+    p
+      strong= model_class.human_attribute_name(:status) + ':'
+      br
+      = @book.status
+
+hr
+
+.row
+  .col-lg-12
+    = link_to t('.back', :default => t("helpers.links.back")), books_path, :class => 'btn btn-default'
+    '
+    = link_to t('.edit', :default => t("helpers.links.edit")), edit_book_path(@book), :class => 'btn btn-default'
+    '
+    = link_to t('.destroy', :default => t("helpers.links.destroy")), book_path(@book), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+
+br

@@ -1,0 +1,26 @@
+{
+  "unit_id": "<%= Unit.friendly.find('criatividade-e-diversao').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 2,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_text": "<%= "Brincadeiras com petecas nas diversas regiões do Brasil \\n \
+O mesmo brinquedo pode ser feito de vários jeitos diferentes. \\n \
+Essa menina pomerana, do Espírito Santo exemplo, \\n \
+aprendeu com o pai a fazer com sola de chinelo. \\n \
+\\n \
+Na floresta Amazônica esse índio Panará fez com palha de milho. \\n \
+E em Minas Gerais essas meninas fazem com casca de bananeira. \\n \
+Que brinquedo será esse? \\n \
+\\n \
+Território do Brincar | Série de MiniDocs | Brincadeiras \\n \
+com petecas nas diversas regiões do Brasil" %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/criatividade-e-diversao/brincadeiras-com-petecas-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/criatividade-e-diversao/2.png' %>"
+    }
+  ]
+}

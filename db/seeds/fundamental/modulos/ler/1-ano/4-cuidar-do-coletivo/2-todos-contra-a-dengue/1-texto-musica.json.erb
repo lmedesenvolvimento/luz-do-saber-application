@@ -1,0 +1,129 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('todos-contra-a-dengue').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('apresentacao-leitura').id %>",
+
+  "order": 1,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": false,
+
+  "general_info": "Texto com áudio e imagem",
+
+  "title_attributes": { "text": "APRESENTAÇÃO LEITURA" },
+  "description_text":  "CLIQUE E ESCUTE." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 300
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "extreme-small",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0,
+      "question_item_template_id": null
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "texto",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "
+“Xô Xuá (Água Parada não Vai Ficar)”
+Hélio Ziskind
+Água parada, água parada
+Água parada é muito bom pra mim
+Nascem muitos mosquitinhos
+
+Sim, sim, sim
+Sim, sim, sim, o quê?!
+Não, não!
+
+Não vou deixar, não
+Água parada pra mosquito, não
+Vai, gatinho!
+Muito bem!
+
+Pensa onde é que tem
+Água parada...
+
+Vamos, vamos lá, virar o pneu
+Xô xuá
+Vira a garrafinha
+Xô xuá
+Caixa-d’água tampadinha
+Tum tum tum
+Vem ajudar
+
+Água parada pra mosquito?
+Não, não vai rolar!
+
+Olha o mosquito no vasinho
+Xô xuá
+Tira a água de lá
+Xô xuá
+Põe areia no lugar
+
+Chama o seu vizinho
+E fala pro vizinho
+Falar pro seu vizinho
+Que é pro bem de todo mundo
+E todo mundo tem que vir ajudar
+
+Na lata, na calha, no pneu
+Pensa no mosquito
+Não deixa a água parar
+Não, não
+
+Lava, lava
+Enxuga, enxuga
+
+Todo mundo
+Vem ajudar!
+
+Água parada pra mosquito, não
+Não vai rolar!
+
+Se o mosquito não tiver onde criar
+Não nasce mosquito pra picar
+Vamos lá, vamos lá
+
+Vamos ajudar
+Água parada não vai ficar
+Vamos ajudar
+Água parada não vai ficar
+Vamos ajudar
+Água parada não vai ficar
+Vamos ajudar
+Água parada não vai ficar
+Não, não").id %>",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/todos-contra-a-dengue/todos-contra-a-dengue-texto.mp3' %>",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/todos-contra-a-dengue/1.png' %>"
+    }
+  ]
+}

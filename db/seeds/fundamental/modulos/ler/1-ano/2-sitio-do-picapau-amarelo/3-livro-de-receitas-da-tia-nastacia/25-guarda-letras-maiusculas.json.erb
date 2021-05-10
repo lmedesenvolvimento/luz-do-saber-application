@@ -1,0 +1,89 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('livro-de-receitas-da-tia-nastacia').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('agrupamento-de-maiusculas').id %>",
+
+  "order": 25,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": true,
+  "shuffle_value_items": true,
+
+  "general_info": "Lista letras maiúsculas e minúsculas para o aluno organizar.",
+
+  "title_attributes": { "text": "GUARDA LETRAS" },
+  "description_text":  "ARRASTE AS LETRAS MAIÚSCULAS PARA A CAIXA." ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 11
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 0
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": "game-caixa-de-palavras",
+      "tags": "encaixar",
+      "total_per_line": 3,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>",
+      "custom_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/custom/caixa.png' %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "arrastar",
+      "total_per_line": 4,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_id": <%= Word.input_custom.find_or_create_by(user: User.admin.first, text: 'MAIÚSCULAS').id %>,
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'A').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'C').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'E').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'R').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'T').id %>
+        },
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_id": <%= Word.letra.find_by(text: 'I').id %>
+        }
+      ]
+    }
+  ]
+}

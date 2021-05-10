@@ -1,0 +1,15 @@
+.container{
+  &--small{
+    @extend .container;
+    max-width: 44rem;
+  }
+  &--xs{
+    @extend .container;
+    max-width: ( 44rem * 0.7);
+  }
+}
+
+#wrapper {
+  width:100%;
+  padding-top: $navbar-height;
+}

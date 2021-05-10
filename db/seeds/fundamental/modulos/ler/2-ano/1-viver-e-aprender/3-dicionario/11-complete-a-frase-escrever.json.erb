@@ -1,0 +1,46 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-frase-escrever').id %>",
+
+  "order": 11,
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-audio').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "small",
+      "custom": null,
+      "tags": "input",
+      "total_per_line": 2,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "DICIONÁRIO É O LIVRO DE SIGNIFICADO DAS PALAVRAS",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/dicionario/dicionario-e-o-livro-de-significado-das-palavras.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "DICIONÁRIO"
+        },
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_text": "PALAVRAS"
+        }
+      ]
+    }
+  ]
+}

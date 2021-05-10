@@ -1,0 +1,27 @@
+{
+  "unit_id": "<%= Unit.friendly.find('agua-e-vida').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('complete-a-frase-escrever').id %>",
+
+  "order": 9,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "DICAS LEGAIS DE COMO ECONOMIZAR ÁGUA",
+      "remote_audio_url": "<%= ENV['ASSET_HOST'] + '/audios/questions/agua-e-vida/dicas-legais-de-como-economizar-agua.mp3' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "LEGAIS"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "ECONOMIZAR"
+        }
+      ]
+    }
+  ]
+}

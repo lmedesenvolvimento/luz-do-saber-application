@@ -1,0 +1,16 @@
+common: &common
+  adapter: postgresql
+  # username: postgres
+#  password: palantir
+
+development:
+  <<: *common
+  database: lightsaber_development
+
+test:
+  <<: *common
+  database: lightsaber_test
+
+production:
+  <<: *common
+  url:  <%= ENV.fetch("DATABASE_URL", "") %>

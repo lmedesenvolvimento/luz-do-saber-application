@@ -1,0 +1,83 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('unidade-extra').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('atividade-texto').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('padrao-coluna').id %>",
+
+  "order": 3,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Lista de frases. O usuário deve indicar a que está escrita corretamente.",
+
+  "title_attributes": { "text": "Questionário" },
+  "description_text":  "FAÇA UM X NO QUADRADINHO DA FRASE QUE ESTÁ ESCRITA CORRETAMENTE" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": null,
+      "custom": null,
+      "tags": null,
+      "total_per_line": 0
+    },
+    {
+      "type": "value",
+      "font_size": "medium",
+      "custom": "game-checkmark",
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "AS CRIANÇAS PRECISAM DE AMOR").id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "ASCRIANÇASPRECISAMDEAMOR").id %>"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "ASCRIANÇAS PRECISAM DEAMOR").id %>"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_source_type": "input_custom",
+      "word_id": "<%= Word.input_custom.find_or_create_by(user: User.admin.first, text: "ASCRIANÇASPRECISAM DE AMOR").id %>"
+    }
+  ]
+}

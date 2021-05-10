@@ -1,0 +1,19 @@
+- url = @groups_participant.new_record? ? group_participants_path(@group) : group_participant_path(@group, @groups_participant)
+
+= simple_form_for @groups_participant, url: url do |f|
+  .row
+    .col-lg-3
+      = f.input :type, include_blank: false
+
+    .col-lg-3
+      = f.input :status, include_blank: false
+
+  .row
+    .col-lg-6
+      = f.input :user_email
+
+  .row
+    .col-lg-12
+      = f.button :submit, :class => 'btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), group_participants_path(@group), :class => 'btn btn-default'

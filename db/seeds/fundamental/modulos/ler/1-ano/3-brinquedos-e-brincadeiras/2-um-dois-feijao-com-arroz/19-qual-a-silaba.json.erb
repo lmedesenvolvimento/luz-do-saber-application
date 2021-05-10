@@ -1,0 +1,74 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('um-dois-feijao-com-arroz').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('completa-palavra-com-silaba').id %>",
+
+  "order": 19,
+  "total_correct_items": 99,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Exibe uma imagem com o nome faltando uma sílaba. O usuário deve selecionar a sílaba que falta.",
+
+  "title_attributes": { "text": "QUAL A SÍLABA" },
+  "description_text":  "QUAL A SÍLABA QUE ESTÁ FALTANDO?" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 1
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": null,
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "selecao",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'BISCOITO').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": "<%= Word.silaba.find_by(text: 'COI').id %>"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_id": "<%= Word.silaba.find_by(text: 'BIS').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.silaba.find_by(text: 'TO').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.silaba.find_by(text: 'CO').id %>"
+    }
+  ]
+}

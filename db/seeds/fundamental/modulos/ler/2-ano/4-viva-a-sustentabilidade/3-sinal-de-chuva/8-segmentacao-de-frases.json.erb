@@ -1,0 +1,37 @@
+{
+  "unit_id": "<%= Unit.friendly.find('sinal-de-chuva').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('segmentacao-de-frases').id %>",
+
+  "order": 8,
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "SINAL DE CHUVA NOS QUATROS CANTOS DO SERTÃO",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "SINALDECHUVA NOS QUATROS CANTOSDOSERTÃO"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "SINALDECHUVA NOS QUATROS CANTOS DO SERTÃO"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "SINAL DE CHUVA NOSQUATROSCANTOS DO SERTÃO"
+    }
+  ]
+}

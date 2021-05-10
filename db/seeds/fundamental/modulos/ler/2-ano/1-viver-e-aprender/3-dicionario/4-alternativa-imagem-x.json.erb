@@ -1,0 +1,40 @@
+{
+  "unit_id": "<%= Unit.friendly.find('dicionario').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('alternativa-imagem-x').id %>",
+
+  "order": 4,
+
+  "description_text":  "O TEXTO \"CANÇÃO DO DICIONÁRIO\" É?",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "frase",
+      "word_text": "UMA CANÇÃO",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/dicionario/4.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "frase",
+          "word_source_type": "key_same"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UMA RECEITA"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UM CONVITE"
+    },
+    {
+      "type": "value",
+      "word_type": "frase",
+      "word_text": "UM CONTO"
+    }
+  ]
+}

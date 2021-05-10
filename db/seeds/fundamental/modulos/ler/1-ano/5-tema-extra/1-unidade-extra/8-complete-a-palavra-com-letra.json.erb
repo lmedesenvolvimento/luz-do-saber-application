@@ -1,0 +1,76 @@
+{
+  "user_id": "<%= User.admin.first.id %>",
+
+  "unit_id": "<%= Unit.friendly.find('unidade-extra').id %>",
+  "question_type_id": "<%= Question::Type.friendly.find('jogo').id %>",
+  "question_subtype_id": "<%= Question::Subtype.friendly.find('completa-palavra-com-letra').id %>",
+
+  "order": 8,
+  "total_correct_items": 1,
+
+  "external_param_total": 0,
+
+  "shuffle_key_items": false,
+  "shuffle_value_items": true,
+
+  "general_info": "Exibe uma imagem com o nome faltando uma letra. O usuário deve encaixar a letra que falta.",
+
+  "title_attributes": { "text": "DESCUBRA A LETRA QUE ESTÁ FALTANDO" },
+  "description_text":  "DESCUBRA A LETRA QUE ESTÁ FALTANDO" ,
+
+  "pointings_attributes": [
+    {
+      "type": "lost_a_star_by_attempt",
+      "quantity": 4
+    },
+    {
+      "type": "lost_a_star_by_time",
+      "quantity": 30
+    }
+  ],
+
+  "questions_item_templates_attributes": [
+    {
+      "type": "key",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "encaixar",
+      "total_per_line": 1,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-imagem-texto').id %>"
+    },
+    {
+      "type": "value",
+      "font_size": "relative",
+      "custom": null,
+      "tags": "arrastar",
+      "total_per_line": 12,
+      "question_item_template_id": "<%= Question::ItemTemplate.friendly.find('componente-de-texto').id %>"
+    }
+  ],
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_id": "<%= Word.substantivo_comum.find_by(text: 'CARRO').id %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_id": "<%= Word.letra.find_by(text: 'O').id %>"
+        }
+      ]
+    },
+
+    {
+      "type": "value",
+      "word_id": "<%= Word.letra.find_by(text: 'A').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.letra.find_by(text: 'U').id %>"
+    },
+    {
+      "type": "value",
+      "word_id": "<%= Word.letra.find_by(text: 'R').id %>"
+    }
+  ]
+}

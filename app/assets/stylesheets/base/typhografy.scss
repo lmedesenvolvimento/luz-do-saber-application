@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Nunito';
+  src: image-url('fonts/Nunito-Regular.woff') format('woff'),
+       image-url('fonts/Nunito-Regular.tff')  format('truetype'),
+}
+
+@font-face {
+  font-family: 'Nunito Bold';
+  src: image-url('fonts/Nunito-Bold.woff') format('woff'),
+       image-url('fonts/Nunito-Bold.tff')  format('truetype'),
+}
+
+html, body{
+  @include nunito;
+}

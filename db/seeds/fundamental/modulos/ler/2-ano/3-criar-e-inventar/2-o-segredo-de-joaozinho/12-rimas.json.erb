@@ -1,0 +1,34 @@
+{
+  "unit_id": "<%= Unit.friendly.find('o-segredo-de-joaozinho').id %>",
+  "question_question_template_id": "<%= Question::QuestionTemplate.friendly.find('rimas').id %>",
+
+  "order": 12,
+
+  "description_text":  "MARQUE AS PALAVRAS QUE RIMAM COM: \"SEGREDO\"",
+
+  "items_attributes": [
+    {
+      "type": "key",
+      "word_type": "substantivo_comum",
+      "word_text": "SEGREDO",
+      "remote_image_url": "<%= ENV['ASSET_HOST'] + '/images/questions/fundamental/o-segredo-de-joaozinho/segredo.png' %>",
+      "value_items_attributes": [
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "BRINQUEDO"
+        },
+        {
+          "type": "value",
+          "word_type": "substantivo_comum",
+          "word_text": "MEDO"
+        }
+      ]
+    },
+    {
+      "type": "value",
+      "word_type": "substantivo_comum",
+      "word_text": "CÓDIGO"
+    }
+  ]
+}
