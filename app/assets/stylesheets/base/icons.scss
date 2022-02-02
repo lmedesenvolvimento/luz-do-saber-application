@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'icomoon';
-  src:  image-url('fonts/icomoon.eot?1arxlp');
-  src:  image-url('fonts/icomoon.eot?1arxlp#iefix') format('embedded-opentype'),
+  src: image-url('fonts/icomoon.eot?1arxlp');
+  src: image-url('fonts/icomoon.eot?1arxlp#iefix') format('embedded-opentype'),
     image-url('fonts/icomoon.ttf?1arxlp') format('truetype'),
     image-url('fonts/icomoon.woff?1arxlp') format('woff'),
     image-url('fonts/icomoon.svg?1arxlp#icomoon') format('svg');
@@ -10,7 +10,8 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^='icon-'],
+[class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -26,71 +27,71 @@
 }
 
 .icon-pen-solid:before {
-  content: "\e914";
+  content: '\e914';
 }
 .icon-gamepad-solid:before {
-  content: "\e900";
+  content: '\e900';
 }
 .icon-eye-regular:before {
-  content: "\e901";
+  content: '\e901';
 }
 .icon-ellipsis-v-solid:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-edit-regular:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-clipboard-list-solid:before {
-  content: "\e904";
+  content: '\e904';
 }
 .icon-caret-down-solid:before {
-  content: "\e905";
+  content: '\e905';
 }
 .icon-book-solid:before {
-  content: "\e906";
+  content: '\e906';
 }
 .icon-bars-solid:before {
-  content: "\e907";
+  content: '\e907';
 }
 .icon-angle-down-solid:before {
-  content: "\e908";
+  content: '\e908';
 }
 .icon-lock-solid:before {
-  content: "\e909";
+  content: '\e909';
 }
 .icon-user-solid:before {
-  content: "\e90a";
+  content: '\e90a';
 }
 .icon-user-circle-solid:before {
-  content: "\e90b";
+  content: '\e90b';
 }
 .icon-upload-solid:before {
-  content: "\e90c";
+  content: '\e90c';
 }
 .icon-trash-alt-regular:before {
-  content: "\e90d";
+  content: '\e90d';
 }
 .icon-sign-out-alt-solid:before {
-  content: "\e90e";
+  content: '\e90e';
 }
 .icon-search-solid:before {
-  content: "\e90f";
+  content: '\e90f';
 }
 .icon-plus-solid:before {
-  content: "\e910";
+  content: '\e910';
 }
 .icon-play-solid:before {
-  content: "\e911";
+  content: '\e911';
 }
 .icon-users-solid:before {
-  content: "\e912";
+  content: '\e912';
 }
 .icon-volume-up-solid:before {
-  content: "\e913";
+  content: '\e913';
 }
 
-.icon{
-  &--is-dark{
+.icon {
+  &--is-dark {
     color: white;
   }
 }

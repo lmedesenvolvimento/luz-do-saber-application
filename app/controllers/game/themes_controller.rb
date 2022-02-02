@@ -5,12 +5,14 @@ class Game::ThemesController < ApplicationController
   before_action :set_modulo, only: :index
 
   def index
-    @themes = policy_scope(@modulo.themes).order(:order)
+    @themes = policy_scope(@target_audience.themes).order(:order)
+    
   end
 
   private
 
   def set_modulo
     @modulo = Modulo.friendly.find(params[:modulo_slug])
+    @target_audience = ThemeAudience.friendly.find(params[:target_audience_slug])
   end
 end

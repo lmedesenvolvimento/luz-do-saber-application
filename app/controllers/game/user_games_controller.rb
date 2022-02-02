@@ -36,7 +36,7 @@ class Game::UserGamesController < ApplicationController
   private
 
   def user_game_params
-    params.require(:user_game).permit(:unique_session_id, :name, game: {})
+    params.require(:user_game).permit(:unique_session_id, :name, :code, game: {})
   end
 
   def set_student

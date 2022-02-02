@@ -54,36 +54,14 @@
         <div class="col-md-5"></div>
       </div>
     </div>
-    <div class="actions">
-      <router-link
-        tag="button"
-        class="btn btn-default"
-        :to="{ name: 'templates' }"
-        :disabled="busy"
-        >Cancelar</router-link
-      >
-      <button
-        @click="submit"
-        class="btn btn-primary"
-        :disabled="busy || isSubmitDisabled"
-      >
-        Criar Atividade
-      </button>
-    </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -99,97 +77,99 @@ export default {
       initialPalavra: [],
       initialCorrects: [],
       initialErradas: []
-    };
+    }
   },
-   created() {
-    if(this.items.length > 0) {     
-     this.items.map((el, index) => {
-       if (el.type === "key") {
-         this.initialPalavra.push({text: el.text})
-         this.initialCorrects.push({text: el.value_items_attributes[0].text})
-       } else {
-         this.initialErradas.push({text: el.text})
-       }
+  created() {
+    if (this.items.length > 0) {
+      this.items.map((el, index) => {
+        if (el.type === 'key') {
+          this.initialPalavra.push({ text: el.text })
+          this.initialCorrects.push({
+            text: el.value_items_attributes[0].text
+          })
+        } else {
+          this.initialErradas.push({ text: el.text })
+        }
       })
     }
   },
   computed: {
     searchFeedback() {
       return this.isSearchable
-        ? "Digite uma frase para continuar..."
-        : "Limite máximo de frases foi atigindo.";
+        ? 'Digite uma frase para continuar...'
+        : 'Limite máximo de frases foi atigindo.'
     },
     isSearchablePalavra() {
-      return this.palavra.length < 1;
+      return this.palavra.length < 1
     },
     isSearchableCorreto() {
-      return this.items.length < this.maxItems;
+      return this.items.length < this.maxItems
     },
     isSearchableIncorreto() {
-      return this.items.length < 3;
+      return this.items.length < 3
     },
     isSubmitDisabled() {
-      return !this.$parent.hasDescription;
-    },
+      return !this.$parent.hasDescription
+    }
   },
   methods: {
     addIncorrectItem(alternatives) {
-      const incorrects = alternatives.map((item) => {
-        return new Item("value", this.WordTypes.input_custom.key, item.text);
-      });
+      const incorrects = alternatives.map(item => {
+        return new Item('value', this.WordTypes.input_custom.key, item.text)
+      })
       const clonedItem = [
-        ...this.items.filter(({ type }) => type === "key"),
-        ...incorrects,
-      ];
+        ...this.items.filter(({ type }) => type === 'key'),
+        ...incorrects
+      ]
 
-      this.items = clonedItem;
+      this.items = clonedItem
     },
     addPalavra(alternatives) {
-      this.palavra = alternatives.map((item) => {
-        return new Item("value", this.WordTypes.input_custom.value, item.text);
-      });
+      this.palavra = alternatives.map(item => {
+        return new Item('value', this.WordTypes.input_custom.value, item.text)
+      })
 
-      this.theKey.value_items_attributes = this.palavra;
+      this.theKey.value_items_attributes = this.palavra
     },
     addCorrectItem(alternatives) {
-      const corrects = alternatives.map((item) => {
+      const corrects = alternatives.map(item => {
         return new Item(
-          "key",
+          'key',
           this.WordTypes.substantivo_comum.key,
           item.text,
           null,
           this.palavra
-        );
-      });
+        )
+      })
       const clonedItem = [
-        ...this.items.filter(({ type }) => type === "value"),
-        ...corrects,
-      ];
+        ...this.items.filter(({ type }) => type === 'value'),
+        ...corrects
+      ]
 
-      this.items = clonedItem;
+      this.items = clonedItem
     },
     async submit() {
       try {
-        this.busy = true;
+        this.busy = true
         // Salvando no banco novo template de questão
         setTimeout(() => {
-          this.$emit("submitTemplate");
-        }, 400);
+          this.$emit('submitTemplate')
+        }, 400)
       } catch (e) {
         this.$notify({
-          group: "danger",
-          title: "Falha",
-          text: e.message,
-        });
+          group: 'danger',
+          title: 'Falha',
+          text: e.message
+        })
 
-        this.busy = false;
+        this.busy = false
       }
-    },
+    }
   },
   mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-};
+    this.$emit('defaultActionsVisibilty', true)
+  }
+}
 </script>
 
 <style lang="scss">

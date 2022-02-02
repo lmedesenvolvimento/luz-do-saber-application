@@ -34,7 +34,8 @@
           :embedded="true"
           :word-type="word_type"
           :text="initialPalavra"
-          :is-item="isEditing"
+          :is-editing="isEditing"
+          :word-id="word_id"
           :word-type-disabled="true"
           :audio-required="false"
           :image-required="true"
@@ -46,7 +47,19 @@
       </div>
       <div class="col-md-5"></div>
     </div>
-    <div class="actions">
+    <div v-if="isEditing" class="actions">
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+        >Cancelar
+      </a>
+      <button
+        @click="submit"
+        class="btn btn-primary"
+        :disabled="busy || !hasDescription"
+      >
+        Editar Atividade
+      </button>
+    </div>
+    <div v-else class="actions">
       <router-link
         tag="button"
         class="btn btn-default"
@@ -57,7 +70,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || !isSubmitDisabled"
+        :disabled="busy || !hasDescription"
       >
         Criar Atividade
       </button>
@@ -66,16 +79,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -86,87 +93,99 @@ export default {
       items: [],
       sentences: [],
       clonedItem: [],
+      incorrectsItems: [],
       validate: true,
-      initialPalavra: '',
-      initialErradas: []
-    };
+      initialPalavra: ''
+    }
   },
-   created() {
-    if(this.items.length > 0 && this.isEditing) {
-      this.items.map((el)=> {
-        if(el.type === "key") {
-          this.initialPalavra = el.text
-        } else {
-          this.initialErradas.push(el.text)
-          this.sentences = this.initialErradas
-        }
+  created() {
+    if (this.isEditing) {
+      this.initialPalavra = this.theKey.text
+      this.sentences = this.generateInputValues.map(el => {
+        return el.text
       })
-     
-    } 
+      this.addItem(this.sentences)
+    }
   },
   computed: {
     searchFeedback() {
       return this.isSearchable
-        ? "Digite uma frase para continuar..."
-        : "Limite máximo de frases foi atigindo.";
+        ? 'Digite uma frase para continuar...'
+        : 'Limite máximo de frases foi atigindo.'
     },
     isSearchable() {
-      return this.sentences.length < this.maxItems;
+      return this.sentences.length < this.maxItems
     },
     isSubmitDisabled() {
-      return this.$parent.hasDescription && this.items.length >= 3;
+      return this.$parent.hasDescription && this.items.length >= 3
     },
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
+    },
+    word_id() {
+      if (this.theKey) {
+        return this.theKey.word_id
+      }
+      return null
+    }
   },
   methods: {
     addItem(alternatives) {
-      const incorrects = alternatives.map((text) => {
-        return new Item("value", this.WordTypes.input_custom.key, text);
-      });
+      const incorrects = alternatives.map(text => {
+        return new Item('value', this.WordTypes.input_custom.key, text)
+      })
+      this.incorrectsItems = incorrects
       this.clonedItem = this.items = [
-        ...this.items.filter(({ type }) => type === "key"),
-        ...incorrects,
-      ];
+        ...this.items.filter(({ type }) => type === 'key'),
+        ...incorrects
+      ]
     },
     async submit() {
       try {
-        this.busy = true;
+        this.busy = true
         // Aguardando nova palavra ser criada
-        const { data } = await this.$refs.embedded.submit();
-        const word = data;
+        const { data } = await this.$refs.embedded.submit()
+
+        const items = []
+
+        const word = data.text ? data.text : this.initialPalavra
 
         const value_items_attributes = [
-          new Item("value", this.WordTypes.input_custom.value, word.text),
-        ];
+          new Item('value', this.WordTypes.input_custom.value, word)
+        ]
 
-        this.items.push(
+        items.push(
           new Item(
-            "key",
+            'key',
             WordTypes.input_custom.value,
-            word.text,
+            word,
             null,
             value_items_attributes
           )
-        );
+        )
+        const newItems = items.concat(this.incorrectsItems)
+        Vue.set(this, 'items', newItems)
 
         // Salvando no banco novo template de questão
         setTimeout(() => {
-          this.$emit("submitTemplate");
-        }, 400);
+          this.$emit('submitTemplate')
+        }, 1000)
       } catch (e) {
         this.$notify({
-          group: "danger",
-          title: "Falha",
-          text: e.message,
-        });
+          group: 'danger',
+          title: 'Falha',
+          text: e.message
+        })
 
-        this.busy = false;
+        this.busy = false
       }
-    },
+    }
   },
   mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-};
+    this.$emit('defaultActionsVisibilty', false)
+  }
+}
 </script>
 
 <style lang="scss">

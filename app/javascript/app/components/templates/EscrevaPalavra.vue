@@ -40,14 +40,7 @@
           <div v-else>({{ maxItems }} itens)</div>
         </div>
         <div class="col-md-5">
-          <div
-            v-show="input.length > 0"
-            class="panel panel-default panel--player"
-          >
-            <vue-plyr ref="plyr">
-              <audio />
-            </vue-plyr>
-          </div>
+          <ls-audio-player :audio-url="getAudioUrl"></ls-audio-player>
         </div>
       </div>
     </div>
@@ -66,18 +59,18 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone, values } from "lodash";
-import Item from "../../models/Item";
-import Templates from "../../components/templates/templates.json";
-import TemplateMixin from "../../mixins/TemplateMixin";
+import Vue from 'vue'
+import { values } from 'lodash'
+import Item from '../../models/Item'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import { mergeSelectedRemoteUrlWithNewItems } from '../../utils/array'
 
-import { WordTypes } from "../../types";
+import { WordTypes } from '../../types'
 
 const templateTypes = [
   WordTypes.substantivo_comum.value,
-  WordTypes.substantivo_proprio.value,
-];
+  WordTypes.substantivo_proprio.value
+]
 
 export default {
   mixins: [TemplateMixin],
@@ -87,98 +80,71 @@ export default {
       images: [],
       initialItems: [],
       word_type: WordTypes.substantivo_comum,
-      input: [],
-    };
+      input: []
+    }
   },
   computed: {
     types() {
-      return values(WordTypes).filter((t) => templateTypes.includes(t.value));
+      return values(WordTypes).filter(t => templateTypes.includes(t.value))
     },
     typeSelect() {
-      return this.word_type.value;
+      return this.word_type.value
     },
     getAudioUrl() {
-      return this.input ? `${this.input[0].audios[0].url}` : null;
-    },
-    player() {
-      return this.$refs.plyr.player;
-    },
+      return this.input[0] ? `${this.input[0].audios[0].url}` : null
+    }
   },
   created() {
-    // this.types = [this.WordTypes.letra, this.WordTypes.silaba];
-
-    if (this.items.length > 0 && this.isEditing) {
-      this.initialItems = this.items.map((el) => {
+    if (this.isEditing) {
+      this.items.map(el => {
         if (el.word_type === 2) {
-          this.word_type = WordTypes.substantivo_proprio;
+          this.word_type = WordTypes.substantivo_proprio
         } else {
-          this.word_type = WordTypes.substantivo_comum;
+          this.word_type = WordTypes.substantivo_comum
         }
-        return { text: el.text };
-      });
+      })
+      this.initialItems = this.generateInputKeys
+      this.input = this.generateInputKeys
+      this.addItem(this.generateInputKeys)
+      this.input = []
     }
-  },
-  async mounted() {
-    if (this.items.length > 0 && this.isEditing) {
-      this.items.map(async (el) => {
-        if (el.type === "key") {
-          const response = await this.$axios.get(
-            `/words.json?q[type_eq]=${el.word_type}&q[text_cont]=${el.text}`
-          );
-          this.input = response.data;
-          this.addItem(response.data);
-        }
-      });
-    }
+    // mudando imagem do componente ao atualizar
+    this.changeImageOnUpdate()
   },
   methods: {
     addItem(alternatives) {
-      // Example for mapping incorrect inputs
-      const items = alternatives.map(({ text, images }) => {
+      this.input = alternatives
+      const items = alternatives.map(({ text, images, remote_image_url }) => {
         return new Item(
-          "key",
-          this.WordTypes.substantivo_comum.key,
+          'key',
+          this.WordTypes.substantivo_comum.value,
           text,
-          images[0]
-        );
-      });
+          this.getImageUrl(images, remote_image_url)
+        )
+      })
 
-      this.images = items;
-      const modeledItem = items.map(({ remote_image_url, ...i }) => i);
-      Vue.set(this, "items", modeledItem);
+      this.images = mergeSelectedRemoteUrlWithNewItems(this.images, items)
+      Vue.set(this, 'items', items)
     },
     validateSearchable() {
-      this.searchable = this.items.length < this.maxItems;
+      this.searchable = this.items.length < this.maxItems
     },
     validateItems() {
-      this.$emit("validateItems", this.items.length === this.maxItems);
-    },
+      this.$emit('validateItems', this.items.length === this.maxItems)
+    }
   },
   watch: {
     type(t) {
       if (this.$refs.select && !this.initialItems.length > 0) {
-        this.$refs.select.clearSelection();
+        this.$refs.select.clearSelection()
       }
-      this.items = [];
-      this.initialItems = [];
-      this.images = [];
-    },
-    input() {
-      if (!this.input[0]) return;
-
-      this.player.source = {
-        type: "audio",
-        title: this.input[0].text,
-        sources: [
-          {
-            src: this.getAudioUrl,
-            type: "audio/mp3",
-          },
-        ],
-      };
-    },
-  },
-};
+      this.items = []
+      this.initialItems = []
+      this.images = []
+      this.input = []
+    }
+  }
+}
 </script>
 
 <style lang="scss">

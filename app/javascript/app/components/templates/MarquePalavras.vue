@@ -1,6 +1,10 @@
 <template>
   <div id="marque-as-palavras" v-if="theKey">
-    <ls-wordtype-radio-button v-model="theKey.word_type" :types="types" group="types">
+    <ls-wordtype-radio-button
+      v-model="theKey.word_type"
+      :types="types"
+      group="types"
+    >
       <template slot="extra-input">
         <ls-select-word
           v-if="theKey.word_type === WordTypes.silaba.value"
@@ -58,13 +62,12 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import Item from '../../models/Item'
 import TemplateMixin from '../../mixins/TemplateMixin'
 
 export default {
   mixins: [TemplateMixin],
-  data(){
+  data() {
     return {
       items: [],
       searchable: true
@@ -78,63 +81,59 @@ export default {
       return this.items.filter(({ type }) => type === 'value')
     },
     types() {
-      return [
-        this.WordTypes.letra,
-        this.WordTypes.silaba
-      ]
+      return [this.WordTypes.letra, this.WordTypes.silaba]
     },
-    trueTotalItems(){
+    trueTotalItems() {
       try {
-        const values_items = this.items.filter(i => i.type === 'value').length
-        return ( values_items + this.theKey.value_items_attributes.length )
+        const values_items = this.items.filter((i) => i.type === 'value').length
+        return values_items + this.theKey.value_items_attributes.length
       } catch (error) {
         return false
       }
     }
   },
   methods: {
-    inputCorrectItem(alternatives){
+    inputCorrectItem(alternatives) {
       // Example for mapping correct inputs
       this.theKey.value_items_attributes = alternatives.map(({ text }) => {
         return new Item('value', this.WordTypes.substantivo_comum.value, text)
-      })    
+      })
     },
-    inputIncorrectItem(alternatives){
+    inputIncorrectItem(alternatives) {
       // Example for mapping incorrect inputs
       const incorrects = alternatives.map(({ text }) => {
         return new Item('value', this.WordTypes.substantivo_comum.value, text)
       })
-      
+
       // union keys with incorrect items
       this.items = [
         ...this.items.filter(({ type }) => type === 'key'),
         ...incorrects
       ]
-    },    
-    validateItems(){
-      this.searchable = this.trueTotalItems < this.maxItems 
+    },
+    validateItems() {
+      this.searchable = this.trueTotalItems < this.maxItems
       this.$emit(
-        'validateItems', 
-        this.theKey.word_text && (this.trueTotalItems === this.maxItems )
+        'validateItems',
+        this.theKey.word_text && this.trueTotalItems === this.maxItems
       )
     }
   },
-  created(){
+  created() {
     if (this.isEditing) {
       return
     }
-    this.items.push(
-      new Item('key', this.WordTypes.letra.value, '')
-    )
-  }  
+    this.items.push(new Item('key', this.WordTypes.letra.value, ''))
+  }
 }
 </script>
 
 <style lang="scss">
-#marque-as-palavras{
-  .correct-items, .incorrect-items{
+#marque-as-palavras {
+  .correct-items,
+  .incorrect-items {
     @include template-editor-field;
-    margin: $gap 0px;    
+    margin: $gap 0px;
   }
 }
 </style>

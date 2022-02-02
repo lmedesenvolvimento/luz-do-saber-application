@@ -14,6 +14,7 @@ import '../app/plugins/plyr'
 import '../app/plugins/notification'
 import '../app/plugins/vue-js-modal'
 import '../app/plugins/v-viewer'
+import '../app/plugins/vue-simple-alert'
 import $axios from '../app/plugins/axios'
 
 import router from '../app/router'
@@ -34,10 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
     el: '#app_vue',
     store,
     router,
-    render: h => h(App)    
+    render: h => h(App)
   }).$mount()
 })
-
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would
@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //   {{message}}
 //   <app></app>
 // </div>
-
 
 // import Vue from 'vue/dist/vue.esm'
 // import App from '../app.vue'

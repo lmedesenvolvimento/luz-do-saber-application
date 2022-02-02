@@ -40,6 +40,10 @@
         "maxItems": 3
     },
     {
+        "templateName": "complete-a-palavra-com-letra",
+        "maxItems": 1
+    },
+    {
         "templateName": "decomposicao-da-palavra-geradora",
         "maxItems": 1
     },
@@ -100,8 +104,12 @@
         "maxItems": 4
     },
     {
+        "templateName": "jogo-da-memoria-palavra-palavra",
+        "maxItems": 4
+    },
+    {
         "templateName": "qual-a-silaba",
-        "maxItems": 10
+        "maxItems": 7
     },
     {
         "templateName": "quantidade-de-letras",
@@ -121,7 +129,11 @@
     },
     {
         "templateName": "segmentacao-de-frases",
-        "maxItems": 5
+        "maxItems": 4
+    },
+    {
+        "templateName": "separacao-silabica",
+        "maxItems": 1
     },
     {
         "templateName": "segredo-das-palavras",
@@ -129,7 +141,8 @@
     },
     {
         "templateName": "som-das-palavras",
-        "maxItems": 3
+        "maxItems": 3,
+        "mediaTypeShow": "audio"
     },
     {
         "templateName": "tipos-de-letras-conjuntos",

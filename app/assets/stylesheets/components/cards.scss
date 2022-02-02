@@ -1,0 +1,36 @@
+.card {
+  border-radius: $border-radius;
+  box-shadow: $box-shadown;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+  &--primary {
+    .card-top-container {
+      background: $brand-primary;
+      display: flex;
+      flex-direction: column;
+      padding: $gap;
+      align-items: center;
+      justify-content: center;
+      border-radius: $border-radius $border-radius 0 0;
+    }
+    .card-bottom-container {
+      background: white;
+      border-radius: 0 0 $border-radius $border-radius;
+      padding: $gap;
+    }
+  }
+
+  &--dashed {
+    background: white;
+    box-shadow: none;
+    border: 2px dashed $brand-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

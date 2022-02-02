@@ -5,8 +5,9 @@
         <ls-modal-create-word
           ref="correct"
           :embedded="true"
-          :is-not-empty="isNotEmpty"
           :word-type="word_type"
+          :is-editing="isEditing"
+          :word-id="word_id"
           :word-type-disabled="true"
           :text-visible="false"
           :text-required="false"
@@ -16,8 +17,19 @@
       </div>
       <div class="col-md-5"></div>
     </div>
-
-    <div class="actions">
+    <div v-if="isEditing" class="actions">
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+        >Cancelar
+      </a>
+      <button
+        @click="submit"
+        class="btn btn-primary"
+        :disabled="busy || !hasDescription"
+      >
+        Editar Atividade
+      </button>
+    </div>
+    <div v-else class="actions">
       <router-link
         tag="button"
         class="btn btn-default"
@@ -28,7 +40,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || isSubmitDisabled"
+        :disabled="busy || !hasDescription"
       >
         Criar Atividade
       </button>
@@ -37,16 +49,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -55,77 +61,85 @@ export default {
       busy: false,
       word_type: WordTypes.input_custom.value,
       items: [],
-      validate: true,
-      isNotEmpty: false,
-    };
+      validate: true
+    }
   },
+  created() {},
   computed: {
     searchFeedback() {
       return this.isSearchable
-        ? "Digite uma frase para continuar..."
-        : "Limite máximo de frases foi atigindo.";
+        ? 'Digite uma frase para continuar...'
+        : 'Limite máximo de frases foi atigindo.'
     },
-
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
+    },
     isSubmitDisabled() {
-      return !this.$parent.hasDescription;
+      return !this.$parent.hasDescription
     },
+    word_id() {
+      if (this.theKey) {
+        return this.theKey.word_id
+      }
+      return null
+    }
   },
   watch: {
     items: {
       handler() {
-        if (this.items.length >= 1) {
-          this.$emit("submitTemplate");
+        if (this.items.length >= 1 && !this.isEditing) {
+          this.$emit('submitTemplate')
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     async submit() {
       try {
-        this.items = [];
-        this.busy = true;
+        this.busy = true
 
-        this.submitWord(this.$refs.correct);
-      } catch (e) {
-        this.busy = false;
-      }
-    },
-    async submitWord(ref) {
-      try {
-        this.busy = true;
-        // Aguardando nova palavra ser criada
+        const { data } = await this.$refs.correct.submit()
 
-        const { data } = await ref.submit();
-        const word = data;
+        if (this.isEditing && data.success) {
+          this.$emit('submitTemplate')
+          return true
+        }
+
+        const word = data
+
+        if (data.images[0]) this.remoteImgUrl = data.images[0].url
 
         const value_items_attributes = [
-          new Item("value", this.WordTypes.input_custom.value, word.text),
-        ];
+          new Item('value', this.WordTypes.input_custom.value, word.text)
+        ]
 
         const items = [
           new Item(
-            "key",
+            'key',
             WordTypes.input_custom.value,
             word.text,
-            null,
+            this.remoteImgUrl,
             value_items_attributes
-          ),
-        ];
-        Vue.set(this, "items", items);
+          )
+        ]
+
+        Vue.set(this, 'items', items)
+
+        if (this.isEditing) {
+          setTimeout(() => {
+            this.$emit('submitTemplate')
+          }, 2500)
+        }
       } catch (e) {
-        this.busy = false;
+        this.busy = false
       }
-    },
-  },
-  mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-  created() {
-    if (this.items.length > 0) {
-      this.isNotEmpty = true;
     }
   },
-};
+  mounted() {
+    this.$emit('defaultActionsVisibilty', false)
+  }
+}
 </script>
 
 <style lang="scss">

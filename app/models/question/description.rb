@@ -3,7 +3,8 @@ class Question::Description < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   enum type: {
-    texto: 0
+    texto: 0,
+    subtitle: 1
   }
 
   # belongs_to :question, foreign_key: :question_question_id, class_name: 'Question::Question'
@@ -19,6 +20,19 @@ class Question::Description < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   before_create :set_default_remote_audio_url, unless: -> { audio.present? }
+  before_validation :lowercase_filename
+
+  #nomes em minusculo
+  def lowercase_filename
+    if image.present?
+      n = image_file_name.downcase
+      self.image_file_name = n
+    end
+    if audio.present?
+      n = audio_file_name.downcase
+      self.audio_file_name = n
+    end
+  end
 
   def audio_full_url
     if audio.present?

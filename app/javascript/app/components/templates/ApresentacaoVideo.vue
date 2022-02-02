@@ -1,13 +1,16 @@
 <template>
   <div class="row">
     <div class="col-md-7">
-      <div class="form-group has-feedback" :class="{ 'has-error': (theKey.word_text.length && !isValid) }">
+      <div
+        class="form-group has-feedback"
+        :class="{ 'has-error': link.length && !isValid }"
+      >
         <label>Vídeo: </label>
         <input
-          v-model="theKey.word_text"
+          v-model="link"
           placeholder="Link do Vídeo"
           class="form-control"
-          @change="onChangeItemValue"
+          @change="changeLink(link)"
         />
       </div>
     </div>
@@ -16,25 +19,37 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Item from '../../models/Item'
 import { WordTypes } from '../../types'
 import TemplateMixin from '../../mixins/TemplateMixin'
+
 export default {
   mixins: [TemplateMixin],
   data() {
     return {
-      items: [
-        new Item('key', WordTypes.youtube.value, '')
-      ]
+      items: [new Item('key', WordTypes.youtube.value, '')],
+      link: ''
+    }
+  },
+  mounted() {
+    if (this.isEditing) {
+      this.link = this.theKey.word_text
     }
   },
   computed: {
     isValid() {
-      return /^https?\:\/\//.test(this.theKey.word_text)
+      return /^https?\:\/\//.test(this.link)
+    }
+  },
+  methods: {
+    changeLink(item) {
+      const items = [new Item('key', WordTypes.youtube.value, item)]
+      Vue.set(this, 'items', items)
     }
   },
   watch: {
-    isValid(){
+    isValid() {
       this.$emit('validateItems', this.isValid)
     }
   }
@@ -42,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-group{
+.form-group {
   display: flex;
   align-items: center;
   padding: ($gap * 2) 0px;
@@ -53,7 +68,7 @@ export default {
   .form-control {
     text-indent: 12px;
     padding: 0px;
-    flex: 3;      
+    flex: 3;
   }
 }
 </style>

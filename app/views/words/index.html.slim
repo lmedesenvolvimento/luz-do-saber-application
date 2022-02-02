@@ -33,7 +33,7 @@
             td= link_to word.text, word_path(word)
             td
               - if word.images.any?
-                = image_tag word.images.first.full_url, width: 60
+                = image_tag word.images.first.full_url, width: 60, onerror: 'this.onerror=null; this.remove();'
             td
               - if word.audios.any?
                 = audio_tag word.audios.last.full_url, controls: true

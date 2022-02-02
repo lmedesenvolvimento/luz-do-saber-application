@@ -62,6 +62,14 @@ class Question::DescriptionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_question_description
     @description = Question::Description.find(params[:id])
+    if @description.image_file_name.present?
+      n = @description.image_file_name.downcase
+      @description.image_file_name = n
+    end
+    if @description.audio_file_name.present?
+      n = @description.audio_file_name.downcase
+      @description.audio_file_name = n 
+    end
   end
 
   # Only allow a trusted parameter "white list" through.

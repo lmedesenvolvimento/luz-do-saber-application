@@ -48,10 +48,10 @@
               v-model="palavras0"
               :max-items="maxItems"
               :initial-items="initialPalavras0"
-              :label="'Palavras com ' + letras[0].text"
+              :label="'Palavras com ' + letras[0].text + ':'"
               :label-html="true"
               @search="onSearch"
-              @input="(alternatives) => inputPalavra(0, alternatives)"
+              @input="alternatives => inputPalavra(0, alternatives)"
             />
             <div>(1-4 itens)</div>
           </div>
@@ -61,7 +61,10 @@
             <div class="col-md-12">
               <div class="correct-items-input-group">
                 <div class="label">Imagens:</div>
-                <ls-images-holder :items="images[0]"></ls-images-holder>
+                <ls-images-holder
+                  v-if="showImages"
+                  :items="images[0]"
+                ></ls-images-holder>
               </div>
             </div>
           </div>
@@ -77,10 +80,10 @@
               :options="words"
               :max-items="maxItems"
               :initial-items="initialPalavras1"
-              :label="'Palavras com ' + letras[1].text"
+              :label="'Palavras com ' + letras[1].text + ':'"
               :label-html="true"
               @search="onSearch"
-              @input="(alternatives) => inputPalavra(1, alternatives)"
+              @input="alternatives => inputPalavra(1, alternatives)"
             />
             <div>(1-4 itens)</div>
           </div>
@@ -90,7 +93,10 @@
             <div class="col-md-12">
               <div class="correct-items-input-group">
                 <div class="label">Imagens:</div>
-                <ls-images-holder :items="images[1]"></ls-images-holder>
+                <ls-images-holder
+                  v-if="showImages"
+                  :items="images[1]"
+                ></ls-images-holder>
               </div>
             </div>
           </div>
@@ -106,10 +112,10 @@
               :options="words"
               :max-items="maxItems"
               :initial-items="initialPalavras2"
-              :label="'Palavras com ' + letras[2].text"
+              :label="'Palavras com ' + letras[2].text + ':'"
               :label-html="true"
               @search="onSearch"
-              @input="(alternatives) => inputPalavra(2, alternatives)"
+              @input="alternatives => inputPalavra(2, alternatives)"
             />
             <div>(1-4 itens)</div>
           </div>
@@ -119,7 +125,10 @@
             <div class="col-md-12">
               <div class="correct-items-input-group">
                 <div class="label">Imagens:</div>
-                <ls-images-holder :items="images[2]"></ls-images-holder>
+                <ls-images-holder
+                  v-if="showImages"
+                  :items="images[2]"
+                ></ls-images-holder>
               </div>
             </div>
           </div>
@@ -130,16 +139,16 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone, values } from "lodash";
-import Item from "../../models/Item";
-import TemplateMixin from "../../mixins/TemplateMixin";
-import { WordTypes } from "../../types";
+import Vue from 'vue'
+import { values } from 'lodash'
+import Item from '../../models/Item'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import { WordTypes } from '../../types'
 
 const templateTypes = [
   WordTypes.substantivo_comum.value,
-  WordTypes.substantivo_proprio.value,
-];
+  WordTypes.substantivo_proprio.value
+]
 
 export default {
   mixins: [TemplateMixin],
@@ -157,118 +166,160 @@ export default {
       palavras0: [],
       palavras1: [],
       palavras2: [],
-    };
-  },
-  created() {
-    if (this.items.length > 0) {
-      this.initialLetras = this.items.map((el) => {
-        return el.text;
-      });
-      this.items[0]?.value_items_attributes?.map((el) => {
-        this.initialPalavras0.push({ text: el.text });
-      });
-      this.items[1]?.value_items_attributes?.map((el) => {
-        this.initialPalavras1.push({ text: el.text });
-      });
-      this.items[2]?.value_items_attributes?.map((el) => {
-        this.initialPalavras2.push({ text: el.text });
-      });
+      showImages: true
     }
+  },
+  async mounted() {
+    if (this.isEditing) {
+      this.initialLetras = this.items.map(el => {
+        return el.text
+      })
+      //mudando os dados da questão
+      this.initialPalavras0 = this.generateActualValues(0)
+      this.palavras0 = this.generateActualValues(0)
+      this.initialPalavras1 = this.generateActualValues(1)
+      this.palavras1 = this.generateActualValues(1)
+      this.initialPalavras2 = this.generateActualValues(2)
+      this.palavras2 = this.generateActualValues(2)
+    }
+    this.overwriteChangeImageOnUpdate()
   },
   computed: {
     types() {
-      return values(WordTypes).filter((t) => templateTypes.includes(t.value));
-    },
+      return values(WordTypes).filter(t => templateTypes.includes(t.value))
+    }
   },
   methods: {
     inputPalavra(index, alternatives) {
       this.items[index].value_items_attributes = alternatives.map(
-        ({ text, images }) => {
+        ({ text, images, remote_image_url }) => {
           return new Item(
-            "value",
+            'value',
             this.WordTypes.substantivo_comum.value,
-            text
-          );
+            text,
+            this.getImageUrl(images, remote_image_url)
+          )
         }
-      );
-      this.images[index] = this.items[index].value_items_attributes;
+      )
+      this.images[index] = this.items[index].value_items_attributes
     },
     inputLetras({ data, invalid }) {
-      const alternatives = data;
-      const cloneItems = [];
+      const alternatives = data
+      const cloneItems = []
 
-      this.letras = alternatives;
-      this.invalid = invalid;
+      this.letras = alternatives
+      this.invalid = invalid
 
-      alternatives.map(({ text }) => {
-        if (!text) {
-          return;
+      alternatives.map((el, index) => {
+        if (!el.text) {
+          return
         }
-
+        let value_items_attributes = []
+        if (this.items[index]) {
+          value_items_attributes = this.items[index].value_items_attributes
+        }
         cloneItems.push(
-          new Item("key", this.WordTypes.letra.value, text, null)
-        );
-      });
+          new Item(
+            'key',
+            this.WordTypes.letra.value,
+            el.text,
+            null,
+            value_items_attributes
+          )
+        )
+      })
 
       const notLetters = this.items.filter(
-        (i) => i.word_type !== WordTypes.letra.value
-      );
-      const newItems = cloneItems.concat(notLetters);
+        i => i.word_type !== WordTypes.letra.value
+      )
+      const newItems = cloneItems.concat(notLetters)
 
-      Vue.set(this, "items", newItems);
+      Vue.set(this, 'items', newItems)
     },
     validateItems() {
-      this.$emit("validateItems", !this.invalid && this.items.length);
+      this.$emit('validateItems', !this.invalid && this.items.length)
     },
+    overwriteChangeImageOnUpdate() {
+      this.$root.$on('word:select:image', ({ word, image }) => {
+        for (let x = 0; x < this.images.length; x++) {
+          const imagesIndex = this.images[x].findIndex(
+            i => i.word_text === word.text
+          )
+
+          if (this.images[x][imagesIndex]) {
+            this.images[x][imagesIndex].remote_image_url = image.url
+            this.showImages = false
+            setTimeout(() => {
+              this.showImages = true
+            }, 5)
+            this.items[x].value_items_attributes[imagesIndex].remote_image_url =
+              image.url
+          }
+        }
+      })
+    },
+    generateActualValues(index) {
+      const keyId = this.rawItemsKeys[index]?.id
+      const values = this.rawItemsValuesByKey.filter(el => {
+        return el.key_id === keyId
+      })
+      return values.map(i => {
+        return {
+          text: i.word_text,
+          images: i.word_images,
+          remote_image_url: i.remote_image_url
+        }
+      })
+    }
   },
   watch: {
     type(t) {
-      this.items = [];
+      this.items = []
       if (this.$refs.select) {
-        this.$refs.select.clearSelection();
+        this.$refs.select.clearSelection()
       }
     },
     items(newItem, oldItems) {
       if (newItem.length < oldItems.length) {
-        this.items = [];
-        this.palavras0 = [];
-        this.palavras1 = [];
-        this.palavras2 = [];
-        this.letras = [];
+        this.items = []
+        this.palavras0 = []
+        this.palavras1 = []
+        this.palavras2 = []
+        this.letras = []
       }
     },
     palavras0(palavras) {
-      this.images[0] = palavras.map(({ text, images }) => {
+      this.images[0] = palavras.map(({ text, images, remote_image_url }) => {
         return new Item(
-          "value",
+          'value',
           this.WordTypes.substantivo_comum.value,
           text,
-          images[0]
-        );
-      });
+          this.getImageUrl(images, remote_image_url)
+        )
+      })
     },
     palavras1(palavras) {
-      this.images[1] = palavras.map(({ text, images }) => {
+      this.images[1] = palavras.map(({ text, images, remote_image_url }) => {
         return new Item(
-          "value",
+          'value',
           this.WordTypes.substantivo_comum.value,
           text,
-          images[0]
-        );
-      });
+          this.getImageUrl(images, remote_image_url)
+        )
+      })
     },
     palavras2(palavras) {
-      this.images[2] = palavras.map(({ text, images }) => {
+      this.images[2] = palavras.map(({ text, images, remote_image_url }) => {
         return new Item(
-          "value",
+          'value',
           this.WordTypes.substantivo_comum.value,
           text,
-          images[0]
-        );
-      });
-    },
-  },
-};
+          this.getImageUrl(images, remote_image_url)
+        )
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss">

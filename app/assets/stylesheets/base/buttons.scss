@@ -1,0 +1,45 @@
+.btn-circle {
+  border-radius: 50%;
+  border: none;
+  width: 32px;
+  height: 32px;
+  &.large {
+    width: 56px;
+    height: 56px;
+  }
+  &--primary {
+    background-color: $brand-primary;
+    color: white;
+  }
+  &--secondary {
+    background-color: #e5f5f5;
+    color: $brand-primary;
+  }
+  &--transparent {
+    @include flex-center;
+    background-color: transparent;
+    color: white;
+
+    &:hover {
+      background-color: lighten($brand-primary, 8%);
+    }
+  }
+  &--icon {
+    @include flex-center;
+    color: $brand-primary;
+    background-color: transparent;
+    display: inline;
+
+    &:hover {
+      background-color: #e5f5f5;
+    }
+  }
+}
+
+.btn-primary {
+  &.text {
+    span {
+      margin-left: $gap;
+    }
+  }
+}

@@ -1,7 +1,10 @@
 # Unidades.
 class Unit < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: :scoped, :scope => :theme
+
+  enum status: { active: 0,
+                inactive: 1 }
 
   belongs_to :user
   belongs_to :theme

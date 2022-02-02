@@ -1,38 +1,42 @@
-- model_class = Group
-.page-header
-  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+/ - model_class = Group
+/ .page-header
+/   h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
 
-= render partial: 'filter'
+/ = render partial: 'filter'
 
-.panel.panel-default
-  .panel-heading
-    .row
-      .col-lg-6
-        ' Total: 
-        = @groups.count
+/ .panel.panel-default
+/   .panel-heading
+/     .row
+/       .col-lg-6
+/         ' Total: 
+/         = @groups.count
 
-      .col-lg-6.text-right
-        = link_to t('.new', :default => t("helpers.links.new")), new_group_path, :class => 'btn btn-primary btn-xs'
+/       .col-lg-6.text-right
+/         = link_to t('.new', :default => t("helpers.links.new")), new_group_path, :class => 'btn btn-primary btn-xs'
 
-  .panel-body
-    table.table.table-striped
-      thead
-        tr
-          th= model_class.human_attribute_name(:code)
-          th= model_class.human_attribute_name(:name)
-          th= model_class.human_attribute_name(:description)
-          th= model_class.human_attribute_name(:participants)
-          th=t '.actions', :default => t("helpers.actions")
-      tbody
-        - @groups.each do |group|
-          tr
-            td= link_to group.code, group_path(group)
-            td= group.name
-            td= group.description
-            td= link_to group.participants.count, group_participants_path(group)
-            td
-              = link_to t('.show', :default => t("helpers.links.show")), group_path(group), :class => 'btn btn-default btn-xs'
-              '
-              = link_to t('.edit', :default => t("helpers.links.edit")), edit_group_path(group), :class => 'btn btn-default btn-xs'
-              / '
-              / = link_to t('.destroy', :default => t("helpers.links.destroy")), group_path(group), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+/   .panel-body
+/     table.table.table-striped
+/       thead
+/         tr
+/           th= model_class.human_attribute_name(:code)
+/           th= model_class.human_attribute_name(:name)
+/           th= model_class.human_attribute_name(:description)
+/           th= model_class.human_attribute_name(:participants)
+/           th=t '.actions', :default => t("helpers.actions")
+/       tbody
+/         - @groups.each do |group|
+/           tr
+/             td= link_to group.code, group_path(group)
+/             td= group.name
+/             td= group.description
+/             td= link_to group.participants.count, group_participants_path(group)
+/             td
+/               = link_to t('.show', :default => t("helpers.links.show")), group_path(group), :class => 'btn btn-default btn-xs'
+/               '
+/               = link_to t('.edit', :default => t("helpers.links.edit")), edit_group_path(group), :class => 'btn btn-default btn-xs'
+/               / '
+/               / = link_to t('.destroy', :default => t("helpers.links.destroy")), group_path(group), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+#app_vue
+
+== javascript_pack_tag 'application'

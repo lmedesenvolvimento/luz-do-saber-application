@@ -17,14 +17,15 @@ class GroupsParticipant < ApplicationRecord
   validates :user, :group, presence: true
 
   attr_accessor :user_email
+  attr_accessor :user_school_student_code
 
-  before_validation :set_user, if: -> { user_email.present? }
+  before_validation :set_user, if: -> { user_school_student_code.present? }
 
   private
 
   def set_user
-    unless self.user = User.find_by(email: user_email)
-      self.errors.add :user_email, 'Email não encontrado.'
+    unless self.user = User.find_by(school_student_code: user_school_student_code)
+      self.errors.add :user_school_student_code, 'Código não encontrado.'
     end
   end
 end

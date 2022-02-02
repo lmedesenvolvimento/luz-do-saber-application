@@ -13,17 +13,18 @@
         <div class="panel-body">
           <div v-if="template" class="container-fluid">
             <ls-template-title :template="template" />
-            
-            <ls-template-description 
-              v-model="description" 
+
+            <ls-template-description
+              v-model="description"
               :template="template"
             />
 
             <ls-template-order v-model="order" />
-            
+
             <router-view
               @updateItems="updateItems"
               @validateItems="validateItems"
+              @updateSubtitle="updateSubtitle"
               @defaultActionsVisibilty="defaultActionsVisibilty"
               @submitTemplate="submitTemplate"
               :template="template.slug"
@@ -66,6 +67,7 @@ export default {
       items: [],
       description: {},
       order: null,
+      subtitle: null,
       unit: null,
       busy: false,
       isValidItems: false,
@@ -77,6 +79,14 @@ export default {
     template() {
       const { id } = this.$route.params
       return this.$store.getters['templates/getTemplate'](id) || {}
+    },
+    allowSameWords() {
+      const templatesWithSameWords = [
+        'alternativa-imagens-com-subtitulo',
+        'sequencia-numerica',
+        'sequencia-numerica-2'
+      ]
+      return templatesWithSameWords.includes(this.template.slug)
     },
     hasDescription() {
       return this.description && this.description.id
@@ -127,13 +137,19 @@ export default {
         const { id, unit_id } = this.$route.params
         const { group_id } = this.$route.query
 
+        const items_attributes = this.allowSameWords
+          ? this.items.map(this.mapItems)
+          : uniqBy(this.items.map(this.mapItems), 'word_text')
+
+        let subtitle = !!this.subtitle ? this.subtitle.text : ''
         const payload = {
           question_question: {
             order: this.order,
             question_question_template_id: id,
+            subtitle,
             unit_id,
             description_text: this.description.text,
-            items_attributes: uniqBy(this.items.map(this.mapItems), 'word_text')
+            items_attributes
           }
         }
 
@@ -143,7 +159,10 @@ export default {
 
         this.busy = true
 
-        const { data } = await this.$axios.post('/question/questions.json', payload)
+        const { data } = await this.$axios.post(
+          '/question/questions.json',
+          payload
+        )
 
         if (!data.success) {
           throw new Error('Error desconhecido!')
@@ -154,11 +173,11 @@ export default {
           title: 'Sucesso',
           text: 'Questão criada com sucesso!'
         })
-        
+
         // redirect to template url
         window.location.assign(data.url)
       } catch (error) {
-        if(error.request) {
+        if (error.request) {
           const { errors } = JSON.parse(error.request.response)
           for (const error of errors) {
             this.$notify({
@@ -178,10 +197,13 @@ export default {
     updateItems(items) {
       this.items = items
     },
+    updateSubtitle(subtitle) {
+      this.subtitle = subtitle
+    },
     validateItems(isValidItems) {
       this.isValidItems = isValidItems
     },
-    mapItems(item){
+    mapItems(item) {
       const { value_items_attributes } = item
       if (value_items_attributes && value_items_attributes.length) {
         item.value_items_attributes = value_items_attributes.map(this.mapItems)
@@ -191,7 +213,7 @@ export default {
   },
   async mounted() {
     if (this.edit) {
-      return  
+      return
     }
     const { id, theme_id, unit_id } = this.$route.params
     const { group_id } = this.$route.query
@@ -199,7 +221,7 @@ export default {
     if (this.$role === 'professor' && !group_id) {
       this.$router.replace('/')
     }
-    
+
     const { data } = await this.$axios(
       `/themes/${theme_id}/units/${unit_id}.json`
     )

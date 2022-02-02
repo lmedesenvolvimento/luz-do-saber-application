@@ -3,6 +3,10 @@
   h1=t '.title', :default => model_class.model_name.human.titleize
 
 p
+  strong= model_class.human_attribute_name(:order) + ':'
+  br
+  = @theme_audience.order
+p
   strong= model_class.human_attribute_name(:title) + ':'
   br
   = @theme_audience.title

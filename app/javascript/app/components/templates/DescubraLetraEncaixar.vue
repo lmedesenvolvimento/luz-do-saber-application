@@ -73,17 +73,17 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone, values } from "lodash";
-import { WordTypes } from "../../types";
-import TemplateMixin from "../../mixins/TemplateMixin";
+import Vue from 'vue'
+import { values } from 'lodash'
+import { WordTypes } from '../../types'
+import TemplateMixin from '../../mixins/TemplateMixin'
 
-import Item from "../../models/Item";
+import Item from '../../models/Item'
 
 const templateTypes = [
   WordTypes.substantivo_comum.value,
-  WordTypes.substantivo_proprio.value,
-];
+  WordTypes.substantivo_proprio.value
+]
 
 export default {
   mixins: [TemplateMixin],
@@ -98,77 +98,77 @@ export default {
       initialLetra: [],
       initialLetras: [],
       wordSelected: null,
-      wordValue: "",
-    };
+      wordValue: ''
+    }
   },
   computed: {
     types() {
-      return values(WordTypes).filter((t) => templateTypes.includes(t.value));
-    },
+      return values(WordTypes).filter((t) => templateTypes.includes(t.value))
+    }
   },
   methods: {
     changeWord(item) {
-      this.wordSelected.text = item;
-      this.wordSelected.word_text = item;
+      this.wordSelected.text = item
+      this.wordSelected.word_text = item
     },
     onInput({ data }) {
-      const alternatives = data;
+      const alternatives = data
       alternatives.map(({ text }) => {
         if (!text) {
-          return;
+          return
         }
-        this.letraRemover = text;
+        this.letraRemover = text
         const value_items_attributes = [
-          new Item("value", this.WordTypes.letra.value, text),
-        ];
-        this.wordSelected.value_items_attributes = value_items_attributes;
-        this.ifLetra = true;
-      });
-      this.items = this.cloneItems.concat(this.wordSelected);
+          new Item('value', this.WordTypes.letra.value, text)
+        ]
+        this.wordSelected.value_items_attributes = value_items_attributes
+        this.ifLetra = true
+      })
+      this.items = this.cloneItems.concat(this.wordSelected)
     },
     onInputErrado({ data, invalid }) {
-      const alternatives = data;
-      const itemsErrados = [];
+      const alternatives = data
+      const itemsErrados = []
       alternatives.map(({ text }) => {
         if (!text) {
-          return;
+          return
         }
-        itemsErrados.push(new Item("value", this.WordTypes.letra.value, text));
-      });
-      Vue.set(this, "cloneItems", itemsErrados);
+        itemsErrados.push(new Item('value', this.WordTypes.letra.value, text))
+      })
+      Vue.set(this, 'cloneItems', itemsErrados)
 
-      this.items = this.cloneItems.concat(this.wordSelected);
+      this.items = this.cloneItems.concat(this.wordSelected)
     },
     createItems() {
-      this.wordSelected = new Item("key", this.type, "");
+      this.wordSelected = new Item('key', this.type, '')
     },
     validateItems() {
-      this.$emit("validateItems", this.wordValue && this.items.length >= 5);
-    },
+      this.$emit('validateItems', this.wordValue && this.items.length >= 5)
+    }
   },
   watch: {
     word_type() {
-      this.createItems();
-    },
+      this.createItems()
+    }
   },
   created() {
     if (this.isEditing) {
-      this.ifLetra = true;
+      this.ifLetra = true
       this.items.map((el) => {
-        if (el.type === "key") {
-          this.createItems();
-          this.wordSelected = el;
-          this.wordValue = el.text;
-          this.initialLetra.push(el.value_items_attributes[0].text);
+        if (el.type === 'key') {
+          this.createItems()
+          this.wordSelected = el
+          this.wordValue = el.text
+          this.initialLetra.push(el.value_items_attributes[0].text)
         } else {
-          this.initialLetras.push(el.text);
+          this.initialLetras.push(el.text)
         }
-      });
+      })
     } else {
-      this.createItems();
+      this.createItems()
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss">

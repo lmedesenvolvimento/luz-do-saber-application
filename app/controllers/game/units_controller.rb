@@ -12,6 +12,7 @@ class Game::UnitsController < ApplicationController
 
   def set_theme
     @modulo = Modulo.friendly.find(params[:modulo_slug])
-    @theme = Theme.active.friendly.find(params[:theme_slug])
+    @target_audience = ThemeAudience.friendly.find(params[:target_audience_slug])
+    @theme = Theme.where(:theme_audience_id => @target_audience).friendly.find(params[:theme_slug])
   end
 end

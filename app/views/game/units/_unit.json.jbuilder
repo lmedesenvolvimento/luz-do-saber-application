@@ -1,4 +1,4 @@
-json.extract! unit, :id, :theme_id, :slug, :title, :description, :order
+json.extract! unit, :id, :status, :theme_id, :slug, :title, :description, :order
 
 json.theme_audience do
   json.extract! unit.theme.theme_audience, :id, :title
@@ -11,6 +11,6 @@ end if unit.theme.theme_audience
 
 json.target_audience unit.theme.target_audience_i18n
 
-json.questions_url game_questions_path(modulo, theme, unit)
+# json.questions_url game_questions_path(modulo, target_audience, theme, unit)
 
 json.cover_url unit.cover_full_url

@@ -133,99 +133,99 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone, values, find, omit } from "lodash";
-import objectToFormData from "object-to-formdata";
+import Vue from 'vue'
+import { clone, values, find, omit } from 'lodash'
+import objectToFormData from 'object-to-formdata'
 
-import { WordTypes } from "../types";
-import ActiveRecordHelper from "../utils/activerecord";
-import Word from "../models/Word";
+import { WordTypes } from '../types'
+import ActiveRecordHelper from '../utils/activerecord'
+import Word from '../models/Word'
 
-const longTexts = ["frase", "texto", "input_custom"];
+const longTexts = ['frase', 'texto', 'input_custom']
 
 const permittedTypes = [
-  "substantivo_proprio",
-  "substantivo_comum",
-  "frase",
-  "texto",
-  "input_custom",
-];
+  'substantivo_proprio',
+  'substantivo_comum',
+  'frase',
+  'texto',
+  'input_custom'
+]
 
 const unpermitted_params = [
-  "id",
-  "total_syllables",
-  "syllables",
-  "info",
-  "images",
-  "audios",
-];
+  'id',
+  'total_syllables',
+  'syllables',
+  'info',
+  'images',
+  'audios'
+]
 
 export default {
   props: {
     text: {
       type: [String, Array],
-      default: null,
+      default: null
     },
     embedded: {
       type: Boolean,
-      default: false,
+      default: false
     },
     wordType: {
       type: Number,
-      default: null,
+      default: null
     },
     wordTypeLabel: {
       type: String,
-      default: null,
+      default: null
     },
     wordTypeDisabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     audioRequired: {
       type: Boolean,
-      default: false,
+      default: false
     },
     textRequired: {
       type: Boolean,
-      default: true,
+      default: true
     },
     textVisible: {
       type: Boolean,
-      default: true,
+      default: true
     },
     imageRequired: {
       type: Boolean,
-      default: false,
+      default: false
     },
     audioVisible: {
       type: Boolean,
-      default: true,
+      default: true
     },
     imageVisible: {
       type: Boolean,
-      default: true,
+      default: true
     },
     wordTypeVisible: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isEditing: {
       type: Boolean,
-      default: false,
+      default: false
     },
-    isItem: {
-      type: Boolean,
-      default: false,
+    imageUrl: {
+      type: String,
+      default: ''
     },
     wordId: {
       type: Number,
-      default: null,
+      default: null
     },
     labelText: {
       type: String,
-      default: null,
-    },
+      default: null
+    }
   },
   data() {
     return {
@@ -233,273 +233,289 @@ export default {
       audio: {},
       image: {},
       errors: {},
-      busy: false,
-    };
+      busy: false
+    }
   },
   computed: {
     types() {
-      return values(WordTypes).filter((type) =>
-        permittedTypes.includes(type.key)
-      );
+      return values(WordTypes).filter(type => permittedTypes.includes(type.key))
     },
     isLong() {
-      const indexOf = this.word.type;
-      const { key } = find(this.types, { value: this.word.type });
+      const indexOf = this.word.type
+      const { key } = find(this.types, { value: this.word.type })
 
-      return longTexts.includes(key);
+      return longTexts.includes(key)
     },
     isSubstantivoProprio() {
       return (
         this.word.type && this.word.type === WordTypes.substantivo_proprio.value
-      );
+      )
     },
     hasError() {
-      return values(this.errors).some((bool) => bool);
+      return values(this.errors).some(bool => bool)
     },
     getWordTypeLabel() {
       if (this.wordTypeLabel) {
-        return this.wordTypeLabel;
+        return this.wordTypeLabel
       }
       if (this.labelText) {
-        return this.labelText;
+        return this.labelText
       }
-      return this.isLong ? "Texto:" : "Palavra:";
+      return this.isLong ? 'Texto:' : 'Palavra:'
     },
     imagePlaceholder() {
-      if (this.isItem) {
-        return "Arquivo Selecionado";
+      if (this.imageUrl) {
+        return this.imageUrl
+      } else if (this.isEditing) {
+        return this.word.images.length
+          ? this.getNameLink(this.word.images[0].url)
+          : ''
       }
-      if (this.isEditing) {
-        return this.word.images.length ? this.word.images[0].url : "";
-      }
-      return "";
+      return ''
     },
     audioPlaceholder() {
       if (this.isEditing) {
-        return this.word.audios.length ? this.word.audios[0].url : "";
+        return this.word.audios.length
+          ? this.getNameLink(this.word.audios[0].url)
+          : ''
       }
-      return "";
-    },
+      return ''
+    }
   },
-  created() {
+  async created() {
     if (this.isEditing || this.word) {
-      return true;
+      let { data } = await this.$axios.get(`/words/${this.wordId}.json`)
+      // map word
+      data.type = WordTypes[data.type].value
+      this.$set(this, 'word', data)
+      return true
     }
 
-    const word = new Word();
+    const word = new Word()
 
-    word.text = this.text;
+    word.text = this.text
 
-    word.total_syllables = 1;
-    word.syllables = [];
+    word.total_syllables = 1
+    word.syllables = []
 
     if (this.wordType) {
-      word.type = this.wordType;
+      word.type = this.wordType
     }
 
-    Vue.set(this, "word", word);
+    Vue.set(this, 'word', word)
   },
   methods: {
     async submit() {
-      this.validates();
+      this.validates()
 
-      this.busy = true;
+      this.busy = true
 
       if (this.hasError) {
-        this.busy = false;
+        this.busy = false
         this.$notify({
-          group: "danger",
-          title: "Falha na Validação",
-          text: "Por favor verifique no formulário a causa e o motivo",
-        });
-        return { error: true };
+          group: 'danger',
+          title: 'Falha na Validação',
+          text: 'Por favor verifique no formulário a causa e o motivo'
+        })
+        return { error: true }
       }
 
-      const payload = this.mapWord();
-      const formBody = objectToFormData(payload, { indices: true });
+      const payload = this.mapWord()
+      const formBody = objectToFormData(payload, { indices: true })
 
       try {
         const { data } = await this.$axios({
-          url: this.isEditing ? `/words/${this.wordId}.json` : "/words.json",
-          method: this.isEditing ? "put" : "post",
+          url: this.isEditing ? `/words/${this.wordId}.json` : '/words.json',
+          method: this.isEditing ? 'put' : 'post',
           data: formBody,
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
 
         if (data.errors) {
-          const message = ActiveRecordHelper.errorMessage(data.errors);
-          throw new Error(message);
+          const message = ActiveRecordHelper.errorMessage(data.errors)
+          throw new Error(message)
         }
 
         this.$notify({
-          group: "success",
-          title: "Sucesso",
-          text: "Nova palavra  criada com sucesso!",
-        });
+          group: 'success',
+          title: 'Sucesso',
+          text: 'Nova palavra  criada com sucesso!'
+        })
 
-        this.$emit("close", data);
+        this.$emit('close', data)
 
-        return { data };
+        return { data }
       } catch (error) {
         if (this.embedded) {
           // TEMPORÁRIO Caso a palavra já exista
-          if (error.message === "text - já está em uso") {
-            let data = { text: this.word.text };
-            this.$emit("close", { data }); // emitindo para o parent
-            return { data };
+          if (error.message === 'text - já está em uso') {
+            let data = { text: this.word.text }
+            this.$emit('close', { data }) // emitindo para o parent
+            return { data }
           }
 
-          throw new Error(error);
+          throw new Error(error)
         } else {
           this.$notify({
-            group: "danger",
-            title: "Falha na Validação",
-            text: error.message,
-          });
+            group: 'danger',
+            title: 'Falha na Validação',
+            text: error.message
+          })
         }
 
-        this.busy = false;
+        this.busy = false
 
-        return { error: true, data: error };
+        return { error: true, data: error }
       }
     },
+    getNameLink(link) {
+      if (link) {
+        const url = link
+          .split('/')
+          .pop()
+          .split('?')
+          .shift()
+        if (url) return url
+        else return ''
+      } else return ''
+    },
     validates() {
-      const { syllables } = this.word;
+      const { syllables } = this.word
 
-      const errors = {};
+      const errors = {}
 
       if (!this.textRequired) {
-        const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVXZ";
-        let prefix = "INPUT-";
+        const letters = '0123456789ABCDEFGHIJKLMNOPQRSTUVXZ'
+        let prefix = 'INPUT-'
         for (let i = 0; i < 10; i++) {
-          prefix += letters[Math.floor(Math.random() * 33)];
+          prefix += letters[Math.floor(Math.random() * 33)]
         }
-        this.word.text = prefix;
+        this.word.text = prefix
       } else {
-        errors.text = !this.word.text;
+        errors.text = !this.word.text
       }
       errors.syllables = !this.isLong
         ? this.validateSyllables(syllables)
-        : false;
+        : false
       //errors.audio = this.validateAudio();
       //errors.image = this.validateImage();
 
-      Vue.set(this, "errors", errors);
+      Vue.set(this, 'errors', errors)
     },
     validateImage() {
-      let invalid = null;
+      let invalid = null
 
       if (this.imageRequired && this.isEditing) {
-        invalid = !this.word.images.length;
+        invalid = !this.word.images.length
       }
 
       if (this.imageRequired) {
         if (invalid) {
-          invalid = !this.image.attachment;
+          invalid = !this.image.attachment
         }
-        return invalid;
+        return invalid
       }
 
       if (this.isSubstantivoProprio) {
-        return false;
+        return false
       }
 
-      return this.isLong ? false : !this.image.attachment;
+      return this.isLong ? false : !this.image.attachment
     },
     validateAudio() {
-      let invalid = false;
+      let invalid = false
 
       if (this.audioRequired) {
         if (invalid) {
-          invalid = !this.audio.attachment;
+          invalid = !this.audio.attachment
         }
-        return invalid;
+        return invalid
       }
 
       if (this.isSubstantivoProprio) {
-        return false;
+        return false
       }
 
-      return this.isLong ? false : !this.audio.attachment;
+      return this.isLong ? false : !this.audio.attachment
     },
     validateSyllables(syllables) {
       return (
         syllables
-          .map((s) => s.text)
-          .join("")
+          .map(s => s.text)
+          .join('')
           .toUpperCase() !== this.word.text.toUpperCase()
-      );
+      )
     },
     close() {
-      this.$emit("close", false);
+      this.$emit('close', false)
     },
 
     mapWord() {
-      let payload = { word: { ...this.word } };
-      const types = values(WordTypes);
+      let payload = { word: { ...this.word } }
+      const types = values(WordTypes)
       const syllables = this.word.syllables
-        ? this.word.syllables.filter((s) => s.text)
-        : [];
+        ? this.word.syllables.filter(s => s.text)
+        : []
 
       if (syllables.length) {
         payload.word.elements_attributes = syllables.map(({ text }) => {
           return {
             text: text.toUpperCase(),
-            type: WordTypes.silaba.key,
-          };
-        });
+            type: WordTypes.silaba.key
+          }
+        })
       }
 
       if (this.image.attachment) {
         if (this.isEditing) {
-          payload.word.images_attributes = [];
+          payload.word.images_attributes = []
 
-          payload.word.images_attributes.push(omit(this.image, ["url"]));
+          payload.word.images_attributes.push(omit(this.image, ['url']))
 
           if (this.word.images.length) {
-            this.word.images.forEach((i) => {
-              payload.word.images_attributes.push({ id: i.id, _destroy: "1" });
-            });
+            this.word.images.forEach(i => {
+              payload.word.images_attributes.push({ id: i.id, _destroy: '1' })
+            })
           }
         } else {
-          payload.word.images_attributes = [omit(this.image, ["url"])];
+          payload.word.images_attributes = [omit(this.image, ['url'])]
         }
       }
 
       if (this.audio.attachment) {
         if (this.isEditing) {
-          payload.word.audios_attributes = [];
+          payload.word.audios_attributes = []
 
-          payload.word.audios_attributes.push(omit(this.audio, ["url"]));
+          payload.word.audios_attributes.push(omit(this.audio, ['url']))
 
           if (this.word.audios.length) {
-            this.word.audios.forEach((a) => {
-              payload.word.audios_attributes.push({ id: a.id, _destroy: "1" });
-            });
+            this.word.audios.forEach(a => {
+              payload.word.audios_attributes.push({ id: a.id, _destroy: '1' })
+            })
           }
         } else {
-          payload.word.audios_attributes = [omit(this.audio, ["url"])];
+          payload.word.audios_attributes = [omit(this.audio, ['url'])]
         }
       }
 
       // convert integer to enum for active-record persist
-      payload.word = omit(payload.word, unpermitted_params);
-      payload.word.type = find(types, { value: this.word.type }).key;
+      payload.word = omit(payload.word, unpermitted_params)
+      payload.word.type = find(types, { value: this.word.type }).key
 
-      return payload;
-    },
+      return payload
+    }
   },
   watch: {
     async wordId(word_id) {
       if (this.isEditing && word_id) {
-        let { data } = await this.$axios.get(`/words/${word_id}.json`);
+        let { data } = await this.$axios.get(`/words/${word_id}.json`)
         // map word
-        data.type = WordTypes[data.type].value;
-        this.$set(this, "word", data);
+        data.type = WordTypes[data.type].value
+        this.$set(this, 'word', data)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss">

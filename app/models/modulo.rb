@@ -14,6 +14,8 @@ class Modulo < ApplicationRecord
 
   has_many :themes
 
+  has_many :theme_audiences, through: :themes, foreign_key: :theme_audience_id
+
   private
 
   def set_defaults

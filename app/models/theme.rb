@@ -1,7 +1,7 @@
 # Temas.
 class Theme < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: :scoped, :scope => :target_audience
 
   enum status: { active: 0,
                inactive: 1 }

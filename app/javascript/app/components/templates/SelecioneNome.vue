@@ -48,7 +48,6 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import TemplateMixin from '../../mixins/TemplateMixin'
 import { WordTypes } from '../../types'
 import Item from '../../models/Item'
@@ -108,10 +107,19 @@ export default {
     }
   },
   created() {
-    const value_items_attributes = [
-      new Item('value', WordTypes.substantivo_proprio.value, '')
-    ]
-    value_items_attributes.word_source_type = 'external_param'
+    if(this.isEditing) {
+      this.items.map((el)=>{
+        if (el.type === 'value') {
+          this.incorrects.push(el.text)
+          this.addItemIncorrect(this.incorrects)
+        }
+
+      })
+    } else {
+      const value_items_attributes = [
+       new Item('value', WordTypes.substantivo_proprio.value, '')
+      ]
+   value_items_attributes.word_source_type = 'external_param'
     // this.items.push(
     //   new Item('key', WordTypes.substantivo_comum.value, '', null, value_items_attributes)
     // )
@@ -126,6 +134,8 @@ export default {
     this.items.push(newItem)
 
     this.$emit('validateItems', true)
+    }
+    
   }
 }
 </script>

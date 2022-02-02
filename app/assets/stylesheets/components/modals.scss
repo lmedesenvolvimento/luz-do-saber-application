@@ -1,0 +1,110 @@
+.ls-modal {
+  &-header {
+    @include nunito_bold;
+    background-color: $brand-primary;
+    border-bottom: 1px solid $brand-primary;
+    padding: $gap * 1.5;
+    text-align: center;
+    .title {
+      font-size: 18px;
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: $gap ($gap * 2);
+    border-top: 1px solid $border-color;
+    .btn {
+      margin: 0px $gap;
+    }
+  }
+  &-content {
+    max-height: 50vh;
+    min-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: ($gap * 4) ($gap * 2.5);
+  }
+  &-form {
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      width: 100%;
+      margin-bottom: $gap * 3;
+      .feedback {
+        display: block;
+        width: 100%;
+        margin-top: 4px;
+        margin-left: 33%;
+        font-size: 10px;
+      }
+      label {
+        max-width: 33.3%;
+        flex: 1;
+        padding: 0px ($gap * 2);
+        align-self: center;
+        text-align: right;
+        &.is-sentence {
+          align-self: flex-start;
+        }
+      }
+
+      .input {
+        flex: 2;
+        display: inline-block;
+        width: 100%;
+        .ls-input-syllables,
+        .ls-input-number-syllables {
+          padding: 0px;
+        }
+        .form-control,
+        select,
+        .input-file {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+  &.is-embedded {
+    .ls-modal-header,
+    .ls-modal-footer {
+      display: none;
+    }
+    .ls-modal-content {
+      padding: 0px;
+      max-height: none;
+      min-height: 0px;
+    }
+    .ls-modal-form {
+      .form-group {
+        label {
+          flex: 1;
+          text-align: left;
+          padding: 0;
+        }
+        .input {
+          flex: 3;
+        }
+      }
+    }
+  }
+}
+
+.swal2-actions {
+  column-gap: 18px;
+}
+
+.swal2-popup {
+  padding: $gap * 3 !important;
+  box-shadow: $box-shadown;
+}
+
+.swal2-content {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: $gap * 2 !important;
+}

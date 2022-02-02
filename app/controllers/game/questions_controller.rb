@@ -40,7 +40,9 @@ class Game::QuestionsController < ApplicationController
   private
 
   def set_unit
-    @unit = Unit.joins(:theme).where(themes: { status: :active }).friendly.find(params[:unit_slug])
+    @target_audience = ThemeAudience.friendly.find(params[:target_audience_slug])
+    @theme = Theme.where(:theme_audience_id => @target_audience).friendly.find(params[:theme_slug])
+    @unit = Unit.where(:theme=> @theme).joins(:theme).friendly.find(params[:unit_slug])
   end
 
   # Remove itens sem informacao e embaralha as chaves e valores.

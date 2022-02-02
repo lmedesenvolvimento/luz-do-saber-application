@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :user_games
+  resources :user_games do
+    get '/get_from_code/:code', to: 'user_games#get_from_code', on: :collection
+  end
+
 
   authenticated :user do
     root to: 'home#index'
@@ -26,12 +29,13 @@ Rails.application.routes.draw do
     post '/user_game',                                          to: 'user_games#create',   defaults: { format: :json }
     get '/user_game/me/:code',                                  to: 'user_games#me',   defaults: { format: :json }
 
-    get '/',                                                    to: 'modulos#index',    defaults: { format: :json }, as: :modulos
-    get '/all',                                                 to: 'modulos#all',      defaults: { format: :json }, as: :all
-    get '/:modulo_slug',                                        to: 'themes#index',     defaults: { format: :json }, as: :themes
-    get '/:modulo_slug/:theme_slug',                            to: 'units#index',      defaults: { format: :json }, as: :units
-    get '/:modulo_slug/:theme_slug/:unit_slug',                 to: 'questions#index',  defaults: { format: :json }, as: :questions
-    get '/:modulo_slug/:theme_slug/:unit_slug/:question_order', to: 'questions#show',   defaults: { format: :json }, as: :question
+    get '/',                                                                          to: 'modulos#index',          defaults: { format: :json }, as: :modulos
+    get '/all',                                                                       to: 'modulos#all',            defaults: { format: :json }, as: :all
+    get '/:modulo_slug',                                                              to: 'target_audiences#index', defaults: { format: :json }, as: :target_audiences
+    get '/:modulo_slug/:target_audience_slug',                                        to: 'themes#index',           defaults: { format: :json }, as: :themes
+    get '/:modulo_slug/:target_audience_slug/:theme_slug',                            to: 'units#index',            defaults: { format: :json }, as: :units
+    get '/:modulo_slug/:target_audience_slug/:theme_slug/:unit_slug',                 to: 'questions#index',        defaults: { format: :json }, as: :questions
+    get '/:modulo_slug/:target_audience_slug/:theme_slug/:unit_slug/:question_order', to: 'questions#show',         defaults: { format: :json }, as: :question
   end
 
   # GAME

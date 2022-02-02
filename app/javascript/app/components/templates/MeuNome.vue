@@ -21,72 +21,72 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-import { WordTypes } from "../../types";
-import Item from "../../models/Item";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import { WordTypes } from '../../types'
+import Item from '../../models/Item'
+
 export default {
   mixins: [TemplateMixin],
   data() {
     return {
-      word_type: WordTypes.substantivo_proprio.value,
-    };
+      word_type: WordTypes.substantivo_proprio.value
+    }
   },
   methods: {
     onInput({ text, images }) {
-      let newItem = undefined;
+      let newItem = undefined
       if (this.theKey) {
         const value_items_attributes = [
-          new Item("value", WordTypes.substantivo_proprio.value, text),
-        ];
+          new Item('value', WordTypes.substantivo_proprio.value, text)
+        ]
 
         newItem = new Item(
-          "key",
+          'key',
           WordTypes.substantivo_proprio.value,
           text,
           null,
           value_items_attributes
-        );
+        )
         // this.theKey.remote_image_url = images[0].url
         // this.theKey.value_items_attributes[0].word_text = text
         // this.theKey.value_items_attributes[0].text = text
         // this.theKey.value_items_attributes[0].remote_image_url = images[0].url
       }
 
-      Vue.set(this, "items", [newItem]);
+      Vue.set(this, 'items', [newItem])
     },
     validateItems() {
-      this.$emit("validateItems", true);
-    },
+      this.$emit('validateItems', true)
+    }
   },
   created() {
     const value_items_attributes = [
-      new Item("value", WordTypes.substantivo_proprio.value, ""),
-    ];
-    value_items_attributes.word_source_type = "external_param";
+      new Item('value', WordTypes.substantivo_proprio.value, '')
+    ]
+    value_items_attributes.word_source_type = 'external_param'
     // this.items.push(
     //   new Item('key', WordTypes.substantivo_comum.value, '', null, value_items_attributes)
     // )
     let newItem = new Item(
-      "key",
+      'key',
       WordTypes.substantivo_proprio.value,
-      "",
+      '',
       null,
       value_items_attributes
-    );
-    newItem.word_source_type = "external_param";
+    )
+    newItem.word_source_type = 'external_param'
 
     // newItem.type = 'key'
     // newItem.word_type = WordTypes.substantivo_proprio.value
     // newItem.word_source_type = 'external_param'
     // newItem.value_items_attributes = value_items_attributes
 
-    this.items.push(newItem);
+    this.items.push(newItem)
 
-    this.$emit("validateItems", true);
-  },
-};
+    this.$emit('validateItems', true)
+  }
+}
 </script>
 
 <style lang="scss">

@@ -44,6 +44,7 @@
             @filled="(toggle) => (caixas[0].filled = toggle)"
             @search="onSearch"
             @input="(word) => addItem(caixas[0], word)"
+            v-model="caixa0"
           />
           <div>(3 items)</div>
         </div>
@@ -72,6 +73,7 @@
             @filled="(toggle) => (caixas[1].filled = toggle)"
             @search="onSearch"
             @input="(word) => addItem(caixas[1], word)"
+            v-model="caixa1"
           />
           <div>(3 items)</div>
         </div>
@@ -82,9 +84,8 @@
 
 <script>
 import Vue from 'vue'
-import { clone, values } from 'lodash'
+import { values } from 'lodash'
 import Item from '../../models/Item'
-import Templates from '../../components/templates/templates.json'
 import TemplateMixin from '../../mixins/TemplateMixin'
 import { WordTypes } from '../../types'
 
@@ -103,6 +104,8 @@ export default {
       modeledItems: [],
       initialCaixa1: [],
       initialCaixa2: [],
+      caixa0: [],
+      caixa1: [],
       caixas: [
         {
           title: 'Caixa 1',
@@ -136,11 +139,16 @@ export default {
       return { ...item, title: c.title }
     })
 
-    if(this.items.length > 0) {
+    if(this.items.length > 0 && this.isEditing) {
 
-     this.caixas[0].label = this.items[0]?.text
-     this.caixas[1].label = this.items[1]?.text
-     this.items[0].value_items_attributes.map((el)=> {
+      this.modeledItems = this.items
+      this.modeledItems[0].title = "Caixa 1"
+      this.modeledItems[1].title = "Caixa 2"
+
+      this.caixas[0].label = this.items[0]?.text
+      this.caixas[1].label = this.items[1]?.text
+     
+      this.items[0].value_items_attributes.map((el)=> {
         if (el.word_type === 0) {
           this.word_type = WordTypes.letra
         } else if (el.word_type === 1){
@@ -149,10 +157,13 @@ export default {
           this.word_type = WordTypes.substantivo_comum
         }
       this.initialCaixa1.push({text: el.text})
+      this.caixa0.push({text: el.text})
+      
      })
 
      this.items[1].value_items_attributes.map((el)=> {
       this.initialCaixa2.push({text: el.text})
+      this.caixa1.push({text: el.text})
       
      })
      
@@ -177,11 +188,16 @@ export default {
     renameBox(box) {
       const index = this.modeledItems.findIndex((i) => i.title === box.title)
       this.modeledItems[index].word_text = box.label
+      this.modeledItems[index].text = box.label      
       const modeled = this.modeledItems.map(({ title, ...i }) => i)
       Vue.set(this, 'items', modeled)
     },
     clearItems() {
       // this.modeledItems= []
+      // this.caixa0 = []
+      // this.caixa1 = []
+      // this.initialCaixa1 = []
+      // this.initialCaixa2 = []
       // this.caixas= [
       //   {
       //     title: 'Caixa 1',
@@ -201,15 +217,11 @@ export default {
       // this.items = []
     },
     validateItems() {
-      if (this.caixas[0].words && this.caixas[1].words){
-        this.$emit(
-        'validateItems',
-        this.items.every((i) => i.word_text !== '' && 
-        this.caixas[0].words.length >= 3 && 
-        this.caixas[1].words.length >= 3)
-      )
-      }   
-      
+      if (this.caixa0.length === 3  && this.caixa1.length === 3 ) {
+        this.$emit( 'validateItems', true)
+      } else {
+         this.$emit('validateItems',  false)
+      }     
     }
   }
 }

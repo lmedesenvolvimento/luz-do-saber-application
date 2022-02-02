@@ -6,7 +6,7 @@ class Question::QuestionTemplatesController < ApplicationController
   def index
     @question_templates = Question::QuestionTemplate.order(:name)
   end
-  
+
   def list
     @question_templates = Question::QuestionTemplate.order(:name)
   end
@@ -68,6 +68,8 @@ class Question::QuestionTemplatesController < ApplicationController
                                                         :image,
                                                         :question_type,
                                                         :question_subtype,
+                                                        :question_description,
+                                                        :question_title,
 
                                                         :question_external_param_type,
                                                         :question_external_param_total,

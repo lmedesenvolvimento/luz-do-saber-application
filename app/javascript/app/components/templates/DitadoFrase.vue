@@ -2,21 +2,35 @@
   <div id="ditado-frase">
     <div class="row">
       <div class="col-md-7">
-        <ls-modal-create-word 
+        <ls-modal-create-word
           ref="embedded"
           :embedded="true"
-          :text="initialPalavra"
-          :word-type="word_type" 
+          :text="initialCorrect"
+          :is-editing="isEditing"
+          :word-id="word_id"
+          :word-type="word_type"
           :word-type-disabled="true"
           :audio-required="true"
           :image-required="false"
           :audio-visible="true"
           :image-visible="false"
-        />        
+        />
       </div>
       <div class="col-md-5"></div>
     </div>
-    <div class="actions">
+    <div v-if="isEditing" class="actions">
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+        >Cancelar
+      </a>
+      <button
+        @click="submit"
+        class="btn btn-primary"
+        :disabled="busy || !hasDescription"
+      >
+        Editar Atividade
+      </button>
+    </div>
+    <div v-else class="actions">
       <router-link
         tag="button"
         class="btn btn-default"
@@ -27,7 +41,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || isSubmitDisabled"
+        :disabled="busy || !hasDescription"
       >
         Criar Atividade
       </button>
@@ -36,56 +50,72 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { clone } from 'lodash'
 import TemplateMixin from '../../mixins/TemplateMixin'
-
 import Item from '../../models/Item'
-import Word from '../../models/Word'
-
 import { WordTypes } from '../../types'
-
-import CreateWordModal from '../../modals/CreateWordModal'
 
 export default {
   mixins: [TemplateMixin],
-  data(){
+  data() {
     return {
       busy: false,
       word_type: WordTypes.frase.value,
       items: [],
-      initialPalavra: []
+      initialCorrect: [],
+      word_id: null
     }
   },
   created() {
-    if(this.items.length > 0) {     
-     this.items.map((el) => {
-      this.initialPalavra.push(el.text)
-      })
+    if (this.isEditing) {
+      this.initialCorrect = this.theKey.text
+      this.word_id = this.theKey.word_id
     }
   },
   computed: {
     isSubmitDisabled() {
       return !this.$parent.hasDescription
+    },
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
     }
   },
-  methods: { 
-    async submit(){
+  methods: {
+    async submit() {
       try {
-        this.busy = true        
+        this.busy = true
         // Aguardando nova palavra ser criada
         const { data } = await this.$refs.embedded.submit()
         const word = data
+        const text = word.text ? word.text : this.initialCorrect
 
-        this.items.push(
-          new Item('key', WordTypes.frase.value, word.text)
-        )
+        let newText = ''
+
+        newText = text
+
+        this.items = [new Item('key', WordTypes.frase.value, newText)]
+
+        if (this.isEditing) {
+          const newValues = newText.split(' ')
+          const value_items_attributes = newValues.map(el => {
+            return new Item('value', WordTypes.frase.value, el)
+          })
+
+          this.items = [
+            new Item(
+              'key',
+              WordTypes.frase.value,
+              newText,
+              null,
+              value_items_attributes
+            )
+          ]
+        }
         // Salvando no banco novo template de questão
         setTimeout(() => {
           this.$emit('submitTemplate')
-        }, 400)
-      } 
-      catch(e) {
+        }, 1500)
+      } catch (e) {
         this.$notify({
           group: 'danger',
           title: 'Falha',
@@ -103,8 +133,8 @@ export default {
 </script>
 
 <style lang="scss">
-#ditado-frase{
-  .actions{
+#ditado-frase {
+  .actions {
     .btn:first-child {
       margin-right: 5px;
     }
