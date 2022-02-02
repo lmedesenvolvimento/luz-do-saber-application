@@ -4,18 +4,14 @@
 
 .row
   .col-lg-12
-    = image_tag @book.cover_full_url, width: 200
+    = image_tag verify_url(@book.cover_full_url), width: 200
 
 br
 
 .row
   - if @book.pdf_full_url.present?
     .col-lg-1
-      = link_to '[PDF]', @book.pdf_full_url, target: '_blank'
-
-  - if @book.zip_pages.present?
-    .col-lg-1
-      = link_to '[ZIP]', @book.zip_pages.url, target: '_blank'
+      = link_to '[PDF]', verify_url(@book.pdf_full_url), target: '_blank'
 
 .row
   .col-lg-12

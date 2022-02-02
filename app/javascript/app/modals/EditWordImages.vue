@@ -8,11 +8,19 @@
         <div class="container-fluid">
           <div class="images">
             <div class="row">
-              <div class="col-sm-4 text-center" v-for="(image, index) in word.images" :key="index">
+              <div
+                class="col-sm-4 text-center"
+                v-for="(image, index) in word.images"
+                :key="index"
+              >
                 <div class="image">
-                  <img @click.stop="select(image)" class="img-fluid" :src="image.url" />
+                  <img
+                    @click.stop="select(image)"
+                    class="img-fluid"
+                    :src="image.url"
+                  />
                   <div class="actions">
-                    <button class="btn btn-link" @click.stop="remove(image, index)">Remover</button>
+                    <!-- <button class="btn btn-link" @click.stop="remove(image, index)">Remover</button> -->
                   </div>
                 </div>
               </div>
@@ -20,15 +28,14 @@
                 <div class="image">
                   <img class="img-fluid" :src="preview" />
                   <div class="progress">
-                    <div 
-                      class="progress-bar" 
-                      role="progressbar" 
-                      :aria-valuenow="progress" 
-                      aria-valuemin="0" 
-                      aria-valuemax="100" 
-                      :style="{ 'width': `${progress}%` }"
-                    >
-                    </div>
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      :aria-valuenow="progress"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      :style="{ width: `${progress}%` }"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -36,15 +43,15 @@
           </div>
           <div class="well well-sm">
             <div class="form-group">
-              <label>Selecione uma imagem do seu dispositivo para</label>
-              <input 
+              <label>Selecione uma imagem do seu dispositivo </label>
+              <input
                 ref="file"
-                type="file" 
+                type="file"
                 class="form-control-file"
                 accept="image/*"
                 @change="handleFileUpload"
-                :disabled='busy'
-              >
+                :disabled="busy"
+              />
             </div>
           </div>
         </div>
@@ -77,7 +84,7 @@ export default {
     }
   },
   methods: {
-    handleFileUpload(){
+    handleFileUpload() {
       this.file = this.$refs.file.files[0]
       this.preview = URL.createObjectURL(this.file)
 
@@ -94,7 +101,7 @@ export default {
       if (!response) {
         return false
       }
-      
+
       this.word.images.splice(index, 1)
 
       const payload = {
@@ -107,15 +114,19 @@ export default {
           ]
         }
       }
-      
+
+     
+
       const reponse = await this.$axios({
         url: `/words/${this.word.id}.json`,
         method: 'put',
-        data: payload        
+        data: payload
       })
 
-      if (!reponse.data.success){
-        return alert('Error desconhecido ao tentar remover imagem, por favor contate o administrador')
+      if (!reponse.data.success) {
+        return alert(
+          'Error desconhecido ao tentar remover imagem, por favor contate o administrador'
+        )
       }
     },
     async upload() {
@@ -130,9 +141,9 @@ export default {
           ]
         }
       }
-      
+
       const formBody = objectToFormData(payload, { indices: true })
-      
+
       const reponse = await this.$axios({
         url: `/words/${this.word.id}.json`,
         method: 'put',
@@ -142,32 +153,34 @@ export default {
           this.progress = (event.loaded / this.file.size) * 100
         }
       })
-  
-      if (reponse.data.success){
-        try {          
+
+      
+
+      if (reponse.data.success) {
+        try {
           const { data } = await this.$axios.get(`/words/${this.word.id}.json`)
-          this.word = { ...this.word,  ...data }
+          this.word = { ...this.word, ...data }
         } catch (error) {
-          console.warn('Não foi possível persistir novos dados', error)          
+          console.warn('Não foi possível persistir novos dados', error)
         } finally {
           this.file = null
           this.preview = null
           this.progress = 0
           this.busy = false
-          
+
           /*
-          * GARBAGE COLLECTOR
-          */
+           * GARBAGE COLLECTOR
+           */
 
           // Limpando arquivos do input
-          this.$refs.file.value = ""
+          this.$refs.file.value = ''
 
           // Removendo da memória preview
           URL.revokeObjectURL(this.preview)
         }
       }
     }
-  },
+  }
 }
 </script>
 
@@ -184,7 +197,7 @@ export default {
       flex-wrap: wrap;
       align-items: stretch;
       box-sizing: border-box;
-      [class^=col] {
+      [class^='col'] {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;

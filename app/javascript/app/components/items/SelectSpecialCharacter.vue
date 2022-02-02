@@ -1,78 +1,141 @@
 <template>
   <div class="ls-select-character container-fluid">
-    <div class="character">
-      <label v-for="l in character" :key="l.id">
-        <div class="panel letter" :class="{'panel-primary': l.selected, 'panel-default': !l.selected}">
+    <div class="letters">
+      <label v-if="lettersVisibility" v-for="l in letters" :key="l.id">
+        <div
+          class="panel letter"
+          :class="{ 'panel-primary': l.selected, 'panel-default': !l.selected }"
+        >
           <div class="panel-body">
             {{ l.text }}
-            <input v-model="l.selected" class="invisible" type="checkbox" />
+            <input
+              v-model="l.selected"
+              class="invisible"
+              type="checkbox"
+              :id="l.id"
+              @input="!l.selected"
+              :disabled="disabled && !l.selected"
+            />
           </div>
         </div>
       </label>
     </div>
-    <div 
-      v-show="this.character.length"
-      class="ls-select-character-progress" 
-      :class="{'invalid': invalid}"
+    <div
+      v-show="this.letters.length"
+      class="ls-select-character-progress"
+      :class="{ invalid: invalid }"
     >
-      <div 
-        v-for="(s, index) in totalSteps" 
-        :key="s" 
-        class="step" 
-        :class="{ 'completed': completedSteps > index }"
+      <div
+        v-for="(s, index) in totalSteps"
+        :key="s"
+        class="step"
+        :class="{ completed: completedSteps > index }"
       ></div>
     </div>
     <div v-if="invalid" class="ls-select-character-feedback">
-      Você excedeu o limite máximo de caracteres a serem selecionados
+      Você excedeu o limite máximo de letras a serem selecionadas
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import { range } from 'lodash'
 export default {
   props: {
     maxItems: {
       type: Number,
       default: 3
+    },
+    removerLetra: {
+      type: String,
+      default: null
+    },
+    initialLetras: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   data() {
     return {
-      character: []
+      letters: [],
+      lettersVisibility: true
     }
   },
   computed: {
-    invalid(){
+    invalid() {
       return this.completedSteps > this.maxItems
     },
     totalSteps() {
       return range(0, this.maxItems)
     },
     completedSteps() {
-      return this.character.filter(l => l.selected).length
+      return this.letters.filter(l => l.selected).length
+    },
+    disabled() {
+      return this.completedSteps >= this.maxItems
     }
-  },  
+  },
   watch: {
-    character: {
+    letters: {
       handler() {
-        const data = this.character.filter(l => !!l.selected).slice(0, this.maxItems)
+        const data = this.letters
+          .filter(l => !!l.selected)
+          .slice(0, this.maxItems)
         this.$emit('change', { data, invalid: this.invalid })
       },
       deep: true
     }
   },
+  methods: {
+    log(ev) {
+      console.log(ev)
+    },
+    changeSelect(el) {
+      !el.selected
+    }
+  },
   async created() {
     const { data } = await this.$axios.get('/words.json?q[type_eq]=7')
-    this.character = data
-  }
+
+    const dataTemp = data.map(el => {
+      el.selected = false
+      return el
+    })
+
+    this.letters = dataTemp
+
+    this.letters.sort(function(a, b) {
+      if (a.text > b.text) {
+        return 1
+      }
+      if (a.text < b.text) {
+        return -1
+      }
+      return 0
+    })
+
+    if (this.removerLetra) {
+      const filteredLetters = this.letters.filter(
+        ({ text }) => text !== this.removerLetra
+      )
+      this.letters = filteredLetters
+    }
+
+    this.letters.map((current, index) => {
+      if (this.initialLetras.includes(current.text)) {
+        this.letters[index].selected = true
+      }
+    })
+  },
+  mounted() {}
 }
 </script>
 
 <style lang="scss">
 .ls-select-character {
-  .character {
+  .letters {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -89,13 +152,13 @@ export default {
       cursor: pointer;
     }
   }
-  .letter{
+  .letter {
     width: $gap * 5;
     height: $gap * 5;
     border-radius: $gap * 0.5;
     margin: ($gap * 0.5) auto;
     border-width: 2px;
-    .panel-body{
+    .panel-body {
       width: 100%;
       padding: $gap;
       font-size: 16px;
@@ -130,7 +193,7 @@ export default {
       }
     }
   }
-  &-feedback{
+  &-feedback {
     color: $brand-danger;
     font-weight: bold;
     font-size: 10px;

@@ -7,6 +7,16 @@ class WordImage < ApplicationRecord
   # Imagem que o aluno envia.
   attr_accessor :external_param_image_url
 
+  before_validation :lowercase_filename
+
+  #nome da imagem em minusculo
+  def lowercase_filename
+    if attachment.present?
+      n = attachment_file_name.downcase
+      self.attachment_file_name = n
+    end
+  end
+
   def full_url
     if attachment.present?
       # [ENV['ASSET_HOST'], attachment.url].join('/')

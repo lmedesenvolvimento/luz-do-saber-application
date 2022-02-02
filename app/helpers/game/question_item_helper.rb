@@ -45,16 +45,16 @@ module Game::QuestionItemHelper
     other_item_values = @values.select { |v| v.id != item_value_for_this_key_item.id }
 
     # Itens com o mesmo tipo e texto.
-    other_item_values_for_this_key_item = other_item_values.select do |ov|
-                                            # Outros itens com o mesmo tipo
-                                            ov.word.type === item_value_for_this_key_item.word.type &&
-                                              # e o mesmo texto.
-                                              ov.word.text == item_value_for_this_key_item.word.text
-                                          end.map(&:id)
+    # other_item_values_for_this_key_item = other_item_values.select do |ov|
+    #                                         # Outros itens com o mesmo tipo
+    #                                         ov.word.type === item_value_for_this_key_item.word.type &&
+    #                                           # e o mesmo texto.
+    #                                           ov.word.text == item_value_for_this_key_item.word.text
+    #                                       end.map(&:id)
 
     # Todos os itens VALUE que devem ser relacionados ao key_item indicado.
-    value_ids_with_same_key_id +
-      other_item_values_for_this_key_item
+    value_ids_with_same_key_id
+      # + other_item_values_for_this_key_item
   end
 
   def custom_item_substantivo_ultima_letra(key_item)

@@ -3,6 +3,8 @@
 = simple_form_for @question_template, url: url do |f|
   = f.input :name
   = f.input :image
+  = f.input :question_description
+  = f.input :question_title
   = f.input :question_type
   = f.input :question_subtype
   = f.input :question_total_correct_items

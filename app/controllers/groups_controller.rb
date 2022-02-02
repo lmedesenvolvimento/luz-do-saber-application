@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
   before_action do
@@ -30,25 +31,40 @@ class GroupsController < ApplicationController
     @group.user = current_user
 
     if @group.save
-      redirect_to @group, notice: t('helpers.submit.saved')
+      respond_to do |format|
+        format.json { render json: @group }
+        format.html { redirect_to @group, notice: t('helpers.submit.saved') }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.json { render json: { errors: @group.errors } }
+        format.html { render :new }
+      end
     end
   end
 
   # PATCH/PUT /groups/1
   def update
     if @group.update(group_params)
-      redirect_to @group, notice: t('helpers.submit.saved')
+      respond_to do |format|
+        format.json { render json: @group }
+        format.html { redirect_to @group, notice: t('helpers.submit.saved') }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.json { render json: { errors: @group.errors } }
+        format.html { render :edit }
+      end
     end
   end
 
   # DELETE /groups/1
   def destroy
     @group.destroy
-    redirect_to groups_url, notice: t('helpers.submit.destroyed')
+      respond_to do |format|
+        format.json { render json: @group }
+        format.html { redirect_to groups_url, notice: t('helpers.submit.destroyed') }
+      end
   end
 
   private

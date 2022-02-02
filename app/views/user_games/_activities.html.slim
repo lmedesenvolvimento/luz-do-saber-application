@@ -9,13 +9,18 @@
   = activities.count
   table.table.table-striped
     thead
+      th Ordem
+      th Descrição
       th Tema
       th Unidade
       th Tempo
       th Pontuação
     tbody
       - activities.each do |a|
+        - question = Question::Question.find(a[1]['id'])
         tr
+          td= question.order
+          td= question.descriptions.last.text
           td= Theme.find(a[1]['theme_id']).title
           td= Unit.find(a[1]['unit_id']).title
           td=a[1]['timer']['totalSeconds']

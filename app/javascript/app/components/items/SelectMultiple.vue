@@ -1,6 +1,6 @@
 <template>
   <div class="items-input-group select-multiple">
-    <div v-if="labelHtml" v-html="label" class="label" >
+    <div v-if="labelHtml" v-html="label" class="label">
       {{ label }}
     </div>
     <div v-else class="label">
@@ -11,25 +11,40 @@
       multiple
       label="text"
       :value="selectedItems"
-      :options="dataOptions.filter((d) => !selectedItems.includes(d))"
+      :options="dataOptions"
       :searchable="searchable"
       :filterable="false"
       @search="onSearch"
       @search:focus="clear"
       @input="onInput"
     >
-      <span slot="no-options">
-        <p> 
-          {{ searchFeedback }} 
-          <button 
-            v-if="isVisibleCreateWordButton" 
+      <template slot="no-options">
+        <p>
+          {{ searchFeedback }}
+          <button
+            v-if="isVisibleCreateWordButton"
             @click="openNewWord"
             class="btn btn-xs btn-default pull-right"
           >
             Adicionar Palavra
           </button>
         </p>
-      </span>
+      </template>
+      <template #option="{ text, type, images }">
+        <div class="item-row">
+          <div class="item-row-text">
+            <h3 style="margin: 0">{{ text }}</h3>
+            <em>{{ humanFriendlyType(type) }}</em>
+          </div>
+          <div class="item-row-image">
+            <div class="img-holder medium">
+              <div v-if="images[0]" class="imgs">
+                <img :src="images[0].url" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
     </v-select>
     <modal :name="modalId" height="auto">
       <ls-modal-create-word
@@ -47,10 +62,7 @@ import shortid from 'shortid'
 import { WordTypes } from '../../types'
 import CreateWordModal from '../../modals/CreateWordModal'
 
-const unpermittedWords = [
-  WordTypes.silaba.value, 
-  WordTypes.letra.value
-]
+const unpermittedWords = [WordTypes.silaba.value, WordTypes.letra.value]
 
 export default {
   props: {
@@ -58,7 +70,7 @@ export default {
     options: Array,
     maxItems: Number,
     wordType: {
-      type: Number,
+      type: [Number, Array],
       default: WordTypes.substantivo_comum.value
     },
     label: String,
@@ -78,8 +90,7 @@ export default {
   data() {
     return {
       modalId: shortid.generate(),
-      selectedItems: this.initialItems,
-      dataOptions: this.options,
+      selectedItems: this.initialItems || [],
       searchWord: ''
     }
   },
@@ -100,10 +111,20 @@ export default {
       return 'Limite máximo de palavras foi atigindo.'
     },
     isVisibleCreateWordButton() {
-      return this.$searchable && !unpermittedWords.includes(this.wordType)
+      return this.$searchable && this.isPermittedType
+    },
+    isPermittedType() {
+      if (Array.isArray(this.wordType))
+        return this.wordType.every(type => !unpermittedWords.includes(type))
+      else if (typeof this.wordType === 'number')
+        return !unpermittedWords.includes(this.wordType)
+      return false
     },
     isFilled() {
       return this.selectedItems.length >= this.maxItems
+    },
+    dataOptions() {
+      return this.options.filter(d => !this.selectedItems.includes(d))
     }
   },
   created() {
@@ -112,29 +133,26 @@ export default {
     }
   },
   watch: {
-    options(value) {
-      this.dataOptions = value.filter(
-        (x) => this.selectedItems.findIndex((s) => s.text === x.text) < 0
-      )
-    },
     initialItems(value) {
       this.selectedItems = value
     }
-
   },
   methods: {
+    humanFriendlyType(type) {
+      return WordTypes[type].label
+    },
     onSearch(search, loading) {
       if (search.length) {
         this.searchWord = search
+        this.$emit('search', search, loading, this.wordType)
       }
-      this.$emit('search', search, loading, this.wordType)
     },
-    onInput(words) {      
+    onInput(words) {
       this.$emit('filled', this.isFilled)
       this.$emit('input', this.isFilled ? words.slice(0, this.maxItems) : words)
 
       this.selectedItems = words
-      
+
       this.$nextTick(() => {
         this.clear()
         this.forceFocus()
@@ -143,7 +161,7 @@ export default {
     openNewWord() {
       this.$modal.show(this.modalId)
     },
-    closeNewWord(data){
+    closeNewWord(data) {
       if (data && !this.isFilled) {
         this.selectedItems.push(data)
         // notify parent
@@ -154,8 +172,8 @@ export default {
     },
     clear(search) {
       this.searchWord = ''
-      this.$refs.select.search = ''
-      this.dataOptions = []
+      // this.$refs.select.search = ''
+      // this.options = []
     },
     clearSelection() {
       this.selectedItems = []
@@ -184,6 +202,12 @@ export default {
         flex: 6;
       }
     }
+  }
+  .item-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
   }
 }
 </style>

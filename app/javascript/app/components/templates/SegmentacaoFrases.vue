@@ -6,21 +6,18 @@
           <div
             class="items-input-group select-multiple incorrect-items-input-group"
           >
-            <div class="label">
-              Alternativas:
-            </div>
+            <div class="label">Alternativa <br />Correta:</div>
             <v-select
-              v-model="sentences"
-              @input="addItem"
-              :searchable="isSearchable"
+              v-model="selectedItems"
+              @input="checkItem"
+              :searchable="isSearchableCorrect"
               multiple
               taggable
-              label="word_text"
             >
               <span slot="no-options">
-                {{ searchFeedback }}
-              </span>
-            </v-select>
+                {{ searchFeedbackCorrect }}
+              </span></v-select
+            >
           </div>
         </div>
         <div class="col-md-5"></div>
@@ -31,14 +28,20 @@
             class="items-input-group select-multiple correct-items-input-group"
           >
             <div class="label">
-              Alternativa Correta:
+              Alternativas <br />
+              Erradas:
             </div>
             <v-select
-              v-model="selectedItems"
-              :options="modeledItems"
-              @input="checkItem"
-              label="word_text"
-            ></v-select>
+              v-model="sentences"
+              @input="addItem"
+              :searchable="isSearchable"
+              multiple
+              taggable
+            >
+              <span slot="no-options">
+                {{ searchFeedback }}
+              </span>
+            </v-select>
           </div>
         </div>
         <div class="col-md-5"></div>
@@ -49,83 +52,73 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
+import { clone, uniqBy } from 'lodash'
 import Item from '../../models/Item'
-import Templates from '../../components/templates/templates.json'
 import TemplateMixin from '../../mixins/TemplateMixin'
 
 export default {
   mixins: [TemplateMixin],
   data() {
     return {
-      types: [],
       sentences: [],
-      clonedItem: [],
       selectedItems: [],
-      initialAlternatives: [],
-      initialCorrect: []
+      correct: [],
+      incorrect: []
     }
   },
-   created() {
-    if(this.items.length > 0) {     
-     this.items.map((el, index) => {
-       if (el.type === "key") {
-         this.selectedItems.push(el.text)
-       } else {
-         this.sentences.push(el.text)
-       }
+  created() {
+    if (this.isEditing) {
+      this.sentences = this.generateInputValues.map(el => {
+        return el.text
       })
+      this.selectedItems.push(this.theKey.word_text)
+      this.addItem(this.sentences)
+      this.checkItem(this.selectedItems)
     }
   },
   computed: {
     isSearchable() {
-      return this.sentences.length < this.maxItems
+      return this.sentences.length < 4
+    },
+    isSearchableCorrect() {
+      return this.selectedItems.length < 1
     },
     searchFeedback() {
       return this.isSearchable
         ? 'Digite uma frase para continuar...'
-        : 'Limite máximo de frases foi atigindo.'
+        : 'Limite máximo de frases erradas foi atigindo.'
     },
-    modeledItems() {
-      return this.items.filter((i) => i.type !== 'key')
+    searchFeedbackCorrect() {
+      return this.isSearchableCorrect
+        ? 'Digite uma frase para continuar...'
+        : 'Limite máximo de frases corretas foi atigindo.'
     }
   },
-  mounted() {
-    this.types = [this.WordTypes.input_custom]
-    this.items.push(new Item('key', this.WordTypes.input_custom.key, ''))
-  },
+
   methods: {
     addItem(alternatives) {
-      const incorrects = alternatives.map((text) => {
-        return new Item('value', this.WordTypes.input_custom.key, text)
+      this.incorrect = alternatives.map(text => {
+        return new Item('value', this.WordTypes.input_custom.value, text)
       })
-      this.clonedItem = this.items = [
-        ...this.items.filter(({ type }) => type === 'key'),
-        ...incorrects
-      ]
+      this.items = [...this.correct, ...this.incorrect]
     },
-    checkItem(item) {
-      if (!item) return false
-      const cloneItems = clone(
-        this.clonedItem.filter((i) => i.word_text !== item.word_text)
-      )
-      this.items.filter(({ type }) => type !== 'key')
-      cloneItems[0].value_items_attributes = []
-      cloneItems[0].value_items_attributes.length = 0
-      cloneItems[0].value_items_attributes.push(
-        new Item('value', this.WordTypes.input_custom.key, item.word_text)
-      )
-      cloneItems[0].word_text = item.word_text
-      // const cloneItems = clone(this.items.filter(({ type }) => type !== 'key'))
-      // cloneItems.find((i) => i === item).type = 'key'
-
-      Vue.set(this, 'items', cloneItems)
+    checkItem(alternatives) {
+      this.correct = alternatives.map(text => {
+        const values_item_attributes = [
+          new Item('value', this.WordTypes.input_custom.value, text)
+        ]
+        return new Item(
+          'key',
+          this.WordTypes.input_custom.value,
+          text,
+          null,
+          values_item_attributes
+        )
+      })
+      this.items = [...this.correct, ...this.incorrect]
     },
     validateItems() {
-      this.$emit(
-        'validateItems',
-        this.sentences.length > 3 && Boolean(this.selectedItems.word_text)
-      )
+      this.$emit('validateItems', this.items.length >= 4)
     }
   }
 }

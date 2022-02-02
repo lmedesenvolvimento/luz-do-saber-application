@@ -2,47 +2,48 @@
   <div id="letra-maiuscula">
     <div class="row">
       <div class="col-md-7">
-        <ls-modal-create-word 
+        <ls-modal-create-word
           ref="embedded"
-          :embedded="true" 
-          :word-type="word_type" 
+          :embedded="true"
+          :word-type="word_type"
           :word-type-disabled="true"
           :audio-required="false"
           :audio-visible="false"
           :image-required="false"
           :word-id="word_id"
           :is-editing="isEditing"
-        />        
+          :text="initialPalavra"
+        />
       </div>
       <div class="col-md-5"></div>
     </div>
-     <div class="letras">
-    <div class="row">
+    <div class="letras">
+      <div class="row">
         <div class="col-md-7">
           <div class="letras-input-group">
             <label class="label is-top">Letras</label>
             <span class="input">
-              <ls-select-letters :max-items="26" @change="onInput" :initial-letras="initialLetras" />
+              <ls-select-letters
+                :max-items="26"
+                @change="onInput"
+                :initial-letras="initialLetras"
+              />
             </span>
           </div>
         </div>
         <div class="col-md-5"></div>
+      </div>
     </div>
-  </div>
     <div v-if="isEditing" class="actions">
-      <a
-        tag="button"
-        class="btn btn-default"
-        :href="backUrl"
-        :disabled="busy"
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
         >Cancelar
       </a>
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || !hasDescription"
+        :disabled="busy || !hasDescription || letras.lenght < 0"
       >
-        Criar Atividade
+        Editar Atividade
       </button>
     </div>
     <div v-else class="actions">
@@ -56,7 +57,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || !hasDescription"
+        :disabled="busy || !hasDescription || letras.lenght < 0"
       >
         Criar Atividade
       </button>
@@ -66,37 +67,30 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import TemplateMixin from '../../mixins/TemplateMixin'
-
 import Item from '../../models/Item'
-import Word from '../../models/Word'
-
 import { WordTypes } from '../../types'
-
-import CreateWordModal from '../../modals/CreateWordModal'
 
 export default {
   mixins: [TemplateMixin],
-  data(){
+  data() {
     return {
-      busy: true,
+      busy: false,
       word_type: WordTypes.frase.value,
       items: [],
       letras: [],
       initialLetras: [],
-      initialPalavra: []
+      initialPalavra: [],
+      remoteImgUrl: null
     }
   },
-   created() {
-    
-     if(this.items.length > 0) {
-      this.initialPalavra = this.items[0].text
-     this.initialItems = this.items[0].value_items_attributes.map((el) => {       
-      this.initialLetras.push(el.text)
-       
+  created() {
+    if (this.isEditing) {
+      this.initialPalavra = this.theKey.text
+      this.initialItems = this.theKey.value_items_attributes.map(el => {
+        this.initialLetras.push(el.text)
       })
-    } 
+    }
   },
   computed: {
     backUrl() {
@@ -108,48 +102,54 @@ export default {
         return this.theKey.word_id
       }
       return null
+    },
+    getNameImage() {
+      if (this.remoteImgUrl) {
+        const url = this.remoteImgUrl
+          .split('/')
+          .pop()
+          .split('?')
+          .shift()
+        if (url) return url
+        else return ''
+      } else return ''
     }
   },
-  methods: { 
-    onInput({data, invalid}) {
+  methods: {
+    onInput({ data, invalid }) {
       const alternatives = data
       const cloneItems = []
 
       this.invalid = invalid
-      
+
       alternatives.map(({ text }) => {
-        if (!text){
+        if (!text) {
           return
         }
-        cloneItems.push(
-          new Item('value', this.WordTypes.letra.value, text)
-        )
+        cloneItems.push(new Item('value', this.WordTypes.letra.value, text))
       })
       Vue.set(this, 'letras', cloneItems)
-      if(this.letras.length >= 1){
-        this.busy = false
-      } else {
-        this.busy = true
-      }
-
     },
-    async submit(){
+    async submit() {
       try {
-        this.busy = true        
+        this.busy = true
         // Aguardando nova palavra ser criada
         const { data } = await this.$refs.embedded.submit()
-        
-        this.items.push(
-          new Item('key', WordTypes.input_custom.value, data.text, data.images[0]?.url, this.letras)
+        const items = []
+
+        const word = data.text ? data.text : this.initialPalavra
+
+        items.push(
+          new Item('key', WordTypes.frase.value, word, null, this.letras)
         )
 
+        Vue.set(this, 'items', items)
         // Salvando no banco novo template de questão
-    
+
         setTimeout(() => {
           this.$emit('submitTemplate')
-        }, 400)
-      } 
-      catch(e) {
+        }, 1500)
+      } catch (e) {
         this.$notify({
           group: 'danger',
           title: 'Falha',
@@ -166,13 +166,13 @@ export default {
 </script>
 
 <style lang="scss">
-#letra-maiuscula{
-  .actions{
+#letra-maiuscula {
+  .actions {
     .btn:first-child {
       margin-right: 5px;
     }
   }
-   .letras {
+  .letras {
     @include template-editor-field;
   }
 }

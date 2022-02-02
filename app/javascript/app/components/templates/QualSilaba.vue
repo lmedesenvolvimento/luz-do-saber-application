@@ -15,7 +15,7 @@
                   @input="onInputWord"
                 />
               </div>
-            </div>            
+            </div>
           </div>
         </div>
         <div class="correct-items">
@@ -32,7 +32,7 @@
                 @search="onSearch"
                 @input="inputCorrectItem"
               />
-              <div class="hint">Exemplo: [SA, PA, TO]</div>              
+              <div class="hint">Exemplo: [SA, PA, TO]</div>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
                 class="incorrect-items-input-group"
                 :options="words"
                 :max-items="maxItems"
-                :searchable="this.items.length <= 11"
+                :searchable="searchIncorrects"
                 :word-type="WordTypes.silaba.value"
                 :initial-items="initialErradas"
                 :label="'<small>Alternativas <br> Incorretas</small>'"
@@ -68,10 +68,8 @@
 <script>
 import Vue from 'vue'
 import { clone } from 'lodash'
-
 import Item from '../../models/Item'
 import { WordTypes } from '../../types'
-
 import TemplateMixin from '../../mixins/TemplateMixin'
 
 export default {
@@ -87,30 +85,34 @@ export default {
   },
   created() {
     if (this.items.length > 1) {
-      this.items.map((el)=> {
-        if(el.type === "value") {
-          this.initialErradas.push({text: el.text})
+      this.items.map(el => {
+        if (el.type === 'value') {
+          this.initialErradas.push({ text: el.text })
         } else {
           this.initialPalavra.push(el.text)
-          el.value_items_attributes.map((x)=> {
-            this.initialCorretas.push({text: x.text})
+          el.value_items_attributes.map(x => {
+            this.initialCorretas.push({ text: x.text })
           })
         }
       })
     } else {
-      this.items.push(
-      new Item('key', WordTypes.substantivo_comum.value, '')
-    )
+      this.items.push(new Item('key', WordTypes.substantivo_comum.value, ''))
     }
-    
+  },
+  computed: {
+    searchIncorrects() {
+      return this.items.length < this.maxItems
+    }
   },
   methods: {
     onInputWord(word) {
       const cloneItems = clone(this.items)
-      cloneItems[0].remote_image_url = word.images.length ? word.images[0].url : ''
+      cloneItems[0].remote_image_url = word.images.length
+        ? word.images[0].url
+        : ''
       Vue.set(this, 'items', cloneItems)
     },
-    inputCorrectItem(alternatives){
+    inputCorrectItem(alternatives) {
       // Example for mapping correct inputs
       const cloneItems = clone(this.items)
 
@@ -120,7 +122,7 @@ export default {
 
       Vue.set(this, 'items', cloneItems)
     },
-    inputIncorrectItem(alternatives){
+    inputIncorrectItem(alternatives) {
       // Example for mapping incorrect inputs
       const incorrects = alternatives.map(({ text }) => {
         return new Item('value', WordTypes.silaba.value, text)
@@ -131,9 +133,9 @@ export default {
         ...incorrects
       ]
     },
-    validateItems(){
+    validateItems() {
       this.$emit(
-        'validateItems', 
+        'validateItems',
         this.theKey.word_text && this.items.length >= 2
       )
     }
@@ -143,7 +145,9 @@ export default {
 
 <style lang="scss">
 #qual-silaba {
-  .the-word, .correct-items, .incorrect-items {
+  .the-word,
+  .correct-items,
+  .incorrect-items {
     @include template-editor-field;
   }
 }

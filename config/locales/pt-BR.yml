@@ -69,6 +69,7 @@ pt-BR:
         unique_session_id: Sessão
         created_at: Criação
       theme_audience:
+        order: Ordem
         title: Título
         description: Descrição
         cover: Capa

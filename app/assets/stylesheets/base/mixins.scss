@@ -9,38 +9,39 @@
 }
 
 @mixin ellipsis($width: 100%) {
-	display: inline-block;
-	max-width: $width;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin template-editor-field {
-	padding: ($gap * 2) 0px;
-  &-input-group{
+  padding: ($gap * 2) 0px;
+  &-input-group {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     box-sizing: border-box;
     margin-bottom: 0px;
-    .form-control{
+    .form-control {
       text-indent: 12px;
       padding: 0px;
       flex: 3;
     }
     .label {
       flex: 1;
-			font-weight: bold;
-			color: $text-color;
-			font-size: 14px;
-			text-align: left;
+      font-weight: bold;
+      color: $text-color;
+      font-size: 14px;
+      text-align: left;
       padding: 0;
       &.is-top {
         align-self: flex-start;
       }
     }
-    .v-select, .input {
+    .v-select,
+    .input {
       flex: 3;
     }
   }
@@ -49,5 +50,49 @@
     margin-left: 25%;
     padding: $gap 0px;
     color: transparentize($color: $text-color, $amount: 0.6);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin lds-ring-loading($color: #11a7a2) {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid $color;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: $color transparent transparent transparent;
+
+    &:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    &:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    &:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
+
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

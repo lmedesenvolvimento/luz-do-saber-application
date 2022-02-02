@@ -136,8 +136,8 @@ class Question::QuestionsItem < ApplicationRecord
                   # TODO: identificar como input_custom? ou tudo que nao for substantivo, silaba e letra nao deve ser considerado?
                   # Nao e definido na base de dados.
                   Word.find_or_create_by(user: admin, type: word_type, text: word_text.upcase)
-                when 'letra'
-                  Word.letra.where(text: word_text.upcase).first
+                when 'letra', 'silaba', 'substantivo_comum'
+                  Word.where(text: word_text.upcase, type: word_type).first
                 else
                   # Word.where(type: word_type, text: word_text.upcase).first
                   Word.where(text: word_text.upcase).first

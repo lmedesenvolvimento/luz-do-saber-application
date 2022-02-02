@@ -41,11 +41,21 @@ json.title do
 end
 
 json.statement do
-  if q.descriptions.any?
-    description = q.descriptions.last
+  if q.descriptions.texto.any?
+    description = q.descriptions.texto.last
 
     json.extract! description, :type, :text
 
+    json.image description.image_full_url
+    json.audio description.audio_full_url
+  end
+end
+
+json.subtitle do
+  if q.descriptions.subtitle.any?
+    description = q.descriptions.subtitle.last
+
+    json.extract! description, :type, :text
     json.image description.image_full_url
     json.audio description.audio_full_url
   end

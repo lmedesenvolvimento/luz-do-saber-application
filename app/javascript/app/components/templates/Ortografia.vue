@@ -18,7 +18,7 @@
           >
             <template v-slot:word="scope">
               <label>
-                Palavra
+                Palavra:
               </label>            
               <span class="input">              
                 <input 
@@ -48,20 +48,24 @@
               <span slot="no-options">{{ searchFeedback }}</span>
             </v-select>
           </div>
-          <!-- <ls-select-multiple
-            class="alternatives-input-group"
-            :options="words"
-            :max-items="maxItems"
-            label="Alternativas <br> Incorretas"
-            :label-html="true"
-            @search="onSearch"
-            @input="inputIncorrectItem"
-          /> -->
+         
         </div>
         <div class="col-md-5"></div>
       </div>
     </div>
-    <div class="actions">
+    <div v-if="isEditing" class="actions">
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+        >Cancelar
+      </a>
+      <button
+        @click="submit"
+        class="btn btn-primary"
+        :disabled="busy || !hasDescription"
+      >
+        Editar Atividade
+      </button>
+    </div>
+    <div v-else class="actions">
       <router-link
         tag="button"
         class="btn btn-default"
@@ -72,7 +76,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy  || invalid || !hasDescription"
+        :disabled="busy || !hasDescription"
       >
         Criar Atividade
       </button>
@@ -82,11 +86,8 @@
 
 <script>
 import Vue from 'vue'
-import { clone, values } from 'lodash'
 import { WordTypes } from '../../types'
-import Templates from '../../components/templates/templates.json'
 import TemplateMixin from '../../mixins/TemplateMixin'
-
 import Item from '../../models/Item'
 
 export default {
@@ -96,20 +97,15 @@ export default {
       word_type: WordTypes.substantivo_comum,
       busy: false,
       incorrects: [],
-      initialCorrect: [],
-      initialIncorrect: []
+      incorrectsItem: [],
+      initialCorrect: []
     }
   },
   created() {
-    if(this.items.length > 0) {     
-     this.items.map((el, index) => {
-       if (el.type === "key") {
-         this.initialCorrect.push(el.text)
-       } else {
-         this.initialIncorrect.push(el.text)
-         this.incorrects = this.initialIncorrect
-       }
-      })
+    if(this.isEditing) {    
+      this.initialCorrect = this.theKey.text
+      this.incorrects = this.generateInputValues.map(el=>{ return el.text })
+      this.addItemIncorrect(this.incorrects)
     }
   },
   computed: {
@@ -124,6 +120,10 @@ export default {
     isSearchable() {
       return this.incorrects.length  < 3;
     },
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
+    },
   },
   methods: {
     async submit(){ 
@@ -133,13 +133,26 @@ export default {
         // Aguardando nova palavra ser criada
         const { data } = await this.$refs.embedded.submit()
 
-        this.items.push(
-          new Item('key', WordTypes.substantivo_comum.value, data.text)
-        )
+        if(this.isEditing) {
+          const value_items_attributes = [new Item('value', WordTypes.input_custom.value, data.text)]
+          this.items = []
+          this.items.push(
+            new Item('key', WordTypes.input_custom.value, data.text, null, value_items_attributes)
+          )
+          this.items = [
+          ...this.items.filter(({ type }) => type === 'key'),
+          ...this.incorrectsItem
+          ]
+        } else {
+          this.items.push(
+            new Item('key', WordTypes.input_custom.value, data.text)
+          )
+        }       
+
         // Salvando no banco novo template de questão
         setTimeout(() => {
-          this.$emit('submitTemplate')
-        }, 400)
+         this.$emit('submitTemplate')
+        }, 1200)
       } 
       catch(e) {
         this.$notify({
@@ -156,9 +169,10 @@ export default {
     addItemIncorrect(alternatives){
       // Example for mapping incorrect inputs
       const incorrects = alternatives.map((text) => {
-        return new Item("value", this.WordTypes.input_custom.key, text);
+        return new Item("value", this.WordTypes.input_custom.value, text);
       });
-      // union keys with incorrect items
+
+      this.incorrectsItem = incorrects
       this.items = [
         ...this.items.filter(({ type }) => type === 'key'),
         ...incorrects

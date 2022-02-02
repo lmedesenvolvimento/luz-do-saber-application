@@ -5,6 +5,7 @@
         <ls-modal-create-word
           ref="embedded"
           :embedded="true"
+          :text="initialText"
           :word-type="word_type"
           :word-type-disabled="true"
           :word-type-visible="false"
@@ -22,7 +23,11 @@
           <div class="letras-input-group">
             <label class="label is-top">Sinal Correto:</label>
             <span class="input">
-              <ls-select-special-character :max-items="1" @change="onInput" />
+              <ls-select-special-character
+                :max-items="1"
+                @change="onInput"
+                :initial-letras="initialSinalCorreto"
+              />
             </span>
           </div>
         </div>
@@ -37,6 +42,7 @@
                 <ls-select-special-character
                   :max-items="10"
                   @change="onInputErrado"
+                  :initial-letras="initialSinalErrado"
                 />
               </span>
             </div>
@@ -44,7 +50,19 @@
           <div class="col-md-5"></div>
         </div>
       </div>
-      <div class="actions">
+      <div v-if="isEditing" class="actions">
+        <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+          >Cancelar
+        </a>
+        <button
+          @click="submit"
+          class="btn btn-primary"
+          :disabled="busy || !hasDescription"
+        >
+          Editar Atividade
+        </button>
+      </div>
+      <div v-else class="actions">
         <router-link
           tag="button"
           class="btn btn-default"
@@ -55,7 +73,7 @@
         <button
           @click="submit"
           class="btn btn-primary"
-          :disabled="busy || isSubmitDisabled"
+          :disabled="busy || !hasDescription"
         >
           Criar Atividade
         </button>
@@ -65,16 +83,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -86,82 +98,100 @@ export default {
       sinalCorreto: [],
       sinaisErrados: [],
       invalid: false,
-    };
+      initialSinalCorreto: [],
+      initialSinalErrado: [],
+      initialText: ''
+    }
+  },
+  created() {
+    if (this.isEditing) {
+      this.initialSinalCorreto.push(this.theKey.value_items_attributes[0].text)
+      this.initialSinalErrado = this.generateInputValues.map(el => {
+        return el.text
+      })
+      this.sinalCorreto = this.generateInputKeys
+      this.sinaisErrados = this.generateInputValues
+      this.initialText = this.theKey.text
+    }
   },
   computed: {
     isSubmitDisabled() {
-      return this.sinaisErrados.length < 3 || this.sinalCorreto < 1;
+      return this.sinaisErrados.length < 3 || this.sinalCorreto < 1
     },
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
+    }
   },
   methods: {
     onInput({ data, invalid }) {
-      const alternatives = data;
-      const itemCorreto = [];
+      const alternatives = data
+      const itemCorreto = []
       alternatives.map(({ text }) => {
         if (!text) {
-          return;
+          return
         }
         itemCorreto.push(
-          new Item("value", this.WordTypes.caractere_especial.value, text)
-        );
-      });
-      Vue.set(this, "sinalCorreto", itemCorreto);
+          new Item('value', this.WordTypes.caractere_especial.value, text)
+        )
+      })
+      Vue.set(this, 'sinalCorreto', itemCorreto)
     },
     onInputErrado({ data, invalid }) {
-      const alternatives = data;
-      const itemsErrados = [];
+      const alternatives = data
+      const itemsErrados = []
       alternatives.map(({ text }) => {
         if (!text) {
-          return;
+          return
         }
         itemsErrados.push(
-          new Item("value", this.WordTypes.caractere_especial.value, text)
-        );
-      });
-      Vue.set(this, "sinaisErrados", itemsErrados);
+          new Item('value', this.WordTypes.caractere_especial.value, text)
+        )
+      })
+      Vue.set(this, 'sinaisErrados', itemsErrados)
     },
     async submit() {
       try {
-        this.busy = true;
+        this.busy = true
         // Aguardando nova palavra ser criada
-        const { data } = await this.$refs.embedded.submit();
-        const word = data;
+        const { data } = await this.$refs.embedded.submit()
+        const word = data
 
-        const itemsCorrect = [];
+        const itemsCorrect = []
 
         itemsCorrect.push(
           new Item(
-            "key",
+            'key',
             WordTypes.frase.value,
             word.text,
             null,
             this.sinalCorreto
           )
-        );
+        )
 
-        const newItems = itemsCorrect.concat(this.sinaisErrados);
-        Vue.set(this, "items", newItems);
+        const newItems = itemsCorrect.concat(this.sinaisErrados)
+        Vue.set(this, 'items', newItems)
 
         // Salvando no banco novo template de questão
         setTimeout(() => {
-          this.$emit("submitTemplate");
-        }, 1000);
+          this.$emit('submitTemplate')
+        }, 1000)
       } catch (e) {
-        this.busy = true;
+        this.busy = true
         this.$notify({
-          group: "danger",
-          title: "Falha",
-          text: e.message,
-        });
+          group: 'danger',
+          title: 'Falha',
+          text: e.message
+        })
 
-        this.busy = false;
+        this.busy = false
       }
-    },
+    }
   },
   mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-};
+    this.$emit('defaultActionsVisibilty', false)
+  }
+}
 </script>
 
 <style lang="scss">

@@ -64,11 +64,11 @@ class ThemeAudiencesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_theme_audience
-      @theme_audience = ThemeAudience.find(params[:id])
+      @theme_audience = ThemeAudience.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def theme_audience_params
-      params.require(:theme_audience).permit(:title, :description, :cover, :status)
+      params.require(:theme_audience).permit(:title, :description, :cover, :status, :order)
     end
 end

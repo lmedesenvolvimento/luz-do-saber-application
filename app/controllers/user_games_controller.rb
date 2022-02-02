@@ -1,5 +1,7 @@
 class UserGamesController < ApplicationController
-  before_action :set_user_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_game, only: [:edit, :update, :destroy]
+  before_action :set_user_game_for_user, only: [:show]
+  before_action :set_user_game_for_code, only: [:get_from_code]
 
   # GET /user_games
   # GET /user_games.json
@@ -13,6 +15,10 @@ class UserGamesController < ApplicationController
   # GET /user_games/1
   # GET /user_games/1.json
   def show
+  end
+
+  def get_from_code
+    render :json => @user_game
   end
 
   # GET /user_games/new
@@ -71,8 +77,16 @@ class UserGamesController < ApplicationController
     @user_game = UserGame.find(params[:id])
   end
 
+  def set_user_game_for_code
+    @user_game = UserGame.where(code: params[:code]).first
+  end
+
+  def set_user_game_for_user
+    @user_game = UserGame.where(params[:user_id]).last
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_game_params
-    params.require(:user_game).permit(:unique_session_id, :name, :game)
+    params.require(:user_game).permit(:unique_session_id, :user_id, :name, :code, :game)
   end
 end

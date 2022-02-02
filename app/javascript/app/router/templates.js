@@ -7,6 +7,8 @@ import TextoAlternativa from "../components/templates/TextoAlternativa.vue";
 import Alternativa from "../components/templates/Alternativa.vue";
 import AlternativaAudioX from "../components/templates/AlternativaAudioX.vue";
 import AlternativaImagemX from "../components/templates/AlternativaImagemX.vue";
+import AlternativaImagemSubtitulo from "../components/templates/AlterntivaImagemSubtitulo.vue"
+import AlternativaTextoSubtitulo from "../components/templates/AlternativaTextoSubtitulo.vue"
 import ApresentacaoLeitura from "../components/templates/ApresentacaoLeitura.vue";
 import ApresentacaoVideo from "../components/templates/ApresentacaoVideo.vue";
 import BingoPalavras from "../components/templates/BingoPalavras.vue";
@@ -26,6 +28,7 @@ import JogoMemoriaPalavraImagem from "../components/templates/JogoMemoriaPalavra
 import MarquePalavras from "../components/templates/MarquePalavras.vue";
 import LetrasMaiuscula from "../components/templates/LetrasMaiuscula.vue";
 import PalavrasComImagem from "../components/templates/PalavrasComImagem.vue";
+import PalavrasComImagemValues from "../components/templates/PalavrasComImagensValues.vue";
 import LigacaoTextoTexto from "../components/templates/LigacaoTextoTexto.vue";
 import MeuCracha from "../components/templates/MeuCracha.vue";
 import MeuNome from "../components/templates/MeuNome.vue";
@@ -44,6 +47,8 @@ import UsoPorques from "../components/templates/UsoPoques.vue";
 import Rima from "../components/templates/Rima.vue";
 import NotFound from "../components/templates/NotFound.vue";
 import VogalNome from "../components/templates/VogalNome.vue";
+import SequenciaNumerica from "../components/templates/SequenciaNumerica.vue";
+import SequenciaNumericaAntecessor from "../components/templates/SequenciaNumericaAntecessor.vue";
 
 export default [
   {
@@ -73,6 +78,14 @@ export default [
   {
     path: "alternativa-imagem-x",
     component: AlternativaImagemX,
+  },
+  {
+    path: "alternativa-imagens-com-subtitulo",
+    component: AlternativaImagemSubtitulo,
+  },
+  {
+    path: "alternativa-texto-com-subtitulo",
+    component: AlternativaTextoSubtitulo,
   },
   {
     path: "apresentacao-imagem",
@@ -120,7 +133,7 @@ export default [
   },
   {
     path: "decomposicao-da-palavra-geradora",
-    component: PalavraSimples,
+    component: EscrevaPalavra,
   },
   {
     path: "descubra-a-letra-faltante-encaixar",
@@ -177,6 +190,10 @@ export default [
   {
     path: "jogo-da-memoria-imagem-imagem",
     component: JogoMemoriaPalavraImagem,
+  },
+  {
+    path: "jogo-da-memoria-palavra-palavra",
+    component: PalavrasComImagemValues,
   },
   {
     path: "letras-maiusculas",
@@ -247,6 +264,10 @@ export default [
     component: Rima,
   },
   {
+    path: "risca-letras",
+    component: DesembaralheNome,
+  },
+  {
     path: "segmentacao-de-frases",
     component: SegmentacaoFrases,
   },
@@ -293,6 +314,14 @@ export default [
   {
     path: "vogais-do-meu-nome",
     component: VogalNome,
+  },
+  {
+    path: "sequencia-numerica",
+    component: SequenciaNumerica,
+  },
+  {
+    path: "sequencia-numerica-2",
+    component: SequenciaNumericaAntecessor,
   },
   {
     path: "*",

@@ -139,7 +139,6 @@ export default {
       this.previews = [`/images/preview/${this.$context}/${this.slug}.png`]
       this.$nextTick(() => {
         this.$viewer.show()
-        console.log(this.$viewer)
       })
     },
     getUnit() {

@@ -142,10 +142,11 @@ class Word < ApplicationRecord
   end
 
   def set_default_image
-    case self.images.length.zero? && type
-    when 'substantivo_comum'
-      self.images_attributes = [{ remote_url: [ENV['ASSET_HOST'], "images/words/#{type}/#{ENV['LUZ_DO_SABER_AMBIENTE']}/#{text_to_file_name}.png"].join('/') }]
-    end
+    #comentando criacao de imagem padrao para evitar cad de img inexistente
+    #case self.images.length.zero? && type
+    #when 'substantivo_comum'
+      #self.images_attributes = [{ remote_url: [ENV['ASSET_HOST'], "images/words/#{type}/#{ENV['LUZ_DO_SABER_AMBIENTE']}/#{text_to_file_name}.png"].join('/') }]
+    #end
   end
 
   def set_default_audio

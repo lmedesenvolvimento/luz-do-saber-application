@@ -1,4 +1,5 @@
 class GroupsParticipantsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_group
   before_action :set_groups_participant, only: [:show, :edit, :update, :destroy]
 
@@ -23,28 +24,43 @@ class GroupsParticipantsController < ApplicationController
 
   # POST /groups_participants
   def create
-    @groups_participant = @group.participants.new(groups_participant_params)
 
+    @groups_participant = @group.participants.new(groups_participant_params)
     if @groups_participant.save
-      redirect_to group_participants_url(@group), notice: t('helpers.submit.saved')
+      respond_to do |format|
+        format.json { render json: @groups_participant }
+        format.html { redirect_to group_participants_url(@group), notice: t('helpers.submit.saved') }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.json { render json: { errors: @groups_participant.errors } }
+        format.html { render :new }
+      end
     end
   end
 
   # PATCH/PUT /groups_participants/1
   def update
     if @groups_participant.update(groups_participant_params)
-      redirect_to group_participants_url(@group), notice: t('helpers.submit.saved')
+      respond_to do |format|
+        format.json { render json: @groups_participant }
+        format.html { redirect_to group_participants_url(@group), notice: t('helpers.submit.saved')}
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.json { render json: { errors: @groups_participant.errors } }
+        format.html { render :edit }
+      end
     end
   end
 
   # DELETE /groups_participants/1
   def destroy
     @groups_participant.destroy
-    redirect_to group_participants_url(@group), notice: t('helpers.submit.destroyed')
+      respond_to do |format|
+        format.json { render json: @groups_participant }
+        format.html { redirect_to group_participants_url(@group), notice: t('helpers.submit.destroyed') }
+      end
   end
 
   private
@@ -61,7 +77,7 @@ class GroupsParticipantsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def groups_participant_params
     params.require(:groups_participant).permit(:type,
-                                                :user_email,
+                                                :user_school_student_code,
                                                 :status)
   end
 end

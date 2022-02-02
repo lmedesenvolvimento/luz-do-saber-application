@@ -68,7 +68,19 @@
       </div>
       <div class="col-md-5"></div>
     </div>
-    <div class="actions">
+     <div v-if="isEditing" class="actions">
+      <a tag="button" class="btn btn-default" :href="backUrl" :disabled="busy"
+        >Cancelar
+      </a>
+      <button
+        @click="submit"
+        class="btn btn-primary"
+        :disabled="isSubmitDisabled"
+      >
+        Editar Atividade
+      </button>
+    </div>
+    <div v-else class="actions">
       <router-link
         tag="button"
         class="btn btn-default"
@@ -79,7 +91,7 @@
       <button
         @click="submit"
         class="btn btn-primary"
-        :disabled="busy || isSubmitDisabled"
+        :disabled="isSubmitDisabled"
       >
         Criar Atividade
       </button>
@@ -89,15 +101,9 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import TemplateMixin from '../../mixins/TemplateMixin'
-
 import Item from '../../models/Item'
-import Word from '../../models/Word'
-
 import { WordTypes } from '../../types'
-
-import CreateWordModal from '../../modals/CreateWordModal'
 
 export default {
   mixins: [TemplateMixin],
@@ -109,26 +115,24 @@ export default {
       sentences: [],
       correct: [],
       alternativeCorrect: [],
+      alternativeIncorrect: [],
       clonedItem: [], 
       validate: true,
-      initialCorreta: [],
       initialErrada: [],
-      initialPalavra: []
+      initialPalavra: ''
     }
   },
   created() {
-    if(this.items.length > 0) {     
-     this.items.map((el, index) => {
-       if (el.type === "key") {
-         this.initialCorreta.push(el.text)
-         this.correct = this.initialCorreta
-         this.initialPalavra.push(el.value_items_attributes[0].text)
-       } else {
-         this.initialErrada.push(el.text)
-         this.sentences = this.initialErrada
-       }
-       
+    if(this.isEditing) {        
+      this.initialPalavra = this.theKey.text
+      this.correct = this.theKey.value_items_attributes[0].text
+      this.addItemCorrect(this.theKey.value_items_attributes[0].text)
+      this.generateInputValues.map(el=> {
+        this.initialErrada.push(el.text)
       })
+      this.sentences = this.initialErrada
+      this.addItem(this.initialErrada)
+     
     }
   },
   computed: {
@@ -141,14 +145,20 @@ export default {
       return this.sentences.length < this.maxItems
     },
     isSubmitDisabled() {
-      return !this.$parent.hasDescription
-    }
+      return this.busy || !this.$parent.hasDescription || 
+        !this.correct.length > 0  || this.sentences.length < 3
+    },     
+    backUrl() {
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
+    }  
   },
   methods: { 
      addItem(alternatives) {
       const incorrects = alternatives.map((text) => {
         return new Item('value', this.WordTypes.input_custom.key, text)
       })
+      this.alternativeIncorrect = incorrects
       this.clonedItem = this.items = [
         ...this.items.filter(({ type }) => type === 'key'),
         ...incorrects
@@ -163,17 +173,22 @@ export default {
         // Aguardando nova palavra ser criada
         const { data } = await this.$refs.embedded.submit()
         const word = data
+        const items = []
 
         const value_items_attributes = [this.alternativeCorrect]
 
-        this.items.push(
+        items.push(
           new Item('key', WordTypes.input_custom.value, word.text, null, value_items_attributes)
         )
+
+        const newItem = items.concat(this.alternativeIncorrect)
+
+        Vue.set(this, 'items', newItem)
 
         // Salvando no banco novo template de questão
         setTimeout(() => {
           this.$emit('submitTemplate')
-        }, 400)
+        }, 600)
       } 
       catch(e) {
         this.$notify({
@@ -186,7 +201,7 @@ export default {
       }
     }
   },
-  mounted() {
+   mounted() {
     this.$emit('defaultActionsVisibilty', false)
   }
 }

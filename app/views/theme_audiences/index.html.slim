@@ -4,6 +4,7 @@
 table.table.table-striped
   thead
     tr
+      th= model_class.human_attribute_name(:order)
       th= model_class.human_attribute_name(:id)
       th= model_class.human_attribute_name(:title)
       th= model_class.human_attribute_name(:status)
@@ -11,9 +12,10 @@ table.table.table-striped
   tbody
     - @theme_audiences.each do |theme_audience|
       tr
+        td= theme_audience.order
         td= link_to theme_audience.id, theme_audience_path(theme_audience)
         td= theme_audience.title
-        td= theme_audience.status
+        td= theme_audience.status_i18n
         td
           = link_to t('.show', :default => t("helpers.links.show")), theme_audience_path(theme_audience), :class => 'btn btn-default btn-xs'
           '

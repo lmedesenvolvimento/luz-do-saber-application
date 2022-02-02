@@ -5,17 +5,21 @@
         <div class="col-md-7">
           <ls-select-multiple
             class="correct-items-input-group"
+            labelHtml
             :options="words"
             :max-items="1"
             :searchable="itemCorrect.length === 0"
-            label="Alternativa Correta:"
+            label="Alternativa <br/> Correta:"
             :initial-items="initialCorreta"
-            @search="onSearch"            
+            @search="onSearch"
             @search:focus="clear"
             @input="addItemCorrect"
-          />      
+          />
         </div>
-        <div class="col-md-5">
+        <div v-if="audioVisible" class="col-md-5 audio-line">
+          <ls-audio-player :audio-url="getAudioUrl"></ls-audio-player>
+        </div>
+        <div v-else class="col-md-5">
           <ls-images-holder :items="images"></ls-images-holder>
         </div>
       </div>
@@ -24,11 +28,12 @@
           <ls-select-multiple
             ref="select"
             class="correct-items-input-group"
+            labelHtml
             :options="words"
             :max-items="maxItems"
             :searchable="itemsWrong.length < 3"
             :initial-items="initialIncorretas"
-            label="Alternativas Erradas:"
+            label="Alternativas <br/> Erradas:"
             @search="onSearch"
             @search:focus="clear"
             @input="addItemWrong"
@@ -41,11 +46,11 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import Item from '../../models/Item'
-import Templates from '../../components/templates/templates.json'
 import TemplateMixin from '../../mixins/TemplateMixin'
+import Templates from './templates.json'
 import { WordTypes } from '../../types'
+import { mergeSelectedRemoteUrlWithNewItems } from '../../utils/array'
 
 export default {
   mixins: [TemplateMixin],
@@ -57,67 +62,68 @@ export default {
       initialCorreta: [],
       initialIncorretas: [],
       itemsWrong: [],
-      word_type: WordTypes.substantivo_comum
+      word_type: WordTypes.substantivo_comum,
+      input: []
+    }
+  },
+  computed: {
+    audioVisible() {
+      const template = Templates.find(t => t.templateName === this.template)
+      return template ? template.mediaTypeShow === 'audio' : false
+    },
+    getAudioUrl() {
+      return this.input[0] ? `${this.input[0].audios[0]?.url}` : null
     }
   },
   created() {
-    if(this.items.length > 0) {
-     this.items.map((el, index) => {
-       if (el.type === "key") {
-         this.initialCorreta.push({text: el.text})        
-         this.itemCorrect.push(el)
-         this.images.push(el)
-       } else {
-         this.initialIncorretas.push({text: el.text})
-         this.itemsWrong.push(el)
-       }
-      })
+    if (this.isEditing) {
+      this.initialCorreta = this.generateInputKeys
+      this.initialIncorretas = this.generateInputValues
+      this.addItemCorrect(this.generateInputKeys)
+      this.addItemWrong(this.generateInputValues)
+      this.input = ''
     }
-  },
-  async mounted() {
-    let type_eq = ''
-    let text_cont = ''  
-
-    if (this.items.length > 0 && this.isEditing) {
-      this.items.map(async (el) => {
-        type_eq = el.word_type
-        text_cont = el.text
-        const response = await this.$axios.get(`/words.json?q[type_eq]=${type_eq}&q[text_cont]=${text_cont}`)
-        
-
-        if (response.data.length === 1) this.addItemCorrect(response.data)
-      });
-    }
+    // mudando imagem do componente ao atualizar
+    this.changeImageOnUpdate()
   },
   methods: {
     addItemCorrect(alternatives) {
-      const items = alternatives.map(({ text, images }) => {
-        if (!text){
+      this.input = alternatives
+      const items = alternatives.map(({ text, images, remote_image_url }) => {
+        if (!text) {
           return
         }
-        const value_items_attributes = [new Item('value', this.word_type.value, text)]
-        return new Item( 'key', this.word_type.key, text, images[0], value_items_attributes)
-      })      
-      this.images = items     
+        const value_items_attributes = [
+          new Item('value', this.word_type.value, text)
+        ]
+        return new Item(
+          'key',
+          this.word_type.value,
+          text,
+          this.getImageUrl(images, remote_image_url),
+          value_items_attributes
+        )
+      })
+      // Populando novo array com imagens selecionadas
+      this.images = mergeSelectedRemoteUrlWithNewItems(this.images, items)
 
-      this.itemCorrect = items.map(({ remote_image_url, ...i }) => i)
+      //this.itemCorrect = items.map(({ remote_image_url, ...i }) => i)
+      this.itemCorrect = items
 
       const allItems = this.itemCorrect.concat(this.itemsWrong)
       Vue.set(this, 'items', allItems)
-    
     },
     addItemWrong(alternatives) {
       const items = alternatives.map(({ text }) => {
-        if (!text){
+        if (!text) {
           return
         }
-        return new Item( 'value', this.word_type.key, text)
+        return new Item('value', this.word_type.key, text)
       })
 
       this.itemsWrong = items
       const allItems = this.itemsWrong.concat(this.itemCorrect)
       Vue.set(this, 'items', allItems)
-
     },
     validateSearchable() {
       this.searchable = this.items.length < 4
@@ -143,13 +149,18 @@ export default {
     flex: 6;
   }
 
+  .audio-line {
+    min-height: 32px;
+    margin-bottom: $gap * 4;
+  }
+
   .palavra-items {
     padding: 16px 0px;
   }
   .correct-items,
   .incorrect-items {
     @include template-editor-field;
-    margin: $gap 0px;    
+    margin: $gap 0px;
   }
 }
 </style>

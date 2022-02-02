@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_182139) do
+ActiveRecord::Schema.define(version: 2021_11_16_150819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "book_pages", force: :cascade do |t|
+    t.bigint "book_id"
+    t.integer "order"
+    t.string "book_page_file_name"
+    t.string "book_page_content_type"
+    t.bigint "book_page_file_size"
+    t.datetime "book_page_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_book_pages_on_book_id"
+  end
 
   create_table "books", force: :cascade do |t|
     t.bigint "user_id"
@@ -231,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
     t.datetime "updated_at", null: false
     t.bigint "question_question_template_id"
     t.integer "status", default: 1
+    t.string "subtitle"
     t.index ["question_question_template_id"], name: "index_question_questions_on_question_question_template_id"
     t.index ["question_subtype_id"], name: "index_question_questions_on_question_subtype_id"
     t.index ["question_type_id"], name: "index_question_questions_on_question_type_id"
@@ -349,6 +362,8 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.integer "order", default: 0
   end
 
   create_table "themes", force: :cascade do |t|
@@ -388,6 +403,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
     t.datetime "updated_at", null: false
     t.integer "order", default: 0
     t.string "remote_cover_url"
+    t.integer "status", default: 0
     t.index ["slug"], name: "index_units_on_slug"
     t.index ["theme_id"], name: "index_units_on_theme_id"
     t.index ["user_id"], name: "index_units_on_user_id"
@@ -399,6 +415,9 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
     t.jsonb "game", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "code"
+    t.index ["user_id"], name: "index_user_games_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -480,6 +499,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
     t.index ["user_id"], name: "index_words_on_user_id"
   end
 
+  add_foreign_key "book_pages", "books"
   add_foreign_key "books", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "groups_participants", "groups"
@@ -504,6 +524,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_182139) do
   add_foreign_key "themes", "users"
   add_foreign_key "units", "themes"
   add_foreign_key "units", "users"
+  add_foreign_key "user_games", "users"
   add_foreign_key "word_audios", "words"
   add_foreign_key "word_elements", "words"
   add_foreign_key "word_elements", "words", column: "element_id"

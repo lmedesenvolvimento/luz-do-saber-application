@@ -32,20 +32,30 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.user = current_user
 
-    if @book.save
-      redirect_to @book, notice: t('helpers.submit.saved')
-    else
-      render :new
+    begin
+      if @book.save
+        redirect_to @book, notice: t('helpers.submit.saved')
+      else
+        render :new
+      end
+    rescue => error
+      puts error.to_s
+      redirect_to @book, notice: 'Erro: ' + error.to_s
     end
   end
 
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    if @book.update(book_params)
-      redirect_to @book, notice: t('helpers.submit.saved')
-    else
-      render :edit
+    begin
+      if @book.update(book_params)
+        redirect_to @book, notice: t('helpers.submit.saved')
+      else
+        render :edit
+      end
+    rescue => error
+      puts error
+      redirect_to @book, notice: 'Erro: ' + error.to_s
     end
   end
 

@@ -12,6 +12,7 @@
           :image-required="true"
           :word-id="word_id"
           :is-editing="isEditing"
+          :text="palavra"
         />
       </div>
       <div class="col-md-5"></div>
@@ -25,7 +26,7 @@
         class="btn btn-primary"
         :disabled="busy || !hasDescription"
       >
-        Criar Atividade
+        Editar Atividade
       </button>
     </div>
     <div v-else class="actions">
@@ -48,16 +49,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import Vue from 'vue'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -66,68 +61,88 @@ export default {
       busy: false,
       word_type: WordTypes.input_custom.value,
       items: [],
-    };
+      palavra: '',
+      remoteImgUrl: null
+    }
   },
   computed: {
     backUrl() {
-      const { id } = this.$route.params;
-      return `/question/questions/${id}`;
+      const { id } = this.$route.params
+      return `/question/questions/${id}`
     },
     word_id() {
       if (this.theKey) {
-        return this.theKey.word_id;
+        return this.theKey.word_id
       }
-      return null;
+      return null
     },
+    getNameImage() {
+      if (this.remoteImgUrl) {
+        const url = this.remoteImgUrl
+          .split('/')
+          .pop()
+          .split('?')
+          .shift()
+        if (url) return url
+        else return ''
+      } else return ''
+    }
   },
   watch: {
     items: {
       handler() {
-        if (this.items.length >= 1) {
-          this.$emit("submitTemplate");
+        if (this.items.length >= 1 && !this.isEditing) {
+          this.$emit('submitTemplate')
         }
-      },
-    },
+      }
+    }
+  },
+  created() {
+    if (this.isEditing) {
+      this.palavra = this.theKey.text
+    }
   },
   methods: {
     async submit() {
       try {
-        this.busy = true;
+        this.busy = true
         // Aguardando nova palavra ser criada
-        const { data } = await this.$refs.embedded.submit();
+        const { data } = await this.$refs.embedded.submit()
+        const items = []
 
         // const value_items_attributes = [
         //   new Item("value", WordTypes.input_custom.value, data.text),
         // ];
 
-        this.items.push(
-          new Item(
-            "key",
-            WordTypes.input_custom.value,
-            data.text,
-            data.images[0].url
-          )
-        );
+        const word = data.text ? data.text : this.palavra
+
+        items.push(
+          new Item('key', WordTypes.input_custom.value, word, this.remoteImgUrl)
+        )
+
+        Vue.set(this, 'items', items)
 
         // Salvando no banco novo template de questão
 
-        // setTimeout(() => {
-        //   this.$emit('submitTemplate')
-        // }, 10000)
+        if (this.isEditing) {
+          setTimeout(() => {
+            this.$emit('submitTemplate')
+          }, 3000)
+        }
       } catch (e) {
         this.$notify({
-          group: "danger",
-          title: "Falha",
-          text: e.message,
-        });
-        this.busy = false;
+          group: 'danger',
+          title: 'Falha',
+          text: e.message
+        })
+        this.busy = false
       }
-    },
+    }
   },
   mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-};
+    this.$emit('defaultActionsVisibilty', false)
+  }
+}
 </script>
 
 <style lang="scss">

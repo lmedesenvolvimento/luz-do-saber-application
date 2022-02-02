@@ -51,12 +51,15 @@ class Question::Question < ApplicationRecord
   accepts_nested_attributes_for :pointings
 
   before_save :set_description, if: -> { description_text.present? }
+  before_save :set_subtitle, if: -> { subtitle.present? }
   before_save :set_group, if: -> { group_code.present? }
 
   validates :total_correct_items, :order, presence: true
   validates_uniqueness_of :order, scope: :unit
 
   after_initialize :load_question_template, if: -> { new_record? && template.present? }
+
+  before_save :load_question_template_for_update, if: -> { !new_record? && template.present? }
 
   attr_accessor :description_text, :group_code
 
@@ -73,8 +76,45 @@ class Question::Question < ApplicationRecord
   #   self.archived!
   # end
 
+  def load_question_template_for_update
+    # alterando apenas o que tem erro; os demais continuam inalterados
+    case template.slug
+    when 
+        'encaixe-de-letra',
+        'charada-de-letras'                  
+          then duplica_item_key_como_item_value('letra')
+    when 
+        'palavra-secreta',
+        'complete-a-palavra-com-letra'       
+            then quebra_palavra_em_letras
+    when 'desembaralhe-seu-nome'              
+      then quebra_palavra_em_letras_value
+    when 
+        'decomposicao-da-palavra-geradora',
+        'separacao-silabica',
+        'formacao-de-palavras',
+        'monte-a-palavra-com-silabas'        
+            then quebra_palavra_em_silabas
+    when
+        'ligacao-texto-imagem',
+        'jogo-da-memoria-palavra-imagem',
+        'jogo-da-memoria-imagem-imagem',
+        'escreva-a-palavra',
+        'segredo-das-palavras',
+        'caca-palavras'
+        then
+            #para criar values de itens adicionados na alteracao
+            duplica_item_key_como_item_value
+    end
+  end
+
   def set_description
     self.descriptions << Question::Description.find_or_create_by(text: description_text.upcase)
+  end
+
+  def set_subtitle
+    # push no array com o subtitle
+    self.descriptions << Question::Description.find_or_create_by(text: subtitle.upcase)
   end
 
   def set_group
@@ -143,7 +183,6 @@ class Question::Question < ApplicationRecord
          'separacao-silabica',
          'formacao-de-palavras',
          'monte-a-palavra-com-silabas'        then quebra_palavra_em_silabas
-    when 'complete-a-palavra'                 then quebra_palavra_em_letras
     when 'ditado-de-frases-escrever',
          'monte-a-frase-arrastar'             then quebra_frases_em_palavras
     # when 'descubra-a-letra-faltante-encaixar' then descubra_a_letra_faltante
@@ -159,7 +198,10 @@ class Question::Question < ApplicationRecord
           'bingo-de-palavras',
           'alternativa-audio-x'               then duplica_item_key_como_item_value
     when 'palavra-secreta',
+         'complete-a-palavra',
          'complete-a-palavra-com-letra'       then quebra_palavra_em_letras
+    when 'desembaralhe-seu-nome'              
+      then quebra_palavra_em_letras_value
     when 'quantidade-de-letras',
          'quantidade-de-silabas'              then quantidade_de_letras_ou_silabas
     when 'tipos-de-letras-conjuntos'          then tipos_de_letras_conjuntos
@@ -208,6 +250,19 @@ class Question::Question < ApplicationRecord
         "word_type": "letra",
         "word_source_type": "key_same"
       }
+    end
+  end
+
+  def quebra_palavra_em_letras_value
+    self.items.each do |item|
+      next unless item.type == 'key'
+      item.value_items_attributes= item.word.text.split('').map do |letra|
+        {
+          "type": "value",
+          "word_type": "letra",
+          "word_text": letra
+        }
+      end
     end
   end
 

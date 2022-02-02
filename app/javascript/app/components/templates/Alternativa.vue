@@ -3,7 +3,9 @@
     <div class="palavra-items">
       <div class="row">
         <div class="col-md-7">
-          <div class="items-input-group select-multiple incorrect-items-input-group">
+          <div
+            class="items-input-group select-multiple incorrect-items-input-group"
+          >
             <div class="label">Alternativas Corretas:</div>
             <v-select
               v-model="correct"
@@ -23,7 +25,9 @@
     <div class="palavra-items">
       <div class="row">
         <div class="col-md-7">
-          <div class="items-input-group select-multiple incorrect-items-input-group">
+          <div
+            class="items-input-group select-multiple incorrect-items-input-group"
+          >
             <div class="label">Alternativas Erradas:</div>
             <v-select
               v-model="incorrects"
@@ -40,33 +44,13 @@
         <div class="col-md-5"></div>
       </div>
     </div>
-    <div class="actions">
-      <router-link
-        tag="button"
-        class="btn btn-default"
-        :to="{ name: 'templates' }"
-        :disabled="busy"
-      >Cancelar</router-link>
-      <button
-        @click="submit"
-        class="btn btn-primary"
-        :disabled="busy || !isSubmitDisabled"
-      >Criar Atividade</button>
-    </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import TemplateMixin from "../../mixins/TemplateMixin";
-
-import Item from "../../models/Item";
-import Word from "../../models/Word";
-
-import { WordTypes } from "../../types";
-
-import CreateWordModal from "../../modals/CreateWordModal";
+import TemplateMixin from '../../mixins/TemplateMixin'
+import Item from '../../models/Item'
+import { WordTypes } from '../../types'
 
 export default {
   mixins: [TemplateMixin],
@@ -79,92 +63,89 @@ export default {
       correct: [],
       alternativesCorrects: [],
       alternativesIncorrects: [],
-      clonedItem: [],
-      validate: true,
-      initialCorrects: [],
-      initialIncorrects: []
-    };
+      validate: true
+    }
   },
   created() {
-    if(this.items.length > 0) {
-     this.items.map((el, index) => {
-       if (el.value_items_attributes.length > 0) {
-         this.initialCorrects.push({text: el.text})
-         this.correct.push(el.text)
-         this.alternativesCorrects.push(el)
-       } else {
-         this.initialIncorrects.push({text: el.text})
-         this.incorrects.push(el.text)
-         this.alternativesIncorrects.push(el)
-       }
-      })
+    if (this.isEditing) {
+      this.addItemCorrect(
+        this.generateInputKeys.map(({ text }) => {
+          this.correct.push(text)
+          return text
+        })
+      )
+      this.addItemIncorrect(
+        this.generateInputValues.map(({ text }) => {
+          this.incorrects.push(text)
+          return text
+        })
+      )
     }
-
   },
   computed: {
     searchFeedback() {
       return this.isSearchable
-        ? "Digite uma alternativa para continuar..."
-        : "Limite máximo de frases foi atigindo.";
+        ? 'Digite uma alternativa para continuar...'
+        : 'Limite máximo de frases foi atigindo.'
     },
     isSearchable() {
-      return this.incorrects.length + this.correct.length < 4;
+      return this.incorrects.length + this.correct.length < 4
     },
     isSubmitDisabled() {
-      return this.$parent.hasDescription && this.items.length > 3;
-    },
+      return this.$parent.hasDescription && this.items.length > 3
+    }
   },
   methods: {
     addItemIncorrect(alternatives) {
-      const incorrects = alternatives.map((text) => {
-        return new Item("value", this.WordTypes.input_custom.key, text);
-      });
-      this.alternativesIncorrects = [...incorrects];
+      const incorrects = alternatives.map(text => {
+        return new Item('value', this.WordTypes.input_custom.key, text)
+      })
+      this.alternativesIncorrects = [...incorrects]
       this.items = [
         ...this.alternativesCorrects,
-        ...this.alternativesIncorrects,
-      ];
+        ...this.alternativesIncorrects
+      ]
     },
     addItemCorrect(alternatives) {
-      const corrects = alternatives.map((text) => {
+      const corrects = alternatives.map(text => {
         const value_items_attributes = new Item(
-          "value",
+          'value',
           this.WordTypes.input_custom.key,
           text
-        );
-        return new Item("key", this.WordTypes.input_custom.key, text, null, [
-          value_items_attributes,
-        ]);
-      });
-      this.alternativesCorrects = [...corrects];
+        )
+        return new Item('key', this.WordTypes.input_custom.key, text, null, [
+          value_items_attributes
+        ])
+      })
+      this.alternativesCorrects = [...corrects]
       this.items = [
         ...this.alternativesCorrects,
-        ...this.alternativesIncorrects,
-      ];
+        ...this.alternativesIncorrects
+      ]
     },
     async submit() {
       try {
-        this.busy = true;
+        this.busy = true
 
         // Salvando no banco novo template de questão
         setTimeout(() => {
-          this.$emit("submitTemplate");
-        }, 400);
+          this.$emit('submitTemplate')
+        }, 400)
       } catch (e) {
         this.$notify({
-          group: "danger",
-          title: "Falha",
-          text: e.message,
-        });
+          group: 'danger',
+          title: 'Falha',
+          text: e.message
+        })
 
-        this.busy = false;
+        this.busy = false
       }
-    },
+    }
   },
   mounted() {
-    this.$emit("defaultActionsVisibilty", false);
-  },
-};
+    this.$emit('defaultActionsVisibilty', true)
+  }
+}
 </script>
 
 <style lang="scss">
@@ -178,7 +159,6 @@ export default {
   .palavra-items {
     margin: 20px 0 30px 0;
   }
-
   .form-group {
     display: flex;
     align-items: center;

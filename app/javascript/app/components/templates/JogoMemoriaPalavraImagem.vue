@@ -12,8 +12,8 @@
             @search="onSearch"
             @search:focus="clear"
             @input="addItem"
-          />   
-           <div>(4 itens)</div>   
+          />
+          <div>({{ maxItems }} itens)</div>
         </div>
         <div class="col-md-5"></div>
       </div>
@@ -35,9 +35,7 @@
 
 <script>
 import Vue from 'vue'
-import { clone } from 'lodash'
 import Item from '../../models/Item'
-import Templates from '../../components/templates/templates.json'
 import TemplateMixin from '../../mixins/TemplateMixin'
 import { mergeSelectedRemoteUrlWithNewItems } from '../../utils/array'
 
@@ -51,52 +49,30 @@ export default {
     }
   },
   created() {
-    //this.types = [this.WordTypes.letra, this.WordTypes.silaba]
-    
-     if(this.items.length > 0 && this.isEditing) {
-     this.initialItems = this.items.map(({ text }) => {
-        return {text: text}
-      })
-    } 
-
-    this.$root.$on('word:select:image', ({ word, image }) => {
-      const imagesIndex = this.images.findIndex((i) => i.word_text === word.text)      
-      this.images[imagesIndex].remote_image_url = image
-    })
-  },
-   async mounted() {
-    let type_eq = ''
-    let text_cont = '' 
-    let new_array = [] 
-
-    if (this.items.length > 0 && this.isEditing) {      
-      this.items.map(async (el) => {
-        type_eq = el.word_type
-        text_cont = el.text
-        const response = await this.$axios.get(`/words.json?q[type_eq]=${type_eq}&q[text_cont]=${text_cont}`)
-        new_array.push(response.data[0])  
-        this.addItem(new_array) 
-        this.initialItems = new_array       
-      });       
+    if (this.isEditing) {
+      this.initialItems = this.generateInputKeys
+      this.addItem(this.generateInputKeys)
     }
+    // mudando imagem do componente ao atualizar
+    this.changeImageOnUpdate()
   },
   methods: {
     addItem(alternatives) {
       // Example for mapping incorrect inputs
-      const items = alternatives.map(({ text, images }) => {
+      const items = alternatives.map(({ text, images, remote_image_url }) => {
         return new Item(
           'key',
-          this.WordTypes.substantivo_comum.key,
+          this.WordTypes.substantivo_comum.value,
           text,
-          images[0]
+          this.getImageUrl(images, remote_image_url)
         )
       })
-      
+
       // Populando novo array com imagens selecionadas
-      //this.images = mergeSelectedRemoteUrlWithNewItems(this.images, items)
-      this.images = items;
-      const modeledItem = items.map(({ remote_image_url, ...i }) => i);
-      Vue.set(this, "items", modeledItem);
+      this.images = mergeSelectedRemoteUrlWithNewItems(this.images, items)
+
+      const modeledItem = items.map(({ remote_image_url, ...i }) => i)
+      Vue.set(this, 'items', items)
     },
     validateSearchable() {
       this.searchable = this.items.length < this.maxItems
@@ -128,7 +104,7 @@ export default {
   .correct-items,
   .incorrect-items {
     @include template-editor-field;
-    margin: $gap 0px;    
+    margin: $gap 0px;
   }
 }
 </style>

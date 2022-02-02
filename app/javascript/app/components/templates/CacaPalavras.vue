@@ -1,24 +1,24 @@
 <template>
   <div id="caca-palavras">
     <div class="type">
-    <div class="row">
-      <div class="col-md-7">
-        <div class="type-input-group">
-          <label class="label">Tipo</label>
-          <span class="input">
-            <v-select 
-              v-model="word_type"
-              :filterable="false"
-              :options="types"
-              label="label"
-              placeholder="Selecionar"
-            />
-          </span>
+      <div class="row">
+        <div class="col-md-7">
+          <div class="type-input-group">
+            <label class="label">Tipo</label>
+            <span class="input">
+              <v-select
+                v-model="word_type"
+                :filterable="false"
+                :options="types"
+                label="label"
+                placeholder="Selecionar"
+              />
+            </span>
+          </div>
         </div>
+        <div class="col-md-5"></div>
       </div>
-      <div class="col-md-5"></div>
     </div>
-  </div>
     <div class="alternativa-items">
       <div class="row">
         <div class="col-md-7">
@@ -29,7 +29,7 @@
             :max-items="maxItems"
             :word-type="word_type.value"
             :label="'Lista de Palavras:'"
-            :searchable="items.length < 11"
+            :searchable="items.length < 4"
             :initial-items="initialItems"
             :label-html="true"
             @search="onSearch"
@@ -44,19 +44,19 @@
 
 <script>
 import Vue from 'vue'
-import { clone, values} from 'lodash'
+import { values } from 'lodash'
 import Item from '../../models/Item'
 import TemplateMixin from '../../mixins/TemplateMixin'
 import { WordTypes } from '../../types'
 
-const templateTypes = [ 
+const templateTypes = [
   WordTypes.substantivo_comum.value,
-  WordTypes.substantivo_proprio.value,
+  WordTypes.substantivo_proprio.value
 ]
 
 export default {
   mixins: [TemplateMixin],
-  data(){
+  data() {
     return {
       items: [],
       initialItems: [],
@@ -64,57 +64,61 @@ export default {
     }
   },
   created() {
-    if(this.items.length > 0 && this.isEditing) {    
-     this.initialItems = this.items.map((el) => {
+    Vue.set(this, 'limitLenghtWords', 14) // limitando a busca de palavras
+
+    if (this.items.length > 0 && this.isEditing) {
+      this.initialItems = this.items.map((el) => {
         if (el.word_type === 2) {
           this.word_type = WordTypes.substantivo_proprio
         } else {
           this.word_type = WordTypes.substantivo_comum
         }
-        return {text: el.text}
+        return { text: el.text }
       })
-      const newItems = this.items.map(({id, value_items_attributes, word_id, ...old})=> {
-       return old
-      })
+      const newItems = this.items.map(
+        ({ id, value_items_attributes, word_id, ...old }) => {
+          return old
+        }
+      )
       Vue.set(this, 'items', newItems)
-    } 
+    }
   },
   computed: {
-     types() {
-      return values(WordTypes).filter(t => templateTypes.includes(t.value))
+    types() {
+      return values(WordTypes).filter((t) => templateTypes.includes(t.value))
     }
   },
   methods: {
-    inputAlternativaItem(alternatives){
+    inputAlternativaItem(alternatives) {
       const items = alternatives.map(({ text }) => {
         return new Item('key', this.word_type.value, text)
       })
 
       Vue.set(this, 'items', items)
     },
-    validateItems(){
+    validateItems() {
       this.$emit('validateItems', this.items.length >= 4)
     },
-    emptyList(){
-    }
+    emptyList() {}
   },
   watch: {
-    type(t){
+    type(t) {
       if (this.$refs.select && !this.initialItems.length > 0) {
         this.$refs.select.clearSelection()
       }
       this.items = []
-      this.initialItems = []      
+      this.initialItems = []
     }
   }
 }
 </script>
 
 <style lang="scss">
-#caca-palavras{
-  .alternativa-items, .type {
+#caca-palavras {
+  .alternativa-items,
+  .type {
     @include template-editor-field;
-    margin: $gap 0px;    
+    margin: $gap 0px;
   }
 }
 </style>

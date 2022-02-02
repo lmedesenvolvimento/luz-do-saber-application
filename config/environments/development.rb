@@ -41,4 +41,22 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.rails_logger = true
   end
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_protocol: 'https',
+    s3_permissions: 'public',
+    s3_region: 'us-east-1',
+    s3_credentials: {
+      bucket: ENV['MINIO_BUCKET_NAME'],
+      access_key_id: ENV['MINIO_ACCESS_KEY_ID'],
+      secret_access_key: ENV['MINIO_SECRET_ACCESS_KEY'],
+    },
+    s3_host_name: ENV['MINIO_HOSTNAME'],
+    s3_options: {
+      endpoint: "https://#{ENV['MINIO_HOSTNAME']}",
+      force_path_style: true
+    }
+  }
+    
 end

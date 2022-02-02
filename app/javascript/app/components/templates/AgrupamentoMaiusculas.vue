@@ -6,7 +6,11 @@
           <div class="letras-input-group">
             <label class="label is-top">Letras</label>
             <span class="input">
-              <ls-select-letters :max-items="6" @change="onInput" :initial-letras="initialLetras" />
+              <ls-select-letters
+                :max-items="6"
+                @change="onInput"
+                :initial-letras="initialLetras"
+              />
             </span>
           </div>
         </div>
@@ -17,11 +21,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { clone } from "lodash";
-import Item from "../../models/Item";
-import TemplateMixin from "../../mixins/TemplateMixin";
-import { WordTypes } from "../../types";
+import Vue from 'vue'
+import Item from '../../models/Item'
+import TemplateMixin from '../../mixins/TemplateMixin'
+import { WordTypes } from '../../types'
 export default {
   mixins: [TemplateMixin],
   data() {
@@ -31,56 +34,55 @@ export default {
       size: false,
       values_atributes: [],
       initialLetras: []
-    };
+    }
   },
   created() {
-    if(this.isEditing) {
-      console.log('entrou aqui')
-     this.initialLetras = this.items[0].value_items_attributes.map((el) => {
+    if (this.isEditing) {
+      this.initialLetras = this.items[0].value_items_attributes.map(el => {
         return el.text
       })
     }
   },
   methods: {
     onInput({ data, invalid }) {
-      const alternatives = data;
-      const cloneItems = [];
+      const alternatives = data
+      const cloneItems = []
 
       if (data.length >= 1) {
-        this.size = true;
-        this.validateItems();
+        this.size = true
+        this.validateItems()
       } else {
-        this.size = false;
-        this.validateItems();
+        this.size = false
+        this.validateItems()
       }
 
-      this.values_atributes = [];
+      this.values_atributes = []
       alternatives.map(({ text }) => {
         if (!text) {
-          return;
+          return
         }
         this.values_atributes.push(
-          new Item("value", this.WordTypes.letra.value, text)
-        );
-      });
+          new Item('value', this.WordTypes.letra.value, text)
+        )
+      })
 
       cloneItems.push(
         new Item(
-          "key",
+          'key',
           WordTypes.substantivo_comum.value,
-          "MAIÚSCULAS",
-          "https://i.ibb.co/6v1mK8S/caixa-2.png",
+          'MAIÚSCULAS',
+          'https://i.ibb.co/6v1mK8S/caixa-2.png',
           this.values_atributes
         )
-      );
+      )
 
-      Vue.set(this, "items", cloneItems);
+      Vue.set(this, 'items', cloneItems)
     },
     validateItems() {
-      this.$emit("validateItems", this.size);
-    },
-  },
-};
+      this.$emit('validateItems', this.size)
+    }
+  }
+}
 </script>
 
 <style lang="scss">
