@@ -58,6 +58,9 @@ gem 'dotenv-rails'
 
 gem "aws-sdk-s3", require: false
 
+gem 'open-uri', require: false
+gem 'mini_magick', require: false
+
 group :production do
   gem 'rack-timeout'
 end
