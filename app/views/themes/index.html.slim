@@ -13,6 +13,8 @@
         b= @themes.count
       .col-lg-6
         .text-right
+          = link_to 'Novo módulo', modulos_path, :class => 'btn btn-primary btn-xs'
+          '
           = link_to 'Novo público alvo', theme_audiences_path, :class => 'btn btn-primary btn-xs'
           '
           = link_to t('.new', :default => t("helpers.links.new")), new_theme_path, :class => 'btn btn-primary btn-xs'

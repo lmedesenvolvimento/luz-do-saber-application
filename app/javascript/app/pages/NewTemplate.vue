@@ -95,9 +95,6 @@ export default {
       if (!this.hasDescription) {
         return true
       }
-      if (!this.isValidItems) {
-        return true
-      }
       if (!this.order) {
         return true
       }

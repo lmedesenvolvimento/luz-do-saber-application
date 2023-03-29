@@ -21,44 +21,59 @@ module PdfPages
     MiniMagick.configure do |config|
       #config.cli = :graphicsmagick # or :imagemagick or :imagemagick7
       config.timeout = 120 #in seconds
+
+      # Sometimes, ImageMagick returns nonzero exit codes when the command actually went ok (!)
+      # In these cases, to avoid raising errors, you can add the this configuration
+      #config.whiny = false
     end
   end
 
   def save_pages(pdf, start_page, end_page)
-    for ind in start_page..end_page do
-      page_name = "#{ind+1}.jpg"
-      page = pdf.pages[ind]
+    threads = Thread.new {
+      for ind in start_page..end_page do
+        page_name = "#{ind+1}.jpg"
+        page = pdf.pages[ind]
 
-      puts "\n ********** inicio ind: #{ind} "
+        puts "\n ********** inicio ind: #{ind} "
 
-      file = Tempfile.new(['bk', '.jpg'])
+        file = Tempfile.new(['bk', '.jpg'])
 
-      puts "\n --- apos tempfile "
+        puts "\n --- apos tempfile "
 
-      sleep 0.1 # precisa de um tempo adic para arq com muitas pag
-      result = MiniMagick::Tool::Convert.new do |convert|
-        convert.density '150' # precisa vir primeiro
-        convert << page.path
-        convert.quality '100'
-        convert << file.path
+        sleep 0.2 # precisa de um tempo adic para arq com muitas pag
+        result = MiniMagick::Tool::Convert.new(whiny: false) do |convert|
+          convert.density '150' # precisa vir primeiro
+          convert << page.path
+          convert.quality '100'
+          convert << file.path
+        end
+
+        puts "\n --- apos convert "
+
+        file.flush
+        #salva bookpage e envia img
+        bp = BookPage.new
+        bp.book_id = id
+        bp.order = ind+1
+        bp.book_page = file.open
+        bp.book_page.instance_write(:file_name, page_name)
+        bp.save
+
+        puts "\n --- apos save "
+
+        file.close(true)
+
+        puts "\n ***** fim ind #{ind} "
       end
-
-      puts "\n --- apos convert "
-
-      file.flush
-      #salva bookpage e envia img
-      bp = BookPage.new
-      bp.book_id = id
-      bp.order = ind+1
-      bp.book_page = file.open
-      bp.book_page.instance_write(:file_name, page_name)
-      bp.save
-
-      puts "\n --- apos save "
-
-      file.close(true)
-
-      puts "\n ***** fim ind #{ind} "
+    }
+    begin
+      puts "\n --- apos each "
+      threads.join
+      puts "\n --- apos join "
+      Thread.kill(threads)
+      puts "\n --- apos kill "
+    rescue
+      raise StandardError.new "save page:#{error.to_s}"
     end
   end
 
@@ -92,15 +107,63 @@ module PdfPages
       puts "\n TOTAL PGS: #{total_pgs} "
 
       #pdf.pages.each_with_index do |page, index|
-      len=3 # max pages por loop
-      qtde = total_pgs%len==0 ? total_pgs/len : (total_pgs/len)+1 #max que salva por vez
-      for i in 0..qtde-1 do
-        start_page = len*i
-        end_page = (start_page + len -1) > total_pgs-1 ? total_pgs-1 : (start_page + len -1)
-        puts start_page
-        puts end_page
-        save_pages(pdf, start_page, end_page)
+      #len=total_pgs #9 # max pages por loop
+      #qtde = total_pgs%len==0 ? total_pgs/len : (total_pgs/len)+1 #max que salva por vez
+      #for i in 0..qtde-1 do
+      #  start_page = len*i
+      #  end_page = (start_page + len -1) > total_pgs-1 ? total_pgs-1 : (start_page + len -1)
+      #  puts start_page
+      #  puts end_page
+      #  save_pages(pdf, start_page, end_page)
+      #end
+      threads = Thread.new {
+        #for ind in 0..9 do
+        pdf.pages.each_with_index do |page, ind|
+          page_name = "#{ind+1}.jpg"
+          #page = pdf.pages[ind]
+
+          puts "\n ********** inicio ind: #{ind} "
+
+          file = Tempfile.new(['bk', '.jpg'])
+
+          puts "\n --- apos tempfile "
+
+          sleep 0.1 # precisa de um tempo adic para arq com muitas pag
+          result = MiniMagick::Tool::Convert.new() do |convert|
+            convert.density '150' # precisa vir primeiro
+            convert << page.path
+            convert.quality '100'
+            convert << file.path
+          end
+
+          puts "\n --- apos convert "
+
+          file.flush
+          #salva bookpage e envia img
+          bp = BookPage.new
+          bp.book_id = id
+          bp.order = ind+1
+          bp.book_page = file.open
+          bp.book_page.instance_write(:file_name, page_name)
+          bp.save
+
+          puts "\n --- apos save "
+
+          file.close(true)
+
+          puts "\n ***** fim ind #{ind} "
+        end
+      }
+      begin
+        puts "\n --- apos each "
+        threads.join
+        puts "\n --- apos join "
+        Thread.kill(threads)
+        puts "\n --- apos kill "
+      rescue
+        raise StandardError.new "save page:#{error.to_s}"
       end
+
       puts "\n ***** depois save_pages "
 
       # se num pag informado eh <> da qtde do pdf, atualiza pages e a qtde do pdf
@@ -116,7 +179,7 @@ module PdfPages
       end
 
     rescue => error
-      puts error.to_s
+      #puts error.to_s
       raise StandardError.new "#{error.to_s}"
     end
 

@@ -9,7 +9,7 @@
           :word-id="word_id"
           :is-editing="isEditing"
           :word-type="word_type_1"
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :audio-required="true"
           :image-required="false"
           :audio-visible="true"

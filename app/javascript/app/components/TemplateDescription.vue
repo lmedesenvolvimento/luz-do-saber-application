@@ -76,8 +76,7 @@ export default {
     },
     descriptionType: {
       type: String,
-      default: 'texto',
-      validator: value => ['texto', 'subtitle'].indexOf(value) !== -1
+      default: 'texto'
     },
     template: {
       type: [String, Object]

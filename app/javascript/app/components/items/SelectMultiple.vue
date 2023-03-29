@@ -10,6 +10,7 @@
       ref="select"
       multiple
       label="text"
+      placeholder="Digite para pesquisar"
       :value="selectedItems"
       :options="dataOptions"
       :searchable="searchable"
@@ -50,7 +51,7 @@
       <ls-modal-create-word
         :text="searchWord"
         :word-type="wordType"
-        :word-type-disabled="true"
+        :word-type-visible="false"
         @close="closeNewWord"
       />
     </modal>

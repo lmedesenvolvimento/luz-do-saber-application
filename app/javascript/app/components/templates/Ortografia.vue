@@ -9,7 +9,7 @@
             word-type-label="Palavra:"
             :text="initialCorrect"
             :word-type="WordTypes.input_custom.value"
-            :word-type-disabled="true"
+            :word-type-visible="false"
             :word-type-visible="false"
             :audio-required="false"
             :audio-visible="false"

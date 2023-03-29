@@ -35,7 +35,7 @@
             @search:focus="clear"
             @input="addItem"
           />
-          <div>(2 à 5 items)</div>
+          <div>(2 a 5 items)</div>
         </div>
         <div class="col-md-5"></div>
       </div>

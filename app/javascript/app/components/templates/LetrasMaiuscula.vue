@@ -6,7 +6,7 @@
           ref="embedded"
           :embedded="true"
           :word-type="word_type"
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :audio-required="false"
           :audio-visible="false"
           :image-required="false"

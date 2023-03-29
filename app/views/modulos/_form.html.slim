@@ -1,0 +1,27 @@
+= simple_form_for @modulo do |m|
+  .row
+    .col-lg-2
+      = m.input :status, include_blank: false
+
+    .col-lg-2
+      = m.input :order, include_blank: false
+
+  .row
+    .col-lg-6
+      = m.input :title
+
+  .row
+    .col-lg-6
+      = m.input :description, as: :text
+
+  .row
+    .col-lg-6
+      = m.input :color, as: :text
+
+  = m.input :cover
+
+  hr
+
+  = m.button :submit, :class => 'btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), modulos_path, :class => 'btn btn-default'

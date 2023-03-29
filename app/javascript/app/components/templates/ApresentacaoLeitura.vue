@@ -7,7 +7,7 @@
           :embedded="true"
           word-type-label="Texto:"
           :word-type="word_type"
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :audio-required="true"
           :image-required="true"
           :word-id="word_id"

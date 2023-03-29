@@ -3,7 +3,6 @@
     <ls-template-description
       v-model="subtitle"
       @change="updateSubtitle"
-      description-type="subtitle"
       description-text="subtítulo"
     />
     <!-- :template="templates" -->
@@ -138,7 +137,11 @@ export default {
       ])
     },
     validate() {
-      return this.correctItems.length > 1 && this.wrongItems.length > 1 && !!this.subtitle?.text
+      return (
+        this.correctItems.length > 0 &&
+        this.wrongItems.length > 1 &&
+        !!this.subtitle?.text
+      )
     }
   },
   methods: {

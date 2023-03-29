@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   end
   resources :units
   resources :theme_audiences
-
+  resources :modulos
   resources :groups do
     resources :participants, controller: :groups_participants
   end

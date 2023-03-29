@@ -2,7 +2,7 @@
   <div v-if="word" class="ls-modal">
     <form class="ls-modal-form form-inline">
       <div class="ls-modal-header">
-        <div class="title">Novo Enunciado</div>
+        <div class="title">Novo Subtítulo</div>
       </div>
       <div class="ls-modal-content">
         <div v-if="word" class="fields">
@@ -60,55 +60,55 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { values, omit } from 'lodash'
-import objectToFormData from 'object-to-formdata'
-import ActiveRecordHelper from '../utils/activerecord'
-import Word from '../models/Word'
-import { WordTypes } from '../types'
+import Vue from "vue";
+import { values, omit } from "lodash";
+import objectToFormData from "object-to-formdata";
+import ActiveRecordHelper from "../utils/activerecord";
+import Word from "../models/Word";
+import { WordTypes } from "../types";
 
 const permittedTypes = [
-  'substantivo_proprio',
-  'substantivo_comum',
-  'frase',
-  'texto',
-  'input_custom'
-]
+  "substantivo_proprio",
+  "substantivo_comum",
+  "frase",
+  "texto",
+  "input_custom",
+];
 
 const unpermitted_params = [
-  'id',
-  'total_syllables',
-  'syllables',
-  'info',
-  'images'
-]
+  "id",
+  "total_syllables",
+  "syllables",
+  "info",
+  "images",
+];
 
 export default {
   props: {
     text: {
       type: String,
-      default: null
+      default: null,
     },
     embedded: {
       type: Boolean,
-      default: false
+      default: false,
     },
     audioRequired: {
       type: Boolean,
-      default: true
+      default: true,
     },
     audioVisible: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isEditing: {
       type: Boolean,
-      default: false
+      default: false,
     },
     wordId: {
       type: Number,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -117,157 +117,159 @@ export default {
       image: {},
       errors: {},
       busy: false,
-      description: ''
-    }
+      description: "",
+    };
   },
   computed: {
     types() {
-      return values(WordTypes).filter(type => permittedTypes.includes(type.key))
+      return values(WordTypes).filter((type) =>
+        permittedTypes.includes(type.key)
+      );
     },
     hasError() {
-      return values(this.errors).some(bool => bool)
+      return values(this.errors).some((bool) => bool);
     },
     audioPlaceholder() {
       if (this.isEditing) {
-        return this.word.audios.length ? this.word.audios[0].url : ''
+        return this.word.audios.length ? this.word.audios[0].url : "";
       }
-      return ''
-    }
+      return "";
+    },
   },
   created() {
     if (this.isEditing || this.word) {
-      return true
+      return true;
     }
-    const word = new Word()
+    const word = new Word();
 
-    word.text = this.text
-    Vue.set(this, 'word', word)
+    word.text = this.text;
+    Vue.set(this, "word", word);
   },
   methods: {
     async submit() {
-      this.validates()
+      this.validates();
 
-      this.busy = true
+      this.busy = true;
 
       if (this.hasError) {
-        this.busy = false
+        this.busy = false;
         this.$notify({
-          group: 'danger',
-          title: 'Falha na Validação',
-          text: 'Por favor verifique no formulário a causa e o motivo'
-        })
-        return { error: true }
+          group: "danger",
+          title: "Falha na Validação",
+          text: "Por favor verifique no formulário a causa e o motivo",
+        });
+        return { error: true };
       }
 
-      const payload = this.mapWord()
+      const payload = this.mapWord();
 
       const dataForm = {
         question_description: {
           text: payload.word.text,
-          audio: payload.word.audios_attributes[0]?.attachment
-        }
-      }
+          audio: payload.word.audios_attributes[0]?.attachment,
+        },
+      };
 
       dataForm.question_description = omit(
         dataForm.question_description,
         unpermitted_params
-      )
+      );
 
-      const formBody = objectToFormData(dataForm, { indices: true })
+      const formBody = objectToFormData(dataForm, { indices: true });
 
       try {
         const data = await this.$axios({
-          url: 'descriptions.json',
-          method: 'post',
+          url: "descriptions.json",
+          method: "post",
           data: formBody,
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
+          headers: { "Content-Type": "multipart/form-data" },
+        });
 
         if (data.errors) {
-          const message = ActiveRecordHelper.errorMessage(data.errors)
-          throw new Error(message)
+          const message = ActiveRecordHelper.errorMessage(data.errors);
+          throw new Error(message);
         }
 
         this.$notify({
-          group: 'success',
-          title: 'Sucesso',
-          text: 'Nova descrição criada com sucesso!'
-        })
+          group: "success",
+          title: "Sucesso",
+          text: "Nova descrição criada com sucesso!",
+        });
 
-        this.$emit('close', data.data)
+        this.$emit("close", data.data);
 
-        return { data }
+        return { data };
       } catch (error) {
         if (this.embedded) {
-          throw new Error(error)
+          throw new Error(error);
         } else {
           this.$notify({
-            group: 'danger',
-            title: 'Falha na Validação',
-            text: error.message
-          })
+            group: "danger",
+            title: "Falha na Validação",
+            text: error.message,
+          });
         }
-        this.busy = false
-        return { error: true, data: error }
+        this.busy = false;
+        return { error: true, data: error };
       }
     },
     validates() {
-      const errors = {}
-      errors.text = !this.word.text
+      const errors = {};
+      errors.text = !this.word.text;
       //errors.audio = this.validateAudio()
-      Vue.set(this, 'errors', errors)
+      Vue.set(this, "errors", errors);
     },
     validateAudio() {
-      let invalid = false
+      let invalid = false;
 
       if (this.audioRequired) {
         if (invalid) {
-          invalid = !this.audio.attachment
+          invalid = !this.audio.attachment;
         }
-        return invalid
+        return invalid;
       }
 
       if (this.isSubstantivoProprio) {
-        return false
+        return false;
       }
 
-      return !this.audio.attachment
+      return !this.audio.attachment;
     },
     close() {
-      this.$emit('close', false)
+      this.$emit("close", false);
     },
     mapWord() {
-      let payload = { word: { ...this.word } }
+      let payload = { word: { ...this.word } };
 
       if (this.audio.attachment) {
         if (this.isEditing) {
-          payload.word.audios_attributes = []
+          payload.word.audios_attributes = [];
 
-          payload.word.audios_attributes.push(omit(this.audio, ['url']))
+          payload.word.audios_attributes.push(omit(this.audio, ["url"]));
 
           if (this.word.audios.length) {
-            this.word.audios.forEach(a => {
-              payload.word.audios_attributes.push({ id: a.id, _destroy: '1' })
-            })
+            this.word.audios.forEach((a) => {
+              payload.word.audios_attributes.push({ id: a.id, _destroy: "1" });
+            });
           }
         } else {
-          payload.word.audios_attributes = [omit(this.audio, ['url'])]
+          payload.word.audios_attributes = [omit(this.audio, ["url"])];
         }
       }
 
-      return payload
-    }
+      return payload;
+    },
   },
   watch: {
     async wordId(word_id) {
       if (this.isEditing && word_id) {
-        let { data } = await this.$axios.get(`/words/${word_id}.json`)
+        let { data } = await this.$axios.get(`/words/${word_id}.json`);
         // map word
-        this.$set(this, 'word', data)
+        this.$set(this, "word", data);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -58,7 +58,7 @@
           :embedded="true"
           :text="initialPalavra"
           :word-type="word_type" 
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :audio-required="false"
           :image-required="false"
           :audio-visible="false"

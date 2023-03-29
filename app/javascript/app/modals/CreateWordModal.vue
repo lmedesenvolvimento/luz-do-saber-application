@@ -2,7 +2,7 @@
   <div v-if="word" class="ls-modal" :class="{ 'is-embedded': embedded }">
     <form class="ls-modal-form form-inline">
       <div class="ls-modal-header">
-        <div class="title">Nova Palavra {{ wordType }}</div>
+        <div class="title">{{ currentWordTypeTitle }}</div>
       </div>
       <div class="ls-modal-content">
         <div v-show="textVisible" v-if="wordTypeVisible" class="form-group">
@@ -10,7 +10,7 @@
           <span class="input">
             <select
               v-model="word.type"
-              :disabled="wordTypeDisabled"
+              :disabled="types.length <= 1"
               class="form-control"
             >
               <option v-for="type in types" :key="type.key" :value="type.value">
@@ -148,7 +148,8 @@ const permittedTypes = [
   'substantivo_comum',
   'frase',
   'texto',
-  'input_custom'
+  'input_custom',
+  'numero'
 ]
 
 const unpermitted_params = [
@@ -158,6 +159,19 @@ const unpermitted_params = [
   'info',
   'images',
   'audios'
+]
+
+const labelTitle = [
+  'Nova Letra',
+  'Nova Sílaba',
+  'Novo Substantivo Próprio',
+  'Novo Substantivo Comum',
+  'Nova Frase',
+  'Novo Texto',
+  'Novo Número',
+  'Novo Caractere Especial',
+  'Novo link de Youtube',
+  'Novo item não especificado'
 ]
 
 export default {
@@ -171,16 +185,12 @@ export default {
       default: false
     },
     wordType: {
-      type: Number,
-      default: null
+      type: [Number, Array],
+      default: WordTypes.substantivo_comum.value
     },
     wordTypeLabel: {
       type: String,
       default: null
-    },
-    wordTypeDisabled: {
-      type: Boolean,
-      default: false
     },
     audioRequired: {
       type: Boolean,
@@ -238,18 +248,21 @@ export default {
   },
   computed: {
     types() {
-      return values(WordTypes).filter(type => permittedTypes.includes(type.key))
+      const filteredTypes = values(WordTypes).filter(type =>
+        permittedTypes.includes(type.key)
+      )
+      return filteredTypes.filter(type => {
+        if (Array.isArray(this.wordType)) {
+          return this.wordType.includes(type.value)
+        }
+        return this.wordType === type.value
+      })
     },
     isLong() {
-      const indexOf = this.word.type
-      const { key } = find(this.types, { value: this.word.type })
-
-      return longTexts.includes(key)
+      return this.types.some(({ key }) => longTexts.includes(key))
     },
     isSubstantivoProprio() {
-      return (
-        this.word.type && this.word.type === WordTypes.substantivo_proprio.value
-      )
+      return this.word?.type === WordTypes.substantivo_proprio.value
     },
     hasError() {
       return values(this.errors).some(bool => bool)
@@ -280,6 +293,11 @@ export default {
           : ''
       }
       return ''
+    },
+    currentWordTypeTitle() {
+      return Array.isArray(this.word.type)
+        ? 'Nova palavra'
+        : labelTitle[this.word.type]
     }
   },
   async created() {

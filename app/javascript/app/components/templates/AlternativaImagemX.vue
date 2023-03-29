@@ -36,7 +36,7 @@
           :text="initialPalavra"
           :is-editing="isEditing"
           :word-id="word_id"
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :audio-required="false"
           :image-required="true"
           :audio-visible="false"

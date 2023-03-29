@@ -16,6 +16,15 @@ class Modulo < ApplicationRecord
 
   has_many :theme_audiences, through: :themes, foreign_key: :theme_audience_id
 
+  has_attached_file :cover, styles: { medium: "300x300>", thumb: "100x100>" }
+  validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
+
+  def cover_full_url
+    if cover.present?
+      cover.url
+    end
+  end
+
   private
 
   def set_defaults

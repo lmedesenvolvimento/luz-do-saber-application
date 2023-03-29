@@ -8,7 +8,7 @@
           :word-type="word_type"
           :is-editing="isEditing"
           :word-id="word_id"
-          :word-type-disabled="true"
+          :word-type-visible="false"
           :text-visible="false"
           :text-required="false"
           :label="'Imagem:'"

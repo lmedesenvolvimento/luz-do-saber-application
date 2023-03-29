@@ -41,6 +41,18 @@ pt-BR:
         first_year_complementary: primeiro-ano-complementar
         second_year_complementary: segundo-ano-complementar
         third_year_complementary: terceiro-ano-complementar
+        first_year_math: primeiro-ano-matemática
+        second_year_math: segundo-ano-matemática
+        third_year_math: terceiro-ano-matemática
+        fourth_year_math: quarto-ano-matemática
+        fifth_year_math: quinto-ano-matemática
+        sixth_year_math: sexto-ano-matemática
+        seventh_year_math: setimo-ano-matemática
+        eighth_year_math: oitavo-ano-matemática
+        ninth_year_math: nono-ano-matemática
+        first_year_complementary_math: primeiro-ano-complementar-matemática
+        second_year_complementary_math: segundo-ano-complementar-matemática
+        third_year_complementary_math: terceiro-ano-complementar-matemática
       status:
         active: Ativo
         inactive: Inativo

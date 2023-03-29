@@ -20,7 +20,19 @@ class Theme < ApplicationRecord
     ninth_year: 9, # 9o ano
     first_year_complementary: 10, # 1o ano complementar
     second_year_complementary: 11, # 2o ano complementar
-    third_year_complementary: 12 # 3o ano complementar
+    third_year_complementary: 12, # 3o ano complementar
+    first_year_math: 13, # 1o ano_math
+    second_year_math: 14, # 2o ano_math
+     third_year_math: 15, # 3o ano_math
+    fourth_year_math: 16, # 4o ano_math
+    fifth_year_math: 17, # 5o ano_math
+    sixth_year_math: 18, # 6o ano_math
+    seventh_year_math: 19, # 7o ano_math
+    eighth_year_math: 20, # 8o ano_math
+    ninth_year_math: 21, # 9o ano_math
+    first_year_complementary_math: 22, # 1o ano complementar_math
+    second_year_complementary_math: 23, # 2o ano complementar_math
+    third_year_complementary_math: 24 # 3o ano complementar_math
   }
 
   belongs_to :user
